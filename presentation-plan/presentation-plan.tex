@@ -59,14 +59,33 @@ using the following steps as a basis approach:
 
 \begin{enumerate}
 	\item Take MDP problem
-	\item ``Determize''  it into a classical planning problem
-	\item Generate sequence of actions that represent a possible exectution
-			path
+	\item ``Determinize''  it into a classical planning problem
+	\item Generate sequence of actions that represent a possible execution
+		path
 	\item MDP planner executes plan:
 		\begin{itemize}
 			\item If goal is reached, reports success
 			\item Otherwise algorithm generates a new plan from failed state of the world
 		\end{itemize}
+\end{enumerate}
+
+There are some issues with this approach:
+
+\begin{itemize}
+	\item It stops after the first computed path to a goal which is likely to fail
+	\item May result in generating the same path over and over again
+	\item Only generates an execution path, not a policy
+\end{itemize}
+
+The authors identified four aspects of policy generation for MDP planning
+problems using a classical planning algorithm:
+
+\begin{enumerate}
+	\item How to determinize the MDP planning problem
+	\item which plan (initial state, goal) to ask for
+	\item How to incrementally aggregate the plans by the classical planner
+		into a solution policy
+	\item How to combine this coherently
 \end{enumerate}
 
 \section{Questions that arose}
