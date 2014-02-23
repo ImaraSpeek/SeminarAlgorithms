@@ -65,7 +65,8 @@ using the following steps as a basis approach:
 	\item MDP planner executes plan:
 		\begin{itemize}
 			\item If goal is reached, reports success
-			\item Otherwise algorithm generates a new plan from failed state of the world
+			\item Otherwise algorithm generates a new plan from failed state of
+				the world
 		\end{itemize}
 \end{enumerate}
 
@@ -87,6 +88,15 @@ problems using a classical planning algorithm:
 		into a solution policy
 	\item How to combine this coherently
 \end{enumerate}
+
+The paper presents the Robust FF (\texttt{RFF}) planner, which should solve the
+issues. \texttt{RFF} first generates an initial plan from the initial state to
+some goal using \texttt{FF} on a determination of the MDP\@. Then for each
+state in the plan, the successors of that state are added too. This is
+expanding the execution structure. For the new state the probability to reach
+this state should be higher than a certain threshold and if \texttt{FF} does
+not return a failure for this state and a certain goal.
+
 
 \section{Questions that arose}
 
