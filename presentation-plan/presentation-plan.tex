@@ -1,9 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%% file ff-replan.tex %%%%%%%%%%%%%%%%%%%%%%%%
-%
-% 	Presentation Plan Arian Stolwijk & Imara Speek
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \documentclass[runningheads,a4paper]{llncs}
 
 \usepackage{amssymb}
@@ -46,6 +40,8 @@ Delft University of Technology\\
 
 \section{Summary of given papers}
 
+\subsection{FF-Replan: A Baseline for Probabilistic Planning}
+
 At the first international probabilistic planning competition IPPC-04, most
 entries were Markov Decision Processes. The winner, FF-Replan, however was
 based on deterministic planning techniques.
@@ -53,6 +49,25 @@ based on deterministic planning techniques.
 By relying on search, FF-Replan could function with enormous speed and efficiency.
 
 Until the paper there have been two IPPC conferences.
+
+\subsection{Incremental Plan Aggregation for Generating Policies in MDPs}
+
+Markov Decision Processes (MDPs) is the best known formalism for planning under
+uncertainty. It can however be computationally intensive if large parts of the
+policies are tried to optimize at once. Most recent MDP planning techniques are
+using the following steps as a basis approach:
+
+\begin{enumerate}
+	\item Take MDP problem
+	\item ``Determize''  it into a classical planning problem
+	\item Generate sequence of actions that represent a possible exectution
+			path
+	\item MDP planner executes plan:
+		\begin{itemize}
+			\item If goal is reached, reports success
+			\item Otherwise algorithm generates a new plan from failed state of the world
+		\end{itemize}
+\end{enumerate}
 
 \section{Questions that arose}
 
