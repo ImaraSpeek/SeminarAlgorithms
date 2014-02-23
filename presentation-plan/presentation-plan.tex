@@ -50,7 +50,7 @@ At the first international probabilistic planning competition IPPC-04, most entr
 FF-Replan is an action selection algorithm for online planning in probabilistic domains. Given a domain description, a goal and an initial state as a probabilistic planning problem, FF-Replan generates a deterministic planning problem. It determinizes the input domain at the start of the planning into a deterministic different domain. They consider two methods of determinization:
 \begin{enumerate}
 	\item \emph{Single-outcome determinization}: selects one outcome for each probabilistic construct using a variety of heuristics. The performance strongly depends on the methods for choosing the outcomes.
-	\item \emph{All-outcomes determinization}: considers every probabilistic outcome as a dinstinct deterministic action. For each possible outcome  FF-Replan generates one seperate action for each effect. For nested probabilities, the all-outcomes procedure is applied recursively. This implies that FF-Replan will ceise selecting actions whenever it enters a dead state. However when given no information, all probabilistic effects will be considered as equal which is a potential weakness.
+	\item \emph{All-outcomes determinization}: considers every probabilistic outcome as a distinct deterministic action. For each possible outcome  FF-Replan generates one seperate action for each effect. For nested probabilities, the all-outcomes procedure is applied recursively. This implies that FF-Replan will ceise selecting actions whenever it enters a dead state. However when given no information, all probabilistic effects will be considered as equal which is a potential weakness.
 \end{enumerate}
 
 After determinization FF-Replan then uses the deterministic FF planner to compute an ordered plan for the generated deterministic problem. This process is repeated when countering an unexpected state untill a goal state is reached. It maintains a partial state-action mapping using a hash-table which is initially empty. Whenever FF-Replan encounters a state which is not in the table, it determinizes the problem and synthesizes a plan using FF. It then simulates the plan according to the deterministic action definitions resulting in a state-action sequence whose pairs are put in the hash table. The first action of the plan is then executed in the environment, returning a new state. This partial policy is this produces in an online fashion. It would be valuable to look into incremental planning approaches that don't create a deterministic plan from scratch whenever an unexpected state is encountered or reusing previous planning effort.
@@ -151,6 +151,14 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \textsc{AllOutcomes} solve much larger problems. However
 \textsc{MostProbableOutcome} generally solve more problems in less time.
 
+\section{Questions that arose}
+
+\begin{enumerate}
+	\item Are there scenarios where the optional step for optimizing the
+		shortest stochastic path is beneficial, so where the quality
+		improves enough to compensate the extra computational cost?
+	\item -
+\end{enumerate}
 
 \section{Criticism on the contribution of the paper}
 
@@ -165,10 +173,10 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \section{Presentation setup}
 
 \begin{itemize}
-	\item Introduction 
+	\item Introduction
 	\item Brief introduction to prior knowledge
 	\item Summary of the papers
-		\item Advantages and disadvantages
+	\item Advantages and disadvantages
 	\item Comparison with ideas of other papers
 	\item Some initial ideas of improvements
 \end{itemize}
