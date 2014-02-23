@@ -3,6 +3,8 @@
 \usepackage{amssymb}
 \setcounter{tocdepth}{3}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fixltx2e}
 
 \usepackage{url}
 \urldef{\mailsa}\path|{i.c.t.m.speek, a.c.stolwijk}@student.tudelft.nl|
@@ -18,7 +20,7 @@
 FF-Replan: \& RFF\@: Exploiting classical AI planning for uncertain and probabilistic domains}
 
 % a short form should be given in case it is too long for the running head
-\titlerunning{Lecture Notes in Computer Science: Authors' Instructions}
+\titlerunning{Presentation Plan}
 
 \author{I.C.T.M Speek, A.C. Stolwijk}
 
@@ -34,8 +36,9 @@ Delft University of Technology\\
 \mailsa\\
 }
 
-\toctitle{Lecture Notes in Computer Science}
-\tocauthor{Authors' Instructions}
+%\toctitle{Lecture Notes in Computer Science}
+%\tocauthor{Authors' Instructions}
+
 \maketitle
 
 \section{Summary of given papers}
@@ -71,7 +74,8 @@ using the following steps as a basis approach:
 	\item MDP planner executes plan:
 		\begin{itemize}
 			\item If goal is reached, reports success
-			\item Otherwise algorithm generates a new plan from failed state of the world
+			\item Otherwise algorithm generates a new plan from failed state of
+				the world
 		\end{itemize}
 \end{enumerate}
 
@@ -93,6 +97,59 @@ problems using a classical planning algorithm:
 		into a solution policy
 	\item How to combine this coherently
 \end{enumerate}
+
+The paper presents the Robust FF (\texttt{RFF}) planner, which should solve the
+issues. \texttt{RFF} first generates an initial plan from the initial state to
+some goal using \texttt{FF} on a determination of the MDP\@. There are several
+strategies to do this. \textsc{MostProbableOutcome} (MPO) only uses the action
+from a state with the highest probability. \textsc{AllOutcomes} (AO) uses all
+actions from a state. Then for each state in the plan, the successors of that
+state are added too. This is expanding the execution structure. For the new
+state the probability to reach this state should be higher than a certain
+threshold and if \texttt{FF} does not return a failure for this state and a
+certain goal. The goals can be chosen in three different ways, using
+\textsc{ProblemGoal}, which uses the goals of the MDP, \textsc{RandomGoal},
+which randomly picks some states from the policy graph and \textsc{BestGoal}
+which picks the best states from the policy graph. The calculation of the
+probability to a state from the initial state can be costly. To optimize this
+in \texttt{RFF} a Monte-Carlo (MC) simulation is used. \texttt{RFF} terminates
+if either the global probability is lower than the threshold, or there are no
+new terminal states to be added.
+
+Three theorems, one lemma and one corollary about MDP problems using
+\texttt{RFF} are given:
+
+\begin{description}
+	\item[Lemma 1] For every MDP planning problem RFF terminates in
+		finite time
+	\item[Theorem 1] (Soundness of \texttt{RFF\textsubscript{MPO}}). For every
+		MDP planning problem, every solution that
+		\texttt{RFF\textsubscript{MPO}} finds is correct
+	\item[Theorem 2] (Completeness of \texttt{RFF\textsubscript{AO}}). For
+		every MDP planning problem, if a solution exists, it is found by
+		\texttt{RFF\textsubscript{AO}} or returns a failure
+	\item[Corollary 1] (Soundness of \texttt{RFF\textsubscript{AO}}). For every
+		MDP planning problem, every solution that
+		\texttt{RFF\textsubscript{AO}} finds is correct
+	\item[Theorem 3] If there are no unsolvable states in the MDP, then the
+		probability of success of any solution found by \texttt{RFF} is
+		higher than $1 - \rho$ where $\rho$ is the threshold probability
+\end{description}
+
+For the IPC-08 the authors have implemented \texttt{RFF} in C++ to perform
+experiments. It performed experiments on the ``fully-observable probabilistic
+(FOP) planning track''. At IPC-08 it performed better than other competitors.
+The experiments confirmed Theorem 3, a higher threshold mean that \texttt{RFF}
+will generate policies that are more prone to replanning.
+
+In the experiments different Goal-Selection strategies were tested.
+\textsc{ProblemGoal} (PG) performed the worst. \textsc{RandomGoal} performed
+better and \textsc{BestGoal} generally produced higher quality goals, but also
+took more time.
+
+The different ways of determinizing MDPs was also tested. It turned out that
+\textsc{AllOutcomes} solve much larger problems. However
+\textsc{MostProbableOutcome} generally solve more problems in less time.
 
 \section{Questions that arose}
 
