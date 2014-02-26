@@ -1,0 +1,127 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fixltx2e}
+
+\usepackage{url}
+\urldef{\mailsa}\path|{i.c.t.m.speek, a.c.stolwijk}@student.tudelft.nl|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip%
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+
+\mainmatter% start of an individual contribution
+
+% first the title is needed
+\title{Presentation Plan\\
+FF-Replan: \& RFF\@: Exploiting classical AI planning for uncertain and probabilistic domains}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{Presentation Plan}
+
+\author{I.C.T.M Speek, A.C. Stolwijk}
+
+%
+\authorrunning{Presentation Plan Seminar Algorithms FF-replan \& RFF}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+\institute{Seminar Algorithms, Embedded Software,
+Msc Embedded Systems,\\
+Delft University of Technology\\
+\mailsa\\
+}
+
+%\toctitle{Lecture Notes in Computer Science}
+%\tocauthor{Authors' Instructions}
+
+\maketitle
+
+\section{Introduction to a planner (A)}
+
+
+
+Examples of planning problems:
+
+\begin{itemize}
+	\item Blocks World
+	\item Motion Planning
+\end{itemize}
+
+Planning Problem:
+
+\begin{itemize}
+	\item Initial State
+	\item Goal State
+	\item Set of actions
+\end{itemize}
+
+Planning Plan:
+
+\begin{itemize}
+	\item Set of actions
+	\item Executable in the initial state
+	\item Resulting in a state that satisfies the goal state
+\end{itemize}
+
+\section{What is uncertainty (I)}
+\emph{Uncertainty applies to predictions of future events, to physical measurements that are already made, or to the unknown. Uncertainty arises in partially observable and/or stochastic environments, as well as due to ignorance and/or indolence} [1]. \\
+
+Uncertain (adjective). \\
+1. not able to be relied on; not known or definite. [2]
+
+\subsection{Real world examples} 
+
+Growing plants is an extremely uncertain domain. When everything goes well, it should be fine to water it once a week. However my room environment has proven to be an uncertain domain where wind, temperature and sunlight severely impacts my abality to plan for nurturing my plants. 
+
+\subsection{Embedded Systems in uncertain domains}
+
+Cruise control (stabilizing systems), quad rotor, AI, robots
+
+\subsection{Benchmarking for uncertain domains}
+
+Traffic control benchmark for the 2014 IPCC probabilistic continuous domain.
+Tidybot: a housecleaning robot [3]. \\
+
+\noindent [1] [Wikipedia http://en.wikipedia.org/wiki/Uncertainty]
+[2] [Google definition]
+[3] [http://www.plg.inf.uc3m.es/ipc2011-deterministic/DomainsSequential.html\#Barman]
+
+\subsection{Domains \& Applications (I)}
+
+
+\section{Historic Overview}
+
+\subsection{$<$ 1990 (A)}
+
+\begin{itemize}
+	\item STRIPS
+\end{itemize}
+
+\subsubsection{1990 - 2000 (I)}
+
+\subsection{Introducing the FF planner (I)}
+
+\subsection{2000 - 2005 (A)}
+
+\subsection{FF-Replan (I)}
+
+\subsection{RFF (A)}
+
+\subsection{Compare FF-Replan with RFF (I\&A)}
+
+\subsection{How did FF-Replan inspire (I)}
+
+\subsection{Alternatives FF-Replan ()}
+
+\subsection{What after? Any new methods (A)}
+
+\section{Present goal of paper (I\&A)}
+
+\section{Is it time to reconsider classical planners (I\&A)}
+
+\end{document}
