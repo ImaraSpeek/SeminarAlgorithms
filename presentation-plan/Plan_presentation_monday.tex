@@ -69,16 +69,17 @@ Planning Plan:
 \end{itemize}
 
 \section{What is uncertainty (I)}
+
 \emph{Uncertainty applies to predictions of future events, to physical measurements that are already made, or to the unknown. Uncertainty arises in partially observable and/or stochastic environments, as well as due to ignorance and/or indolence} [1]. \\
 
 Uncertain (adjective). \\
 1. not able to be relied on; not known or definite. [2]
 
-In the rest of this topic discuss the different domains and applications. 
+In the rest of this topic discuss the different domains and applications.
 
-\subsection{Real world examples} 
+\subsection{Real world examples}
 
-Growing plants is an extremely uncertain domain. When everything goes well, it should be fine to water it once a week. However my room environment has proven to be an uncertain domain where wind, temperature and sunlight severely impacts my abality to plan for nurturing my plants. 
+Growing plants is an extremely uncertain domain. When everything goes well, it should be fine to water it once a week. However my room environment has proven to be an uncertain domain where wind, temperature and sunlight severely impacts my abality to plan for nurturing my plants.
 
 \subsection{Embedded Systems in uncertain domains}
 
@@ -105,8 +106,84 @@ A swift introduction to the evolution of planning algorithms. For every problem 
 \subsection{$<$ 1990 (A)}
 
 \begin{itemize}
-	\item STRIPS
+	\item STRIPS \cite{fikes1971strips}
 \end{itemize}
+
+\subsubsection{STRIPS}
+
+STRIPS~\cite{fikes1971strips} is a influential method of defining planning
+problems.
+
+Take for example~\ref{fig:strips}. R is the robot, B and C are two objects at
+places a, b and c. The goal is to achieve the configuration such that B is at
+place k and in which C is not at place c. The robot can move to an object and
+it can push objects to another position.
+
+\begin{figure}[htb]%
+\includegraphics[width=0.8\columnwidth]{strips-example.pdf}%
+\caption{Configuration of objects and robot for example problem (Figure from~\cite{fikes1971strips})}%
+\label{fig:strips}%
+\end{figure}
+
+The goal could be written as
+
+\[(\exists s) [ AT(B,k,s) \land \neg AT(C,c,s) ]\]
+
+If we find an instance of s, the problem is solved.
+
+STRIPS also defines operators. In this instance examples can be \texttt{goto}
+and \texttt{push}.
+
+\begin{description}
+	\item[push(u,x,y)] Robot pushes object \texttt{u} from \texttt{x} to
+		position \texttt{y}
+	\begin{description}
+		\item[Precondition:] $(\exists s) [AT(u,x,s) \land ATR(x,s)]$
+		\item[Delete list:] $\{AT(u,x,s), ATR(x,s)\}$
+		\item[Add list:] $\{AT(u,y,push'(u,x,y,s^*)), ATR(y,push'(u,x,y,s^*))\}$
+	\end{description}
+	\item[goto(x,y)] Robot goes from place \texttt{x} to \texttt{y}
+	\begin{description}
+		\item[Precondition:] $(\exists s) [ATR(x,s)]$
+		\item[Delete list:] $\{ATR(x,s)\}$
+		\item[Add list:] $\{ATR(y,goto'(x,y,s^*))\}$
+	\end{description}
+\end{description}
+
+The initial world model can be described by:
+
+\[
+	s_0 : \{ ATR(a,x_0), AT(B,b,s_0), AT(C,c,s_0) \}
+\]
+
+Besides that there is a global requirement that two blocks cannot be at the
+same position at any time.
+
+\paragraph{Problems}
+
+\begin{itemize}
+	\item How to efficiently store nodes (states) of the
+		world.~\cite{fikes1971strips}
+	\item Arbitrary STRIPS planning problem is a PSPACE complete
+		problem.~\cite{mcallester1991systematic}
+	\item Extremely limited in scope of planning problems and complexity of
+		problems it can solve.~\cite{fikes1994strips}
+	\item When executing a plan in a real environment, the resulting state
+		of the world is often different from the state expected by the
+		planner.~\cite{fikes1994strips}
+\end{itemize}
+
+\paragraph{Strengths}
+
+\begin{itemize}
+	\item Formed the basis for many extensions
+
+\end{itemize}
+
+\subsubsection{Markov Decision Processes}
+
+State what's \cite{monahan1982state} is saying about the state of the art MDPs
+in the 1980s.
 
 \subsection{1990 - 2000 (I)}
 Choose 3 of these depending on what comes out in the different era's:
@@ -115,7 +192,10 @@ Model Checking, search techniques, least commitment - probabilistic planner (BUR
 
 Still need to check papers, but already have a bunch.
 
+
 \subsection{Introducing the FF planner (I)}
+
+Use this: \cite{Hoffmann01theff}
 
 \subsection{2000 - 2005 (A)}
 
@@ -132,5 +212,8 @@ Still need to check papers, but already have a bunch.
 \section{Present goal of paper (I\&A)}
 
 \section{Is it time to reconsider classical planners (I\&A)}
+
+\bibliographystyle{plain}
+\bibliography{Plan_presentation_monday}
 
 \end{document}
