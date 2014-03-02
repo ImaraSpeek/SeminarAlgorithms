@@ -121,9 +121,26 @@ A swift introduction to the evolution of planning algorithms. For every problem 
 
 \subsection{Classical Planners}
 
+Classical Planners do not take uncertainties into account. Classical Planners
+are deterministic.
+
+STRIPS is considered one of the first planning algorithms and
+representations.~\cite{lavalle2006planning}. It is a very simple logic based
+only on literal. It's very nice to describe planning problems in a
+descriptive way that closely corresponds to the application. Also due to the
+operator definition (action/preconditions) it's possible to describe complex
 
 
 \subsection{Planning graphs}
+
+With states and actions, it's easy to see that a planning problem can be
+represented by a directed graph, where the states are the nodes, and the
+actions are the edges that connect states. The planning problem is now
+a search problem from the root to the goal states.
+
+A well known planner that uses a planning graph is Graphplan.
+[However that seems, after some investigation, to work in an interesting
+different way\ldots]
 
 \subsection{Planning as a satisfiability}
 
