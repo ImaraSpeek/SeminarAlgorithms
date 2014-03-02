@@ -52,15 +52,31 @@ Examples of planning problems:
 	\item Motion Planning
 \end{itemize}
 
-Planning Problem:
+\begin{figure}[htb]%
+\includegraphics[width=0.4\columnwidth]{blocksworld.pdf}%
+\caption{Blocks World example (Figure from~\url{http://www.cs.utexas.edu/~mooney/cs343/slide-handouts/planning.4.pdf})}%
+\label{fig:blocksworld}%
+\end{figure}
+
+In figure~\ref{fig:blocksworld}, how do you go from the initial state to the
+goal state? First you have to move A from B, before you can put B on C and
+finally A on B. This is a very trivial example of planning. Between each
+action of moving a block, the world is in a certain state. Actions provide
+a way to go from one state to another, but from each state, it is possible
+to do multiple actions. For example in the initial state you can move C onto
+A, but that doesn't help achieving the goal. Finding the right sequence of
+actions is what a planner does. From this we can define:
+
+\noindent \textbf{Planning Problem}:
 
 \begin{itemize}
 	\item Initial State
 	\item Goal State
 	\item Set of actions
+	\item Conditions
 \end{itemize}
 
-Planning Plan:
+\noindent And the \textbf{Planning Plan}:
 
 \begin{itemize}
 	\item Set of actions
@@ -105,6 +121,8 @@ A swift introduction to the evolution of planning algorithms. For every problem 
 
 \subsection{Classical Planners}
 
+
+
 \subsection{Planning graphs}
 
 \subsection{Planning as a satisfiability}
@@ -118,6 +136,8 @@ Use this: \cite{Hoffmann01theff}
 
 State what's \cite{monahan1982state} is saying about the state of the art MDPs
 in the 1980s.
+
+
 
 \section{Planning under uncertainty}
 
