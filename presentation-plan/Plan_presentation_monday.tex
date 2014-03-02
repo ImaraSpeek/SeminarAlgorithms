@@ -124,36 +124,36 @@ in the 1980s.
 \subsection{FF-replan \cite{FFReplan}}
 %Define the problem considering probabilistic and deterministic planning
 
-\subsubsection{Problem definition} 
-Probabilistic planning is naturally formulated using Markov Decision Processes. These probabilistic planners focus on the entire state space. Deterministic planning has developed heuristic funtions enabling exploration of restricted portions of the state space enroute to the goal state. This enables the planner to account for unexpected states rather than ending up in a dead-end. MDP's had been the standard in planning algorithms [FOR HOW LONG]? However by relying on search and current available processing power, deterministic planners function with enormous speed and efficiency. This has been a motivation for combining deterministic and probabilistic planners in the planning communities. 
+\subsubsection{Problem definition}
+Probabilistic planning is naturally formulated using Markov Decision Processes. These probabilistic planners focus on the entire state space. Deterministic planning has developed heuristic funtions enabling exploration of restricted portions of the state space enroute to the goal state. This enables the planner to account for unexpected states rather than ending up in a dead-end. MDP's had been the standard in planning algorithms [FOR HOW LONG]? However by relying on search and current available processing power, deterministic planners function with enormous speed and efficiency. This has been a motivation for combining deterministic and probabilistic planners in the planning communities.
 
 \subsubsection{Motivation for the solution}
-FF-Replan is an action selection algorithm for online planning in probabilistic domains. An important notice is that the authors of the paper merely hoped to promote cross-fertilization of deterministic planning techniques in probabilistic planning. The basics of the FF-replan algorithm are simple and are valuable mostly because of the speed and efficiency introduced by relying on search.  It determinizes the input domain, removing all probabilistic information from the problem and synthesizes a plan. During the execution of this plan, should an unexpected state occur, the planner replans in the same determinization. 
+FF-Replan is an action selection algorithm for online planning in probabilistic domains. An important notice is that the authors of the paper merely hoped to promote cross-fertilization of deterministic planning techniques in probabilistic planning. The basics of the FF-replan algorithm are simple and are valuable mostly because of the speed and efficiency introduced by relying on search.  It determinizes the input domain, removing all probabilistic information from the problem and synthesizes a plan. During the execution of this plan, should an unexpected state occur, the planner replans in the same determinization.
 
 \subsubsection{Details of the solution}
-FF-Replan used two approaches to determinize the input domain. The first is single-outcome determinization which selects one outcome for each probabilistic construct. The heuristics determine the performance of the planner and should be chosen with care. The second approach uses an all-outcomes determinization and considers every probabilistic outcome as a distinct deterministic action. FF-Replan than generates one action for each effect (recursively). This ensures that an action in a state is chosen that is the first action of a sequential plan with non-zero probability of reaching the goal. 
+FF-Replan used two approaches to determinize the input domain. The first is single-outcome determinization which selects one outcome for each probabilistic construct. The heuristics determine the performance of the planner and should be chosen with care. The second approach uses an all-outcomes determinization and considers every probabilistic outcome as a distinct deterministic action. FF-Replan than generates one action for each effect (recursively). This ensures that an action in a state is chosen that is the first action of a sequential plan with non-zero probability of reaching the goal.
 
-The planner maintains a partial state-action mapping using a hash-table. It determinizes the states and synthesizes a plan using FF and then places the state-action sequence in the table. 
+The planner maintains a partial state-action mapping using a hash-table. It determinizes the states and synthesizes a plan using FF and then places the state-action sequence in the table.
 
-It doesn't deal with quantified goals but it picks an arbitrary grounded form of any existential goal. 
+It doesn't deal with quantified goals but it picks an arbitrary grounded form of any existential goal.
 
 \subsubsection{Succes of the solution}
-The planner performs strong on Logistic style domains and dead-end free domains. It performs very fast by relying on search. 
+The planner performs strong on Logistic style domains and dead-end free domains. It performs very fast by relying on search.
 
 \subsubsection{Shortcomings of the solution}
 \begin{enumerate}
 	\item When no info about the probabilistic effects is provided, all effects are treated as equal. The FF-replan then doesn't attempt to avoid actions that can potentially end up in a dead end or away from the goal.
-	\item  The planner only works well if the outcomes are likely. It might behave poorly in a very fluctuating behavioural environment. 
-	\item The partial state-action policy does not guarantee quality. It may actually loop forever.  
+	\item  The planner only works well if the outcomes are likely. It might behave poorly in a very fluctuating behavioural environment.
+	\item The partial state-action policy does not guarantee quality. It may actually loop forever.
 	\item Picking arbitrary grounded forms of the goal may end up being unreachable or a lot more expensive to reach.
-	\item The single outcome heuristic does not select the dead end outcomes and thus is completely unaware of them.  
+	\item The single outcome heuristic does not select the dead end outcomes and thus is completely unaware of them.
 \end{enumerate}
 
 \subsubsection{Points of improvement}
 \begin{enumerate}
 	\item
-	\item 
-	\item Adaptively repair the partial policy 
+	\item
+	\item Adaptively repair the partial policy
 	\item Sampling of the grounded goals and testing with a relaxed reachability analysis
 	\item This is solved by using the all-outcomes approach
 	\item It does not look ahead, but only adjusts when something unexpected has occured
@@ -165,11 +165,79 @@ The planner performs strong on Logistic style domains and dead-end free domains.
 \begin{itemize}
 	\item How is the exploding block domain currently tackled as during 2004 and 2006 no one really was able to solve it?
 	\item Is the planning time still a problem as much as it proved to be then with the bigger domains?
-	\item Using hindsight optimization might be more realistic as it is less optimistic. It will eventuall increase the process time, but increase the robustness of the system. 
+	\item Using hindsight optimization might be more realistic as it is less optimistic. It will eventuall increase the process time, but increase the robustness of the system.
 	\item Using a look ahead policy enables the planner to avoid dead ends, it however does not avoid cycles.
 \end{itemize}
 
 \subsection{RFF (A)}
+
+\subsubsection{Problem definition}
+
+Markov Decision Processes (MDPs) is the best known formalism for planning under
+uncertainty. It can however be computationally intensive if large parts of the
+policies are tried to optimize at once. Typically causes to enumerate the
+entire state and action spaces during planning, which obviously takes a lot of
+memory.
+
+\subsubsection{Motivation for the solution}
+
+A previous success at that time in MDP planning is due determinization and
+replanning techniques like FF-Replan. Although it's demonstrated that they're
+practical for various benchmarks, there are still some issues:
+
+\begin{itemize}
+	\item It stops after the first computed path to a goal which is likely to fail
+	\item May result in generating the same path over and over again
+	\item Only generates an execution path, not a policy
+\end{itemize}
+
+
+
+\subsubsection{Details of the solution}
+
+The paper presents the Robust FF (\texttt{RFF}) planner, which should solve the
+issues. \texttt{RFF} first generates an initial plan from the initial state to
+some goal using \texttt{FF} on a determination of the MDP\@. There are several
+strategies to do this. \textsc{MostProbableOutcome} (MPO) only uses the action
+from a state with the highest probability. \textsc{AllOutcomes} (AO) uses all
+actions from a state. Then for each state in the plan, the successors of that
+state are added too. This is expanding the execution structure. For the new
+state the probability to reach this state should be higher than a certain
+threshold and if \texttt{FF} does not return a failure for this state and a
+certain goal. The goals can be chosen in three different ways, using
+\textsc{ProblemGoal}, which uses the goals of the MDP, \textsc{RandomGoal},
+which randomly picks some states from the policy graph and \textsc{BestGoal}
+which picks the best states from the policy graph. The calculation of the
+probability to a state from the initial state can be costly. To optimize this
+in \texttt{RFF} a Monte-Carlo (MC) simulation is used. \texttt{RFF} terminates
+if either the global probability is lower than the threshold, or there are no
+new terminal states to be added.
+
+
+\subsubsection{Success of the solution}
+
+For the IPC-08 the authors have implemented \texttt{RFF} in C++ to perform
+experiments. It performed experiments on the ``fully-observable probabilistic
+(FOP) planning track''. At IPC-08 it performed better than other competitors.
+The experiments confirmed that the probability of success any solution is found
+by \texttt{RFF} is higher than one minus the threshold probability. A higher
+threshold mean that \texttt{RFF} will generate policies that are more prone to
+replanning.
+
+In the experiments different Goal-Selection strategies were tested.
+\textsc{ProblemGoal} (PG) performed the worst. \textsc{RandomGoal} performed
+better and \textsc{BestGoal} generally produced higher quality goals, but also
+took more time.
+
+The different ways of determinizing MDPs was also tested. It turned out that
+\textsc{AllOutcomes} solve much larger problems. However
+\textsc{MostProbableOutcome} generally solve more problems in less time.
+
+\subsubsection{Points of improvement}
+
+\begin{itemize}
+	\item
+\end{itemize}
 
 \subsection{Compare FF-Replan with RFF (I\&A)}
 
