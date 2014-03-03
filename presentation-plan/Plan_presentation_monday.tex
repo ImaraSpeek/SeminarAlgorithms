@@ -154,6 +154,16 @@ Use this: \cite{Hoffmann01theff}
 State what's \cite{monahan1982state} is saying about the state of the art MDPs
 in the 1980s.
 
+\noindent A Markov Decision Process has the form $M = (S, A, app, Pr, R)$
+
+\begin{itemize}
+	\item $S$ and $A$ are the finite set of states and actions
+	\item $app(s)$ is the set of of actions applicable in $s$
+	\item For every $a \in app(s)$, $Pr(s,a,s')$ is the probability of a state
+		transition from $s$ to $s'$
+	\item $R(s,a,s')$ is the \emph{reward} of the transition $(s,a,s')$.
+\end{itemize}
+
 
 
 \section{Planning under uncertainty}
