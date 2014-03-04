@@ -110,7 +110,7 @@ Tidybot: a housecleaning robot [3]. \\
 [2] [Google definition]
 [3] [http://www.plg.inf.uc3m.es/ipc2011-deterministic/DomainsSequential.html\#Barman]
 
-\section{Historic Overview}
+\section{Historical background information}
 A swift introduction to the evolution of planning algorithms. For every problem state the:
 \begin{itemize}
 	\item The problem definition
@@ -164,7 +164,10 @@ in the 1980s.
 	\item $R(s,a,s')$ is the \emph{reward} of the transition $(s,a,s')$.
 \end{itemize}
 
-
+\subsubsection{Shortcomings MDPs}
+\begin{itemize}
+	\item Is computationally challenging as it tries to optimize large parts of the policy at once 
+\end{itemize}
 
 \section{Planning under uncertainty}
 
@@ -208,6 +211,10 @@ The planner performs strong on Logistic style domains and dead-end free domains.
 	\item Investigate incremental planning approaches that leverage the most deterministic plan
 \end{enumerate}
 
+\subsubsection{Criticism on the paper}
+
+\subsubsection{Questions posted on blackboard}
+
 \subsubsection{Things to look into}
 \begin{itemize}
 	\item How is the exploding block domain currently tackled as during 2004 and 2006 no one really was able to solve it?
@@ -241,6 +248,8 @@ practical for various benchmarks, there are still some issues:
 
 
 \subsubsection{Details of the solution}
+
+\emph{state that RFF is not an optimization algorithm, but only asks whether there exists a policy whose probability of reaching a goal-state in non zero and whose probability of replanning when executed is less than p}
 
 The paper presents the Robust FF (\texttt{RFF}) planner, which should solve the
 issues. \texttt{RFF} first generates an initial plan from the initial state to
@@ -280,17 +289,44 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \textsc{AllOutcomes} solve much larger problems. However
 \textsc{MostProbableOutcome} generally solve more problems in less time.
 
+\emph{We should also show their lemma's including the critism on their proof, as it is not sound}
+
 \subsubsection{Points of improvement}
 
 \begin{itemize}
 	\item
 \end{itemize}
 
+\subsubsection{Criticism on the paper}
+\begin{itemize}
+	\item They redefine the planning problem by adding a probability threshold. They use this to their advantage by stating their algorithm is complete as it finds all solutions in this planning problem. When not defining this threshold, it obviously doesn't always find all possible solutions as it neglects the lest probable solutions.  
+	\item In the experiment section they clearly state that the search-and-rescue domain cause problems for the algorithm, however they choose not to even display the results as the RFF algorithm is not designed for planning problems without goal states. This displayes that RFF is in fact not a very good general planning algorithm. 
+\end{itemize}
+
+\emph{ We should really include the graphs as their statements do not match the results from the graphs}
+
+\subsubsection{Questions posted on blackboard}
+
+\subsubsection{Interesting directions to look into}
+generalizing the planning framework to hybrid MDPs in which there are both discrete and continuous valued state variables. The factored MDP representations in RFF will be the basis of these generalizations. There were currently investigation which classical planners were suitable to incoorporate in RFF. 
+
+\emph{we should really look into what they did with this direction!}
+
+
+
 \subsection{Compare FF-Replan with RFF (I\&A)}
+RFF is states to solve more (and larger) problem instances than FF-Replan. This is because RFF is able to reason, offline, about the terminal states of a policy and the probability of a policy will end up in such a state, when executed. It generates policies that avoid executions leading into terminal states, whereas FF-replan does not reason about such states during planning time. 
+
+\subsubsection{Domains in which FF-replan is favourable}
+
+\subsubsection{Domains in which RFF is favourable}
+
 
 \subsection{How did FF-Replan and RFF inspire (I)}
 
 \section{Current state-of-the-art planning algorithms}
+
+\section{Discussion}
 
 \section{What after? Any new methods (A)}
 
