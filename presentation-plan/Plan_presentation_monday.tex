@@ -95,7 +95,7 @@ In the rest of this topic discuss the different domains and applications.
 
 \subsection{Real world examples}
 
-Growing plants is an extremely uncertain domain. When everything goes well, it should be fine to water it once a week. However my room environment has proven to be an uncertain domain where wind, temperature and sunlight severely impacts my abality to plan for nurturing my plants.
+Growing plants is an extremely uncertain domain. When everything goes well, it should be fine to water it once a week. However my room environment has proven to be an uncertain domain where wind, temperature and sunlight severely impacts my ability to plan for nurturing my plants.
 
 \subsection{Embedded Systems in uncertain domains}
 
@@ -166,7 +166,7 @@ in the 1980s.
 
 \subsubsection{Shortcomings MDPs}
 \begin{itemize}
-	\item Is computationally challenging as it tries to optimize large parts of the policy at once 
+	\item Is computationally challenging as it tries to optimize large parts of the policy at once
 \end{itemize}
 
 \section{Planning under uncertainty}
@@ -175,7 +175,7 @@ in the 1980s.
 %Define the problem considering probabilistic and deterministic planning
 
 \subsubsection{Problem definition}
-Probabilistic planning is naturally formulated using Markov Decision Processes. These probabilistic planners focus on the entire state space. Deterministic planning has developed heuristic funtions enabling exploration of restricted portions of the state space enroute to the goal state. This enables the planner to account for unexpected states rather than ending up in a dead-end. MDP's had been the standard in planning algorithms [FOR HOW LONG]? However by relying on search and current available processing power, deterministic planners function with enormous speed and efficiency. This has been a motivation for combining deterministic and probabilistic planners in the planning communities.
+Probabilistic planning is naturally formulated using Markov Decision Processes. These probabilistic planners focus on the entire state space. Deterministic planning has developed heuristic functions enabling exploration of restricted portions of the state space enroute to the goal state. This enables the planner to account for unexpected states rather than ending up in a dead-end. MDP's had been the standard in planning algorithms [FOR HOW LONG]? However by relying on search and current available processing power, deterministic planners function with enormous speed and efficiency. This has been a motivation for combining deterministic and probabilistic planners in the planning communities.
 
 \subsubsection{Motivation for the solution}
 FF-Replan is an action selection algorithm for online planning in probabilistic domains. An important notice is that the authors of the paper merely hoped to promote cross-fertilization of deterministic planning techniques in probabilistic planning. The basics of the FF-replan algorithm are simple and are valuable mostly because of the speed and efficiency introduced by relying on search.  It determinizes the input domain, removing all probabilistic information from the problem and synthesizes a plan. During the execution of this plan, should an unexpected state occur, the planner replans in the same determinization.
@@ -206,7 +206,7 @@ The planner performs strong on Logistic style domains and dead-end free domains.
 	\item Adaptively repair the partial policy
 	\item Sampling of the grounded goals and testing with a relaxed reachability analysis
 	\item This is solved by using the all-outcomes approach
-	\item It does not look ahead, but only adjusts when something unexpected has occured
+	\item It does not look ahead, but only adjusts when something unexpected has occurred
 
 	\item Investigate incremental planning approaches that leverage the most deterministic plan
 \end{enumerate}
@@ -219,7 +219,7 @@ The planner performs strong on Logistic style domains and dead-end free domains.
 \begin{itemize}
 	\item How is the exploding block domain currently tackled as during 2004 and 2006 no one really was able to solve it?
 	\item Is the planning time still a problem as much as it proved to be then with the bigger domains?
-	\item Using hindsight optimization might be more realistic as it is less optimistic. It will eventuall increase the process time, but increase the robustness of the system.
+	\item Using hindsight optimization might be more realistic as it is less optimistic. It will eventually increase the process time, but increase the robustness of the system.
 	\item Using a look ahead policy enables the planner to avoid dead ends, it however does not avoid cycles.
 \end{itemize}
 
@@ -249,7 +249,7 @@ practical for various benchmarks, there are still some issues:
 
 \subsubsection{Details of the solution}
 
-\emph{state that RFF is not an optimization algorithm, but only asks whether there exists a policy whose probability of reaching a goal-state in non zero and whose probability of replanning when executed is less than p}
+\emph{state that RFF is not an optimization algorithm, but only asks whether there exists a policy whose probability of reaching a goal-state in non zero and whose probability of replanning when executed is less than $\rho$}
 
 The paper presents the Robust FF (\texttt{RFF}) planner, which should solve the
 issues. \texttt{RFF} first generates an initial plan from the initial state to
@@ -289,7 +289,7 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \textsc{AllOutcomes} solve much larger problems. However
 \textsc{MostProbableOutcome} generally solve more problems in less time.
 
-\emph{We should also show their lemma's including the critism on their proof, as it is not sound}
+\emph{We should also show their lemma's including the criticism on their proof, as it is not sound}
 
 \subsubsection{Points of improvement}
 
@@ -299,8 +299,8 @@ The different ways of determinizing MDPs was also tested. It turned out that
 
 \subsubsection{Criticism on the paper}
 \begin{itemize}
-	\item They redefine the planning problem by adding a probability threshold. They use this to their advantage by stating their algorithm is complete as it finds all solutions in this planning problem. When not defining this threshold, it obviously doesn't always find all possible solutions as it neglects the lest probable solutions.  
-	\item In the experiment section they clearly state that the search-and-rescue domain cause problems for the algorithm, however they choose not to even display the results as the RFF algorithm is not designed for planning problems without goal states. This displayes that RFF is in fact not a very good general planning algorithm. 
+	\item They redefine the planning problem by adding a probability threshold. They use this to their advantage by stating their algorithm is complete as it finds all solutions in this planning problem. When not defining this threshold, it obviously doesn't always find all possible solutions as it neglects the lest probable solutions.
+	\item In the experiment section they clearly state that the search-and-rescue domain cause problems for the algorithm, however they choose not to even display the results as the RFF algorithm is not designed for planning problems without goal states. This displays that RFF is in fact not a very good general planning algorithm.
 \end{itemize}
 
 \emph{ We should really include the graphs as their statements do not match the results from the graphs}
@@ -308,14 +308,13 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \subsubsection{Questions posted on blackboard}
 
 \subsubsection{Interesting directions to look into}
-generalizing the planning framework to hybrid MDPs in which there are both discrete and continuous valued state variables. The factored MDP representations in RFF will be the basis of these generalizations. There were currently investigation which classical planners were suitable to incoorporate in RFF. 
+
+Generalizing the planning framework to hybrid MDPs in which there are both discrete and continuous valued state variables. The factored MDP representations in RFF will be the basis of these generalizations. There were currently investigation which classical planners were suitable to incorporate in RFF.
 
 \emph{we should really look into what they did with this direction!}
 
-
-
 \subsection{Compare FF-Replan with RFF (I\&A)}
-RFF is states to solve more (and larger) problem instances than FF-Replan. This is because RFF is able to reason, offline, about the terminal states of a policy and the probability of a policy will end up in such a state, when executed. It generates policies that avoid executions leading into terminal states, whereas FF-replan does not reason about such states during planning time. 
+RFF is states to solve more (and larger) problem instances than FF-Replan. This is because RFF is able to reason, offline, about the terminal states of a policy and the probability of a policy will end up in such a state, when executed. It generates policies that avoid executions leading into terminal states, whereas FF-replan does not reason about such states during planning time.
 
 \subsubsection{Domains in which FF-replan is favourable}
 
