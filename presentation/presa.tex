@@ -155,8 +155,6 @@
       \item Create a planning plan.
     \end{itemize}
 
-
-
   \end{columns}
 
 \end{frame}
@@ -167,6 +165,8 @@
 
 \begin{frame}
   \frametitle{Historical background information}
+
+
 \end{frame}
 
 \begin{frame}
@@ -175,6 +175,84 @@
 
 \begin{frame}
   \frametitle{Planning under uncertainty: RFF}
+
+  \begin{itemize}
+    \item Problem
+      \begin{itemize}
+        \item MDPs can be computationally intensive
+        \item MDPs typically enumerate the entire state and action space
+      \end{itemize}
+    \item Motivation
+      \begin{itemize}
+        \item FF-Replan showed MDP determinization and replanning techniques
+        \item However, it stops after the first computed path to a goal
+        \item May generate same path over and over
+        \item Does not generate a policy
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{RFF Solution}
+
+  \begin{columns}
+    \column{0.3\textwidth}
+    \only<1> {\includegraphics[width=\textwidth]{images/rff-1.pdf}}
+    \only<2> {\includegraphics[width=\textwidth]{images/rff-2.pdf}}
+    \only<3> {\includegraphics[width=\textwidth]{images/rff-3.pdf}}
+    \only<4> {\includegraphics[width=\textwidth]{images/rff-5.pdf}}
+    \only<5> {\includegraphics[width=\textwidth]{images/rff-6.pdf}}
+
+    \column{0.7\textwidth}
+
+    \only<1>{%
+      \begin{itemize}
+        \item Initial state and goal of MDP
+        \item Determinization of MDP
+          \begin{itemize}
+            \item \textsc{MostProbableOutcome} % follows action with highest probability to next state
+            \item \textsc{AllOutcomes} % follows all actions to next states
+          \end{itemize}
+      \end{itemize}
+    }
+    \only<2>{%
+      \begin{itemize}
+        \item Use \texttt{FF} to generate initial plan
+      \end{itemize}
+    }
+    \only<3>{%
+      \begin{itemize}
+        \item Expand structure
+      \end{itemize}
+    }
+    \only<4>{%
+      \begin{itemize}
+        \item Use Monte-Carlo sampling to compute the probability to reach nodes in the structure
+      \end{itemize}
+    }
+    \only<5>{%
+      \begin{itemize}
+        \item If the probability of the MC sampling is higher than $\rho$
+        \item Then \texttt{FF} is called, which trajectory is merged with the graph
+          \begin{itemize}
+            \item \texttt{FF} to \textsc{ProblemGoal}
+            \item \texttt{FF} to \textsc{RandomGoal}
+            \item \texttt{FF} to \textsc{BestGoal}
+          \end{itemize}
+        \item Then go back expanding structure from terminal states
+        \item Or if there are no terminal states with $P_t > \rho$ stop
+      \end{itemize}
+    }
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{RFF Results}
+
+  \includegraphics[width=\textwidth]{images/rff-results.pdf}
+
 \end{frame}
 
 \begin{frame}
