@@ -50,6 +50,9 @@ Examples of planning problems:
 \begin{itemize}
 	\item Blocks World
 	\item Motion Planning
+	\item Inventory Management~\cite{puterman2009markov}
+	\item Equipment Maintenance~\cite{puterman2009markov}
+	\item Communication Models~\cite{puterman2009markov}
 \end{itemize}
 
 \begin{figure}[htb]%
@@ -66,6 +69,18 @@ a way to go from one state to another, but from each state, it is possible
 to do multiple actions. For example in the initial state you can move C onto
 A, but that doesn't help achieving the goal. Finding the right sequence of
 actions is what a planner does. From this we can define:
+
+\subsubsection{Inventory Management} How much of X do we need to order from the
+supplier every day until the end of the season?
+
+\subsubsection{Equipment Maintenance} A bus company is responsible for keeping
+all buses in a good working condition. One aspect is when to replace the bus
+engines~\cite{puterman2009markov}. This problem could be represented as a
+MDP\@.  When to schedule disruptive maintenance jobs by their deadline?
+
+\subsubsection{Communication Models} Many computer, manufacturing and
+communication systems can be modelled as networks with waiting queues and
+servers. Systems have receiving packages, routing, and varying service rates.
 
 \noindent \textbf{Planning Problem}:
 
