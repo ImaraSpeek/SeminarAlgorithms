@@ -15,6 +15,8 @@
 \newlength\figureheight
 \newlength\figurewidth
 
+\usepackage{setspace}
+
 % Necessary definitions:
 \setbeamersize{sidebar width left=0.5cm}
 \usepackage[english]{babel}
@@ -40,8 +42,8 @@
 
 %>>> You may change the text in this part {Between brackets}:
 %>>> This is for the Title page:
-\newcommand*\titel{FF-Replan: \& RFF: Exploiting classical AI planning for uncertain and probabilistic domains} % On titelpage and in footer on every page
-\newcommand*\subkop{} % In blue color
+\newcommand*\titel{FF-Replan \& RFF} % On titelpage and in footer on every page
+\newcommand*\subkop{A Baseline for Probabilistic Planning \\ Incremental Plan Aggregation for Generating Policies in MDPs} % In blue color
 \newcommand*\naam{Imara Speek \& Arian Stolwijk}
 \newcommand*\afdeling{}
 
@@ -101,7 +103,7 @@
 
             \node [shift={(0.8cm,-3.1cm)},textlabel,right,text width=10cm]  at (current page.north west) {\textbf{\large{\textrm{\titel}}}};
             \node [shift={(0.8cm,-4cm)},textlabel,cyan!95!black!70!blue,right,text width=10cm]  at (current page.north west)
-            {\textbf{\large{\scriptsize \textrm{\subkop}}}};
+            {\textbf{\large{\scriptsize \textrm{\begin{spacing}{0.9}\subkop \end{spacing}}}}};
             \node [shift={(0.8cm,-4.6cm)},textlabel,right]  at (current page.north west)
             {\normalsize{\naam}};
             \node [shift={(0.8cm,-5cm)},textlabel,right]  at (current page.north west)
