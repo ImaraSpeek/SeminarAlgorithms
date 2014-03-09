@@ -155,8 +155,13 @@
     \begin{itemize}
       \item From initial state to goal state?
       \item Create a planning plan.
+      \item Assumptions:
+        \begin{itemize}
+          \item Determinism
+          \item Full observability
+          \item Reachability goals
+        \end{itemize}
     \end{itemize}
-
   \end{columns}
 
 \end{frame}
@@ -168,10 +173,10 @@
   \vspace{2cm}
 
   \begin{columns}
-    \column{0.3\textwidth}
-    \includegraphics[width=\textwidth]{images/plant.jpg}
+    \column{0.4\textwidth}
+    \includegraphics[width=\textwidth,angle=270]{images/plant.jpg}
 
-    \column{0.7\textwidth}
+    \column{0.9\textwidth}
 
     How to plan when to water the plant?
 
@@ -183,6 +188,22 @@
 
   \end{columns}
 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Markov Decision Processes}
+
+  \begin{itemize}
+    \item Very much like a Classical Planner
+    \item \alert{except} each action has a \alert{probability}
+      \begin{itemize}
+        \item \alert{Stochastic}
+        \item Full observability
+        \item Reachability goals
+      \end{itemize}
+    \item For example in the Blocksworld: The Pick Up action might fail.
+  \end{itemize}
 
 \end{frame}
 
@@ -207,6 +228,7 @@
   \end{columns}
 
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Planning under uncertainty: FF-Replan}
