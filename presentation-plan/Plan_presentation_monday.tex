@@ -170,12 +170,46 @@ A well known planner that uses a planning graph is Graphplan.
 [However that seems, after some investigation, to work in an interesting
 different way\ldots]
 
-\subsection{Planning as a satisfiability}
+\subsection{FF Planner (2001)}
 
-\subsection{Heuristic search Planning (HSP)}
+"We have presented an approach to domain independent planning that, at the time being, outperforms all existing technology on the majority of the currently available benchmark domains."
 
-\subsection{FF Planner (I)}
-Use this: \cite{Hoffmann01theff}
+Before the FF-planner (short for Fast-Foward) three new approaches in plan generation had significantly increased the efficiency of planning systems\cite{Hoffmann01theff}. 
+
+\begin{enumerate}
+	\item Plan generation techniques based on \emph{planning graphs} - much faster than any other technique known, made more fficient and expressive. These planning graphs have nodes that are actions and atomic facts arranged into alternate leves and edges from an atomic facts to the actions (a condition) or vise versa (true or false). The algorithm iteratively extends the planning graphs by backward chaining and looks for actions and previous states from which goals can be reached. % http://en.wikipedia.org/wiki/Graphplan
+
+	\item The \emph{planning as satisfiability method} which translated planning to propositional satisfiability as it was expected that state of the art propositional reasoning systems would advance much faster than in planning systems.
+
+	\item The \emph{heuristic search planning} approach in which a heuristic function is derived from the specification of the planning instance and used for guiging the search through the state space. HSP estimates goal distances by approximating solution lengths to a relaxation of the planning task. 
+\end{enumerate}
+
+FF relies on forward state space search using a heuristic that estimates goal distances by ignoring delete lists and unlike HSP's heuristic does not assume facts to be independent. They introduce a search strategy that combines hill-climbing with systematic search and extracted heuristic information to prune the search space. It's base heuristic technique can be seen as an application of GRAPHPLAN to the relaxation. It also uses an eforced form of hill-climbing combining local and systematic search. 
+
+\subsubsection{Details}
+Upon every search state, the search algorithm \emph{enforced hill-climbing} calls the \emph{relaxed GPAPHPLAN}. Given the state, GRAPHPHLAN informs the search with a goal distance estimate and additionally a set of promosing successors for the state (\emph{the helpful actions}). Upon termination, a solution plan is outputted or a fail is reported. If a planning task contains state where the goal is unreachable enforced hill-climbing invokes a complete heuristic search from scratch (using the hash table with visited states). To avoid wasting time in the presence of goal ordering, added goal deletion(where goals have been achieved too early as in Boxworld) and a goal agenda techiques have been added. 
+
+Performance with Boxworld depends on the goal ordering
+
+\emph{Add image enforced hill climbed invoking graph plan}
+
+\subsubsection{Advantages}
+\begin{itemize}
+	\item As planning is PSPACE-complete, no efficient algorithmic methods are possible, therefor being efficient on restricted subclasses is valuable 
+	\item Most domains presented in the planning competitions are simple in their structure and are easy to solve for a greedy algorithm like FF
+\end{itemize}
+
+
+\subsubsection{Disadvantages}
+\begin{itemize}
+	\item Methods are motivated by observing examples, this might influence the completeness of the algorithm. 
+	\item The pruning techniques are not complete, they prune the search space in the single enforced hill-climbing try
+	\item Domains with a lot of dead-ends can make FF fail, encountering a dead end state with enforced hill-climbing. Trying to solve the tasks with complete best-first search exhausts memory resources for larger instances. 
+\end{itemize}
+
+\subsubsection{Difference to HSP}
+They both use forwards search in state space and heuristic evaluation by ignoring delet lists. However FF differs in estimating goal distances. the search strategu and the pruning techniques. 
+
 
 \subsection{Markov Decision Processes}
 
