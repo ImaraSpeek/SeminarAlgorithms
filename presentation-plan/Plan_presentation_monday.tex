@@ -243,6 +243,8 @@ Probabilistic planning is naturally formulated using Markov Decision Processes. 
 FF-Replan is an action selection algorithm for online planning in probabilistic domains. An important notice is that the authors of the paper merely hoped to promote cross-fertilization of deterministic planning techniques in probabilistic planning. The basics of the FF-replan algorithm are simple and are valuable mostly because of the speed and efficiency introduced by relying on search.  It determinizes the input domain, removing all probabilistic information from the problem and synthesizes a plan. During the execution of this plan, should an unexpected state occur, the planner replans in the same determinization.
 
 \subsubsection{Details of the solution}
+The probabilistic planning problem consists of a domain description, a goal and initial state
+
 FF-Replan used two approaches to determinize the input domain. The first is single-outcome determinization which selects one outcome for each probabilistic construct. The heuristics determine the performance of the planner and should be chosen with care. The second approach uses an all-outcomes determinization and considers every probabilistic outcome as a distinct deterministic action. FF-Replan than generates one action for each effect (recursively). This ensures that an action in a state is chosen that is the first action of a sequential plan with non-zero probability of reaching the goal.
 
 The planner maintains a partial state-action mapping using a hash-table. It determinizes the states and synthesizes a plan using FF and then places the state-action sequence in the table.
@@ -276,6 +278,22 @@ The planner performs strong on Logistic style domains and dead-end free domains.
 \subsubsection{Criticism on the paper}
 
 \subsubsection{Questions posted on blackboard}
+\begin{itemize}
+\item FF-Replan planner replans the same determinization of the problem
+when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again.
+Can the planner keep replanning forever i.e. end up in deadlock?
+
+The planning problem states the states are finite, therefor the unexpected states are also finite. If an unexpected state is encountered, FF-replan determinizes the problem and synthesizes a finite plan. These deterministic actions result in a state-action sequence and are put in pairs in the hash table. If no further actions are available, the planner can't return a path. Therefor no, the planner can't keep replanning forever. 
+
+\item Since the planner replans the determinization each time an unexpected state occurs, is this algorithm suitable for real-time systems?
+
+It depends on the kind of real-time system. If the domain is a predictable domain, the single outcome determinization is the fastest planning algorithm within the competitors of the IPPC-06 because of the determinization (depending on the heuristics) making it very suitable for a real time system. However when considering planning problems such as the blocksworld domain, the al outcome had a succes rate of 86\%, taking 75 s to process 73 steps, so it would depend on how hard the real time system is.  However when considering hard real-time systems I would not recommend it.  
+
+
+
+\emph{add image timing FFR}
+
+\end{itemize}
 
 \subsubsection{Things to look into}
 \begin{itemize}
@@ -370,6 +388,13 @@ The different ways of determinizing MDPs was also tested. It turned out that
 \emph{ We should really include the graphs as their statements do not match the results from the graphs}
 
 \subsubsection{Questions posted on blackboard}
+\begin{itemize}
+\item When aggregating RFF does not update the current partial policy. How does this algorithm handles in dynamic environments, whereas the current partial policy might be no longer valid?
+
+\item RFF receives a tuple MDP planning problem (M, s0, G, p), where the states are already defined in M, which means that the environment is known.
+Is RFF applicable in unknown environments? If not, is it possible to adjust it so that it becomes applicable?
+\end{itemize}
+
 
 \subsubsection{Interesting directions to look into}
 
@@ -385,17 +410,11 @@ RFF is states to solve more (and larger) problem instances than FF-Replan. This 
 \subsubsection{Domains in which RFF is favourable}
 
 
-\subsection{How did FF-Replan and RFF inspire (I)}
-
 \section{Current state-of-the-art planning algorithms}
 
 \section{Discussion}
 
-\section{What after? Any new methods (A)}
-
 \section{Present goal of paper (I\&A)}
-
-\section{Is it time to reconsider classical planners under uncertainty (I\&A)}
 
 \bibliographystyle{plain}
 \bibliography{Plan_presentation_monday}
