@@ -167,27 +167,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Planning under Uncertainty}
+  \frametitle{Uncertainty}
 
-  What if moving picking up a block fails?
+  \emph{``Uncertainty applies to predictions of future events, to physical
+  measurements that are already made, or to the unknown. Uncertainty arises in
+  partially observable and/or stochastic environments, as well as due to
+  ignorance and/or indolence''}
+
   \vspace{2cm}
 
+  \tiny{http://en.wikipedia.org/wiki/Uncertainty}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Planning with Uncertainty}
+
   \begin{columns}
-    \column{0.4\textwidth}
-    \includegraphics[width=\textwidth,angle=270]{images/plant.jpg}
+    \column{0.25\textwidth}
+    \uncover<1> {Meet my plant}
+    \includegraphics[width=\textwidth]{images/plant.jpg}
 
-    \column{0.9\textwidth}
+    \column{0.75\textwidth}
+    \uncover<2->{%
 
-    How to plan when to water the plant?
+      How to plan when to water the plant?
 
-    \begin{itemize}
-      \item Uncertainty from Wind
-      \item Sunlight
-      \item Water
-    \end{itemize}
-
+      \begin{itemize}
+        \item Uncertainty from Wind
+        \item Sunlight
+        \item Water
+      \end{itemize}
+    }
   \end{columns}
 
+  \vspace{1cm}
+  \uncover<3-> {What if picking up a block fails?}
 
 \end{frame}
 
@@ -226,7 +242,85 @@
     \includegraphics[width=\textwidth]{images/shakey.png}
 
   \end{columns}
+\end{frame}
 
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+
+  ``We have presented an approach to domain independent planning that, \emph{at
+  the time being}, outperforms all existing technology on the majority of the
+  currently available benchmark domains.''
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+
+  Inspired by three new approaches in plan generation during that time:
+
+  \begin{itemize}
+    \item Planning graphs
+    \begin{itemize}
+      \item Nodes are actions and atomic facts arranged into alternate levels
+      \item Edges from atomic facts to actions represents conditions
+      \item Edges from actions to atomic facts represent true or false
+    \end{itemize}
+    \item Planning as a satisfiability method
+    \item Heuristic search planning approach
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+
+  Relies on a
+
+  \begin{itemize}
+    \item Forward state space search that combines hill-climbing and systematic search
+    \item Heuristic estimating goal distances by ignoring delete lists - relaxed GRAPHPLAN
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+
+  Insert image on search state, enforced hill climbing, call relaxed Graphplan,
+  inform search with goal distance estimate and maybe promising successors,
+  solution plan or fail, possible search from scratch using hast table with
+  visited states
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+    Same image
+
+  To avoid wasting time in the presence of goal ordering:
+
+  \begin{itemize}
+    \item Goal deletion
+    \item Goal agenda techniques
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Discussing the FF planner}
+
+  Perks
+  \begin{itemize}
+    \item No efficient algorithmic methods are possible for PSPACE-complete planning, inspired to focus on being efficient on a restricted subclass
+    \item Most domains in the IPCC are simple in their structure and can be easily solves using greedy algorithms like FF
+  \end{itemize}
+
+  Criticism
+  \begin{itemize}
+    \item Methods are motivated by observing example domains - might influence the completeness
+    \item Pruning techniques are incomplete
+    \item FF behaves poorly in domains with many dead-ends
+    \item Solving these tasks with complete best-first search exhaust the memory for larger instances
+  \end{itemize}
 \end{frame}
 
 
