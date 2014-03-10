@@ -308,19 +308,20 @@
 \begin{frame}
   \frametitle{Discussing the FF planner}
 
-  Perks
+\begin{itemize}
+\item  Perks
   \begin{itemize}
     \item No efficient algorithmic methods are possible for PSPACE-complete planning, inspired to focus on being efficient on a restricted subclass
     \item Most domains in the IPCC are simple in their structure and can be easily solves using greedy algorithms like FF
   \end{itemize}
-
-  Criticism
+\item Criticism
   \begin{itemize}
     \item Methods are motivated by observing example domains - might influence the completeness
     \item Pruning techniques are incomplete
     \item FF behaves poorly in domains with many dead-ends
     \item Solving these tasks with complete best-first search exhaust the memory for larger instances
   \end{itemize}
+\end{itemize}
 \end{frame}
 
 
@@ -329,12 +330,111 @@
 
   \begin{itemize}
     \item Problem
-      \begin{itemize}
-        \item MDPs have been the standard for probabilistic planning algorithms
-        \item
-      \end{itemize}
+	\begin{itemize}
+        	\item MDPs have been the standard for probabilistic planning algorithms
+        	\item MDPs can be computationally intensive
+	\item typically enumerate the entire state and action space
+      	\end{itemize}
+   \item Motivation for the FF planner
+	\begin{itemize}
+	\item Technological development within processing units
+	\item Relying on search introduces speed and efficiency
+	\end{itemize}
   \end{itemize}
+\end{frame}
 
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item The planning problem
+	\begin{itemize}
+        	\item a domain description
+	\item a goal
+	\item an initial state 
+	\end{itemize}
+   \item FF-replan
+	\begin{itemize}
+	\item Generates a deterministic planning problem
+	\item Uses the FF planner to compute a totally-ordered plan
+	\item If during execution an unexpected (not in the hash-table) occurs, the process is repeated using this as an initial state
+	\end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+	\begin{itemize}
+        	\item Single outcome determinization
+	\item All-outcomes determinization
+	\end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+   \item Planning
+	\begin{itemize}
+	\item Partial state-action mapping using an initial empty hash-table
+	\item Unexpected states are determinized and the synthesized plan (by FF) is put in the hash table
+	\end{itemize}
+
+\emph{ insert image how hash table is filled}
+
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+
+  \begin{itemize}
+    \item Shortcomings
+	\begin{itemize}
+        	\item Probabilistic effects are treated as equal
+
+\includegraphics[scale=0.5]{images/blindfold.jpg}
+
+	\end{itemize}
+   \item Means of improvement
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+
+  \begin{itemize}
+    \item Shortcomings
+	\begin{itemize}
+        	\item Probabilistic effects are treated as equal
+	\item Only works well if the outcomes are likely
+\includegraphics[scale=0.5]{images/direction-road-maze.jpg}
+	\end{itemize}
+   \item Means of improvement
+
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+
+  \begin{itemize}
+    \item Shortcomings
+	\begin{itemize}
+        	\item Probabilistic effects are treated as equal
+	\item Only works well if the outcomes are likely
+\includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+	\end{itemize}
+   \item Means of improvement
+	\begin{itemize}
+	\item
+	\end{itemize}
+   \end{itemize}
 \end{frame}
 
 \begin{frame}
