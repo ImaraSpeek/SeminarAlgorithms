@@ -172,7 +172,7 @@
         \end{itemize}
     \end{itemize}
 
-What if picking up a block fails?
+    \uncover<2> {What if picking up a block fails?}
 
   \end{columns}
 
@@ -212,7 +212,7 @@ What if picking up a block fails?
         \item Water
       \end{itemize}
     }
-  \end{columns} 
+  \end{columns}
 
 \end{frame}
 
@@ -284,7 +284,7 @@ What if picking up a block fails?
   Relies on a
 
   \begin{itemize}
-    \item Forward state space search 
+    \item Forward state space search
     \item Heuristic relaxed GRAPHPLAN
   \end{itemize}
 
@@ -530,7 +530,7 @@ What if picking up a block fails?
       \end{itemize}
     \item Means of improvement
       \begin{itemize}
-        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics
       \end{itemize}
    \end{itemize}
 \end{frame}
@@ -549,7 +549,7 @@ What if picking up a block fails?
       \end{itemize}
     \item Means of improvement
       \begin{itemize}
-        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics
 	\item Sampling the grounded goals and testing with a relaxed reachability analysis
       \end{itemize}
    \end{itemize}
@@ -571,7 +571,7 @@ What if picking up a block fails?
       \end{itemize}
     \item Means of improvement
       \begin{itemize}
-        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics
 	\item Sampling the grounded goals and testing with a relaxed reachability analysis
 	\item Utilizing look ahead policies that simulate the actions
       \end{itemize}
@@ -582,23 +582,15 @@ What if picking up a block fails?
 \begin{frame}
   \frametitle{FF-Replan - Questions}
   \begin{itemize}
-    \item '' FF-Replan planner replans the same determinization of the problem when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again. Can the planner keep re- planning forever i.e. end up in deadlock? ''
+    \item ``FF-Replan planner replans the same determinization of the problem when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again. Can the planner keep re- planning forever i.e. end up in deadlock?''
 
-   \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{FF-Replan - Questions}
-  \begin{itemize}
-    \item '' FF-Replan planner replans the same determinization of the problem when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again. Can the planner keep re- planning forever i.e. end up in deadlock? ''
    \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{FF-Replan - Questions}
 
-This is possible, but depends on the problem domain. 
+This is possible, but depends on the problem domain.
 \vspace{1cm}
 \begin{columns}
 \column{0.5\textwidth} Domain without cycles: no
@@ -631,7 +623,7 @@ It is not as computationally intensive as using MDPs  and was the fastest planni
 
 	\begin{itemize}
 		\item Unpredictable domain: probably not. \\
-Unpredictable domains result in many unexpected states which cause for a significant amount of replanning. 
+Unpredictable domains result in many unexpected states which cause for a significant amount of replanning.
 
 Blocksworld:
 \begin{itemize}
@@ -640,7 +632,7 @@ Blocksworld:
 	\item Duration of 75s
 \end{itemize}
 
-\emph{Not recommended}, but still depends on the hardness of the real-time system. 
+\emph{Not recommended}, but still depends on the hardness of the real-time system.
 
 	\end{itemize}
 
@@ -756,14 +748,6 @@ Blocksworld:
 \end{frame}
 
 \begin{frame}
-  \frametitle{Planning under uncertainty: FF-Replan vs. RFF}
-
-  \begin{itemize}
-    \item
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{What's New?}
 
   \begin{itemize}
@@ -784,7 +768,6 @@ Blocksworld:
   \frametitle{Conclusion}
 
   \begin{itemize}
-    \item
     \item FF-Replan introduced MDP determinization to use classical planner with uncertainty
     \item RFF used this idea to generate policies using aggregation and Monte-Carlo simulations.
     \item FF-Replan has been improved with hindsight
