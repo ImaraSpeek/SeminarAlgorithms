@@ -162,6 +162,9 @@
           \item Reachability goals
         \end{itemize}
     \end{itemize}
+
+What if picking up a block fails?
+
   \end{columns}
 
 \end{frame}
@@ -200,10 +203,7 @@
         \item Water
       \end{itemize}
     }
-  \end{columns}
-
-  \vspace{1cm}
-  \uncover<3-> {What if picking up a block fails?}
+  \end{columns} 
 
 \end{frame}
 
@@ -256,7 +256,7 @@
 \begin{frame}
   \frametitle{FF Planner (2001)}
 
-  Inspired by three new approaches in plan generation during that time:
+  Inspired by new approaches in plan generation during that time:
 
   \begin{itemize}
     \item Planning graphs
@@ -265,7 +265,6 @@
       \item Edges from atomic facts to actions represents conditions
       \item Edges from actions to atomic facts represent true or false
     \end{itemize}
-    \item Planning as a satisfiability method
     \item Heuristic search planning approach
   \end{itemize}
 \end{frame}
@@ -276,33 +275,46 @@
   Relies on a
 
   \begin{itemize}
-    \item Forward state space search that combines hill-climbing and systematic search
-    \item Heuristic estimating goal distances by ignoring delete lists - relaxed GRAPHPLAN
+    \item Forward state space search 
+    \item Heuristic relaxed GRAPHPLAN
   \end{itemize}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{FF Planner (2001)}
-
-  Insert image on search state, enforced hill climbing, call relaxed Graphplan,
-  inform search with goal distance estimate and maybe promising successors,
-  solution plan or fail, possible search from scratch using hast table with
-  visited states
+  \includegraphics{images/ffplan2.pdf}
 
 \end{frame}
 
+
 \begin{frame}
   \frametitle{FF Planner (2001)}
-    Same image
+\begin{columns}
 
+\column{0.4\textwidth}
+  \includegraphics[width=0.8\textwidth]{images/ffplan.pdf}
+
+\column{0.6\textwidth}
+\begin{itemize}
+	\item Expand the current state by doing a breadth-first search
+	\item s:= the child of s for which the heuristic evaluates as closest to the solution
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FF Planner (2001)}
+\begin{columns}
+
+\column{0.4\textwidth}
+  \includegraphics[width=0.8\textwidth]{images/ffplan.pdf}
+
+\column{0.6\textwidth}
   To avoid wasting time in the presence of goal ordering:
 
   \begin{itemize}
     \item Goal deletion
     \item Goal agenda techniques
   \end{itemize}
-
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -311,12 +323,12 @@
 \begin{itemize}
 \item  Perks
   \begin{itemize}
-    \item No efficient algorithmic methods are possible for PSPACE-complete planning, inspired to focus on being efficient on a restricted subclass
-    \item Most domains in the IPCC are simple in their structure and can be easily solves using greedy algorithms like FF
+    \item Efficient on a restricted subclass
+    \item simple IPCC domains can be easily solved using greedy algorithms like FF
   \end{itemize}
 \item Criticism
   \begin{itemize}
-    \item Methods are motivated by observing example domains - might influence the completeness
+    \item Methods are motivated by observing example domains
     \item Pruning techniques are incomplete
     \item FF behaves poorly in domains with many dead-ends
     \item Solving these tasks with complete best-first search exhaust the memory for larger instances
@@ -384,9 +396,57 @@
         \item Partial state-action mapping using an initial empty hash-table
         \item Unexpected states are determinized and the synthesized plan (by FF) is put in the hash table
       \end{itemize}
+   \end{itemize}
+\end{frame}
 
-      \emph{insert image how hash table is filled}
 
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+    \item Planning
+ \includegraphics[width=\textwidth]{images/replan1.pdf}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+    \item Planning
+ \includegraphics[width=\textwidth]{images/replan2.pdf}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+    \item Planning
+ \includegraphics[width=\textwidth]{images/replan3.pdf}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+    \item Planning
+ \includegraphics[width=\textwidth]{images/replan4.pdf}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - details of the solution}
+
+  \begin{itemize}
+    \item Determinization
+    \item Planning
+ \includegraphics[width=\textwidth]{images/replan5.pdf}
    \end{itemize}
 \end{frame}
 
@@ -411,7 +471,7 @@
       \begin{itemize}
         \item Probabilistic effects are treated as equal
         \item Only works well if the outcomes are likely
-          \includegraphics[scale=0.3]{images/direction-road-maze.jpg}
+          \includegraphics[scale=0.1]{images/direction-road-maze.jpg}
         \end{itemize}
     \item Means of improvement
   \end{itemize}
@@ -425,14 +485,160 @@
       \begin{itemize}
         \item Probabilistic effects are treated as equal
         \item Only works well if the outcomes are likely
-          \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+	\item Partial state-action policy does not guarantee quality
+ %         \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+      \end{itemize}
+    \item Means of improvement
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+  \begin{itemize}
+    \item Shortcomings
+      \begin{itemize}
+        \item Probabilistic effects are treated as equal
+        \item Only works well if the outcomes are likely
+	\item Partial state-action policy does not guarantee quality
+	\item Picking Arbitrary grounded forms of the goal may end up being unreachable or a lot more expensive
+%          \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+      \end{itemize}
+    \item Means of improvement
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+  \begin{itemize}
+    \item Shortcomings
+      \begin{itemize}
+        \item Probabilistic effects are treated as equal
+        \item Only works well if the outcomes are likely
+	\item Partial state-action policy does not guarantee quality
+	\item Picking Arbitrary grounded forms of the goal may end up being unreachable or a lot more expensive
+ %         \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
       \end{itemize}
     \item Means of improvement
       \begin{itemize}
-        \item
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
       \end{itemize}
    \end{itemize}
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+  \begin{itemize}
+    \item Shortcomings
+      \begin{itemize}
+        \item Probabilistic effects are treated as equal
+        \item Only works well if the outcomes are likely
+	\item Partial state-action policy does not guarantee quality
+	\item Picking Arbitrary grounded forms of the goal may end up being unreachable or a lot more expensive
+ %         \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+      \end{itemize}
+    \item Means of improvement
+      \begin{itemize}
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
+	\item Sampling the grounded goals and testing with a relaxed reachability analysis
+      \end{itemize}
+   \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Critism}
+  \begin{itemize}
+    \item Shortcomings
+      \begin{itemize}
+        \item Probabilistic effects are treated as equal
+        \item Only works well if the outcomes are likely
+	\item Partial state-action policy does not guarantee quality
+	\item Picking Arbitrary grounded forms of the goal may end up being unreachable or a lot more expensive
+ %         \includegraphics[scale=0.01]{images/direction-road-maze.jpg}
+      \end{itemize}
+    \item Means of improvement
+      \begin{itemize}
+        \item Addaptively repair the partial policy by for instance randomizing the determinization heuristics 
+	\item Sampling the grounded goals and testing with a relaxed reachability analysis
+	\item Utilizing look ahead policies that simulate the actions
+      \end{itemize}
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Questions}
+  \begin{itemize}
+    \item '' FF-Replan planner replans the same determinization of the problem when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again. Can the planner keep re- planning forever i.e. end up in deadlock? ''
+
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Questions}
+  \begin{itemize}
+    \item '' FF-Replan planner replans the same determinization of the problem when an unexpected state occurs. After replanning a new unexpected state might occur which makes the planner to replan again. Can the planner keep re- planning forever i.e. end up in deadlock? ''
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Questions}
+
+This is possible, but depends on the problem domain. 
+\vspace{1cm}
+\begin{columns}
+\column{0.5\textwidth} Domain without cycles: no
+\includegraphics[scale=0.4]{images/Question1a.png}
+
+\column{0.5\textwidth} Domain with cycles: yes
+\includegraphics[scale=0.4]{images/Question1b.png}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FF-Replan - Questions}
+  \begin{itemize}
+	\item '' Since the planner replans the determinization each time an unexpected state occurs, is this algorithm suitable for real-time systems? ''
+
+	\begin{itemize}
+		\item Predictable domain: yes. \\
+It is not as computationally intensive as using MDPs  and was the fastest planning algorithm within the competitors of the IPPC-06, making it very suitable.
+
+	\end{itemize}
+
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FF-Replan - Questions}
+  \begin{itemize}
+	\item '' Since the planner replans the determinization each time an unexpected state occurs, is this algorithm suitable for real-time systems? ''
+
+	\begin{itemize}
+		\item Unpredictable domain: probably not. \\
+Unpredictable domains result in many unexpected states which cause for a significant amount of replanning. 
+
+Blocksworld:
+\begin{itemize}
+	\item Succes rate of 86\%
+	\item Path of 73 actions
+	\item Duration of 75s
+\end{itemize}
+
+\emph{Not recommended}, but still depends on the hardness of the real-time system. 
+
+	\end{itemize}
+
+   \end{itemize}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{Planning under uncertainty: RFF}
