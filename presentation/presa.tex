@@ -580,4 +580,29 @@
   \frametitle{Questions?}
 \end{frame}
 
+\begin{frame}
+  \frametitle{More Questions}
+
+  \begin{itemize}
+    \only<1> {\item \textbf{Q}: When aggregating RFF does not update the current partial
+      policy. How does this algorithm handles in dynamic environments, whereas
+      the current partial policy might be no longer valid?
+      \\ \textbf{A}: RFF assumes a MDP, where everything is known. RFF generates
+      a policy off-line, but if that policy is used in an environment that does
+      not equal to the MDP/world it started with it will fail.
+    }
+
+    \only<2> {\item \textbf{Q}: RFF receives a tuple MDP planning problem $(M, s0, G,
+      \rho)$, where the states are already defined in M, which means that the
+      environment is known.  Is RFF applicable in unknown environments?  If not,
+      is it possible to adjust it so that it becomes applicable?
+      \\ \textbf{A}: RFF works only for MDPs. In an MDP it is assumed that it is
+      fully observable. In cases you describe, it is not, which people invented
+      POMDPs for. POMDPs have different algorithms, for example in the paper
+      about POMDPs which translates a POMDP to a classical planning problem.
+    }
+  \end{itemize}
+
+\end{frame}
+
 \end{document}
