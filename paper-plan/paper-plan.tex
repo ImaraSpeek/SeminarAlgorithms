@@ -51,9 +51,12 @@ Delft University of Technology\\
 	\item Introduce the problem definition and motivation
 \end{itemize}
 
-There is some domain in which requires probabilistic planning. As FF-Replan and
-RFF are about using deterministic planners in a probabilistic domain, we like
-to see what's new and if we can find some holes that are still open.
+We will focus on 2 of the current state of the art probabilistic planning
+algorithms that apply determinization in probabilistic domains and criticize
+the approaches by formulating a real-world domain as opposed to the IPPC
+domains.  By comparing both approaches and analyzing other state of the art
+work we will propose some adjustments which we will theoretically test in this
+domain. If it is realistic, we will also try to create an empirical evaluation.
 
 %---------------------------------------------------------------------
 
@@ -103,9 +106,7 @@ for high probability, non-branching seed plans. These plans are then used in
 a planning and scheduling system that handles unexpected outcomes by runtime
 replanning.
 
-\subsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
-
-
+\subsubsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
 
 %---------------------------------------------------------------------
 
@@ -143,6 +144,7 @@ replanning.
 \section{Empirical evaluation}
 
 \begin{itemize}
+	\item Describe the experiment setup
 	\item Show results for the experiment
 	\item Critically analyze the results
 	\item Compare with results from the original papers
