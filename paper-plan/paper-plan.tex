@@ -77,8 +77,6 @@ two planners the authors are able to estimate how far they are from the ideal.
 
 \subsubsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
 
-%---------------------------------------------------------------------
-
 \subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
 
 For household robot planning, it appears easy, but actually involves
@@ -89,15 +87,26 @@ partially observable open domains This paper looks into conditions for
 classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains.
 
+\subsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+
+Hindsight optimization is an online technique that evaluates one-step-reachable
+states by sampling future outcomes to generate multiple non-stationary planning
+problems which are deterministic and can be used using search. It re-interprets
+FF-Replan's~\ref{FFReplan} strategy randomly generating a set of non-stationary
+determinized problems and combining their solutions.
+
+\subsection{}
+
+%---------------------------------------------------------------------
+
 \section{Problem formulation}
+
 \begin{itemize}
 	\item Summarize shortcomings of the previous solutions
 	\item Describe the planning problem
 	\item Argument the choice for 2 current papers to analyze
 	\item Define how we would like to test the planning algorithms in a domain by our choice
 \end{itemize}
-
-From the related literature we identify some problems.
 
 %---------------------------------------------------------------------
 
@@ -121,7 +130,7 @@ From the related literature we identify some problems.
 
 %---------------------------------------------------------------------
 
-\section{Empirical evalution}
+\section{Empirical evaluation}
 
 \begin{itemize}
 	\item Show results for the experiment
@@ -134,12 +143,12 @@ From the related literature we identify some problems.
 \section{Conclusion}
 
 \begin{itemize}
-	\item Conclude on the succes of the 2 approaches
+	\item Conclude on the success of the 2 approaches
 	\item Conclude the work done in the paper
 	\item Hint to some future work developments
 \end{itemize}
 
-
+\section{Some papers}
 
 \begin{itemize}
 	\item \cite{Hoffmann01theff}
