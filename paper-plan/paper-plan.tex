@@ -41,7 +41,15 @@ Delft University of Technology\\
 
 \maketitle
 
-\section{Motivation}
+%--------------------------------------------------------------------
+
+\section{Introduction}
+
+\begin{itemize}
+	\item Introduce planning problem
+	\item Introduce planning for uncertainty
+	\item Introduce the problem definition and motivation
+\end{itemize}
 
 There is some domain in which requires probabilistic planning. As FF-Replan and
 RFF are about using deterministic planners in a probabilistic domain, we like
@@ -49,7 +57,16 @@ to see what's new and if we can find some holes that are still open.
 
 \section{Related Work}
 
-\subsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
+%---------------------------------------------------------------------
+
+\section{Related works}
+
+\begin{itemize}
+	\item Introduce the previously read papers
+	\item Introduce the current state of the art papers that use deterministic approaches for probablistic domains deadling with uncertainty
+\end{itemize}
+
+\subsubsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
 
 Graphplan is a successful planning algorithm for classical STRIPS domains. This
 paper explores the extend it can be used in \emph{probabilistic} domains. The
@@ -58,8 +75,9 @@ PGraphplan produces an optimal plan, while TGraphplan produces a sub-optimal
 plan but it has increased speed. By comparing the speed and quality of the
 two planners the authors are able to estimate how far they are from the ideal.
 
-\subsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
+\subsubsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
 
+%---------------------------------------------------------------------
 
 \subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
 
@@ -71,19 +89,57 @@ partially observable open domains This paper looks into conditions for
 classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains.
 
-\section{Conclusion from Related Work and problem statement}
+\section{Problem formulation}
+\begin{itemize}
+	\item Summarize shortcomings of the previous solutions
+	\item Describe the planning problem
+	\item Argument the choice for 2 current papers to analyze
+	\item Define how we would like to test the planning algorithms in a domain by our choice
+\end{itemize}
 
 From the related literature we identify some problems.
 
-\section{Solution for the problem}
+%---------------------------------------------------------------------
 
-We try to find some solution or direction how to solve the problem
+\section{Domain description}
+
+\begin{itemize}
+	\item Describe domains from IPPC
+	\item Explain shortcomings
+	\item Evaluate a valuable real-world domain in which we can test 2 papers
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Theoretical approach}
+
+\begin{itemize}
+	\item Describe how we are using the created domain
+	\item show pseudo code for the 2 papers
+	\item Introduce the improvements (or combination) of the approaches of the papers fitted for the domain
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Empirical evalution}
+
+\begin{itemize}
+	\item Show results for the experiment
+	\item Critically analyze the results
+	\item Compare with results from the original papers
+\end{itemize}
+
+%---------------------------------------------------------------------
 
 \section{Conclusion}
 
-Did it work.
+\begin{itemize}
+	\item Conclude on the succes of the 2 approaches
+	\item Conclude the work done in the paper
+	\item Hint to some future work developments
+\end{itemize}
 
-\section{More Literature}
+
 
 \begin{itemize}
 	\item \cite{Hoffmann01theff}
