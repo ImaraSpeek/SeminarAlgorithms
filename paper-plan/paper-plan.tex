@@ -67,6 +67,14 @@ domain. If it is realistic, we will also try to create an empirical evaluation.
 	\item Introduce the current state of the art papers that use deterministic approaches for probablistic domains deadling with uncertainty
 \end{itemize}
 
+\subsubsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+
+Hindsight optimization is an online technique that evaluates one-step-reachable
+states by sampling future outcomes to generate multiple non-stationary planning
+problems which are deterministic and can be used using search. It re-interprets
+FF-Replan's~\ref{FFReplan} strategy randomly generating a set of non-stationary
+determinized problems and combining their solutions.
+
 \subsubsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
 
 Graphplan is a successful planning algorithm for classical STRIPS domains. This
@@ -87,14 +95,6 @@ classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains This paper looks into conditions for
 classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains.
-
-\subsubsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
-
-Hindsight optimization is an online technique that evaluates one-step-reachable
-states by sampling future outcomes to generate multiple non-stationary planning
-problems which are deterministic and can be used using search. It re-interprets
-FF-Replan's~\ref{FFReplan} strategy randomly generating a set of non-stationary
-determinized problems and combining their solutions.
 
 \subsubsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\ref{martin2013progressive}}
 
