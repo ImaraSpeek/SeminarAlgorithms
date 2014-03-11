@@ -51,11 +51,10 @@ Delft University of Technology\\
 	\item Introduce the problem definition and motivation
 \end{itemize}
 
-There is some domain in which requires probabilistic planning. As FF-Replan and
-RFF are about using deterministic planners in a probabilistic domain, we like
-to see what's new and if we can find some holes that are still open.
-
-\section{Related Work}
+We will focus on 2 of the current state of the art probablistic planning algorithms that apply determinization
+in probabilistic domains and critize the approaches by formulating a real-world domain as opposed to the IPPC domains.
+By comparing both approaches and analyzing other state of the art work we will propose some adjustments which we will 
+theoretically test in this domain. If it is realistic, we will also try to create an emphirical evaluation.
 
 %---------------------------------------------------------------------
 
@@ -77,9 +76,8 @@ two planners the authors are able to estimate how far they are from the ideal.
 
 \subsubsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
 
-%---------------------------------------------------------------------
 
-\subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
+\subsubsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
 
 For household robot planning, it appears easy, but actually involves
 uncertainty. For tidying things up objects might not be there, or sensing
@@ -89,6 +87,8 @@ partially observable open domains This paper looks into conditions for
 classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains.
 
+%---------------------------------------------------------------------
+
 \section{Problem formulation}
 \begin{itemize}
 	\item Summarize shortcomings of the previous solutions
@@ -96,8 +96,6 @@ partially observable open domains.
 	\item Argument the choice for 2 current papers to analyze
 	\item Define how we would like to test the planning algorithms in a domain by our choice
 \end{itemize}
-
-From the related literature we identify some problems.
 
 %---------------------------------------------------------------------
 
@@ -124,6 +122,7 @@ From the related literature we identify some problems.
 \section{Empirical evalution}
 
 \begin{itemize}
+	\item Describe the experiment setup
 	\item Show results for the experiment
 	\item Critically analyze the results
 	\item Compare with results from the original papers
