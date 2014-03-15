@@ -1,0 +1,195 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fixltx2e}
+
+\usepackage{url}
+\urldef{\mailsa}\path|{i.c.t.m.speek, a.c.stolwijk}@student.tudelft.nl|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip%
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+
+\mainmatter% start of an individual contribution
+
+% first the title is needed
+\title{Paper Plan\\
+FF-Replan: \& RFF\@: Exploiting classical AI planning for uncertain and probabilistic domains}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{Presentation Plan}
+
+\author{I.C.T.M Speek, A.C. Stolwijk}
+
+%
+\authorrunning{Paper Plan Seminar Algorithms FF-replan \& RFF}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+\institute{Seminar Algorithms, Embedded Software,
+Msc Embedded Systems,\\
+Delft University of Technology\\
+\mailsa\\
+}
+
+%\toctitle{Lecture Notes in Computer Science}
+%\tocauthor{Authors' Instructions}
+
+\maketitle
+
+%--------------------------------------------------------------------
+
+\begin{abstract}
+blabla
+\end{abstract}
+
+%--------------------------------------------------------------------
+
+\section{Introduction}
+
+\begin{itemize}
+	\item Describe probabilistic planning problem
+	\item Introduce planning for uncertainty
+	\item Describe how deterministic classical planners can be used in probabilistic domains and motivate why this is interesting
+	\item Introduce the qualities of replanning and the second planning algorithm
+	\item Describe the need for a new domain for real world applications
+	\item Describe the goal and tools used to reach this goal
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Problem formulation}
+
+\begin{itemize}
+	\item Summarize shortcomings of the previous solutions
+	\item Describe the planning problem
+	\item Argument the choice for 2 current papers to analyze
+	\item Define how we would like to test the planning algorithms in a domain by our choice
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Domain description}
+
+\begin{itemize}
+	\item Describe domains from IPPC
+	\item Explain shortcomings
+	\item Evaluate a valuable real-world domain in which we can test 2 papers
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Theoretical approach}
+
+\begin{itemize}
+	\item Describe how we are using the created domain
+	\item show pseudo code for the 2 papers
+	\item Introduce the improvements (or combination) of the approaches of the papers fitted for the domain
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Empirical evaluation}
+
+\begin{itemize}
+	\item Describe the experiment setup
+	\item Show results for the experiment
+	\item Critically analyze the results
+	\item Compare with results from the original papers
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+\section{Related Work}
+% Use related work to display the differences with own work
+
+\begin{itemize}
+	\item Discuss the related work and how their approaches are different
+	\item Discuss the other domains and why our domain adds anything to the community
+	\item Introduce the current state of the art papers that use deterministic approaches for probablistic domains deadling with uncertainty
+\end{itemize}
+
+\subsubsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+
+Hindsight optimization is an online technique that evaluates one-step-reachable
+states by sampling future outcomes to generate multiple non-stationary planning
+problems which are deterministic and can be used using search. It re-interprets
+FF-Replan's~\cite{FFReplan} strategy randomly generating a set of non-stationary
+determinized problems and combining their solutions.
+
+\subsubsection{Improving Determinization in Hindsight for Online Probabilistic Planning (2010)~\cite{yoon2010improving}}
+
+Hindsight optimization has enjoyed some success for online probabilistic
+planning. Although it has proven to be effective for many domains, it is
+computationally expensive. This paper presents significant improvements.  1) a
+method for detecting potential useful actions, 2) exploit determinism in the
+domain by reusing relevant plans, 2) improves action evaluation by increasing
+the chance that at least one deterministic plan reaches a goal.
+
+\subsubsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
+
+Graphplan is a successful planning algorithm for classical STRIPS domains. This
+paper explores the extend it can be used in \emph{probabilistic} domains. The
+paper discusses two variations of Graphplan: PGraphplan and TGraphplan.
+PGraphplan produces an optimal plan, while TGraphplan produces a sub-optimal
+plan but it has increased speed. By comparing the speed and quality of the
+two planners the authors are able to estimate how far they are from the ideal.
+
+\subsubsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
+
+\subsubsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
+
+For household robot planning, it appears easy, but actually involves
+uncertainty. For tidying things up objects might not be there, or sensing
+operations might tell things wrong. This paper looks into conditions for
+classical planning in a replanning loop in order to solve nondeterministic
+partially observable open domains This paper looks into conditions for
+classical planning in a replanning loop in order to solve nondeterministic
+partially observable open domains.
+
+\subsubsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\cite{martin2013progressive}}
+
+In this paper a probabilistic plan graph heuristic is described which computes
+information about the interaction between actions and between propositions.
+This information is used to find better relaxed plans to compute the
+probability of success. This information guides a forward state space search
+for high probability, non-branching seed plans. These plans are then used in
+a planning and scheduling system that handles unexpected outcomes by runtime
+replanning.
+
+\subsubsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
+
+%---------------------------------------------------------------------
+
+\section{Conclusion}
+
+\begin{itemize}
+	\item Conclude on the success of the 2 approaches
+	\item Conclude the work done in the paper
+	\item Hint to some future work developments
+\end{itemize}
+
+\section{Some papers}
+
+\begin{itemize}
+	\item \cite{Hoffmann01theff}
+	\item \cite{FFReplan}
+	\item \cite{teichteil2010incremental}
+	\item \cite{yoon2008probabilistic}
+	\item \cite{teichteil2012fast}
+	\item \cite{bonet2011planning}
+	\item \cite{taig2013translation}
+	\item \cite{martin2013progressive}
+	\item \cite{taig2013conformant}
+	\item \cite{2013workshop}
+\end{itemize}
+
+
+\bibliographystyle{plain}
+\bibliography{paper-plan}
+
+\end{document}
