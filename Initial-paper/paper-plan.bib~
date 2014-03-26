@@ -1,0 +1,122 @@
+@article{Hoffmann01theff,
+    author = {J\"org Hoffmann and Bernhard Nebel},
+    title = {The FF planning system: Fast plan generation through heuristic search},
+    journal = {Journal of Artificial Intelligence Research},
+    year = {2001},
+    volume = {14},
+    pages = {2001}
+}
+
+@article{FFReplan,
+  title={FF-Replan: A Baseline for Probabilistic Planning},
+  author={S. Yoon, A. Fern and R. Givan},
+  journal={},
+  volume={},
+  number={},
+  pages={},
+  year={2007},
+  publisher={American Association for Artificial Intelligence}
+}
+
+@inproceedings{teichteil2010incremental,
+  title={Incremental plan aggregation for generating policies in MDPs},
+  author={Teichteil-K{\"o}nigsbuch, Florent and Kuter, Ugur and Infantes, Guillaume},
+  booktitle={Proceedings of the 9th International Conference on Autonomous Agents and Multiagent Systems: volume 1-Volume 1},
+  pages={1231--1238},
+  year={2010},
+  organization={International Foundation for Autonomous Agents and Multiagent Systems}
+}
+
+@inproceedings{yoon2008probabilistic,
+  title={Probabilistic Planning via Determinization in Hindsight.},
+  author={Yoon, Sung Wook and Fern, Alan and Givan, Robert and Kambhampati, Subbarao},
+  booktitle={AAAI},
+  pages={1010--1016},
+  year={2008}
+}
+
+@inproceedings{yoon2010improving,
+  title={Improving determinization in hindsight for online probabilistic planning},
+  author={Yoon, Sungwook and Ruml, Wheeler and Benton, J and Do, Minh B},
+  booktitle={Proc. of the 20th Int. Conf. on Automated Planning and Scheduling (ICAPS)},
+  year={2010}
+}
+
+@inproceedings{teichteil2012fast,
+  title={Fast Incremental Policy Compilation from Plans in Hybrid Probabilistic Domains.},
+  author={Teichteil-K{\"o}nigsbuch, Florent},
+  year={2012}
+}
+
+@inproceedings{bonet2011planning,
+  title={Planning under partial observability by classical replanning: Theory and experiments},
+  author={Bonet, Blai and Geffner, Hector},
+  booktitle={Proceedings of the Twenty-Second international joint conference on Artificial Intelligence-Volume Volume Three},
+  pages={1936--1941},
+  year={2011},
+  organization={AAAI Press}
+}
+
+@inproceedings{Blum99probabilisticplanning,
+    author = {Avrim Blum and John C. Langford},
+    title = {Probabilistic Planning in the Graphplan Framework},
+    booktitle = {IN PROCEEDINGS OF THE FIFTH EUROPEAN CONFERENCE ON PLANNING},
+    year = {1999},
+    pages = {8--12},
+    publisher = {}
+}
+
+@inproceedings{taig2013translation,
+  title={Translation based approaches to probabilistic planning},
+  author={Taig, Ran},
+  year={2013},
+  organization={AAAI Press}
+}
+
+@article{martin2013progressive,
+  title={Progressive heuristic search for probabilistic planning based on interaction estimates},
+  author={Y. E-Martin, M.D. R-Moreno and D.E. Smith},
+  journal={},
+  volume={},
+  number={},
+  pages={},
+  year={2013},
+  publisher={Wiley Publishing ltd}
+}
+
+@inproceedings{taig2013conformant,
+  title={Compiling Conformant Probabilistic Planning Problems into Classical Planning},
+  author={R. Taig and R.I. Brafman},
+  booktitle={Proceedings of the Twenty-Third international conference on Automated Planning and Scheduling},
+  year={2013},
+  organization={AAAI Press}
+}
+
+@inproceedings{2013workshop,
+  title={Using Classical Planners for Tasks with Continuous Operators in Robotics},
+  author={S. Srivastava, L. Riano, S. Russel and P. Abbeel},
+  booktitle={Intelligent Robotic Systems: Papers from the AAAI 2013 Workshop},
+  year={2013},
+  organization={AAAI Press}
+}
+
+@inproceedings{nebel2013much,
+  title={How Much Does a Household Robot Need To Know In Order To Tidy Up?},
+  author={Nebel, Bernhard and Dornhege, Christian and Hertle, Andreas},
+  booktitle={Proceedings of the AAAI Workshop on Intelligent Robotic Systems, Bellevue, WA},
+  year={2013}
+}
+
+@article{little2007probvsreplan,
+  title={Probabilistic Planning vs. Replanning},
+  author={I. Little and S. Thiébaux},
+  journal={},
+  volume={},
+  number={},
+  pages={},
+  year={2007},
+  publisher={}
+}
+
+
+
