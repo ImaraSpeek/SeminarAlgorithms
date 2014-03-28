@@ -16,7 +16,7 @@
 \mainmatter% start of an individual contribution
 
 % first the title is needed
-\title{Validating FF-Replan vs. a state-of-the-art propabilistic planner in a real world domain}
+\title{Validating FF-Replan vs. a state-of-the-art propabilistic planner in translated real world domains}
 
 % a short form should be given in case it is too long for the running head
 \titlerunning{Presentation Plan}
@@ -55,6 +55,7 @@ Delft University of Technology\\
 
 \section{Introduction}
 
+The baseline test in \cite{little2007probvsreplan} evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs. probabilistic planners. We would like to carefully analyze the credibility of these domains in the real world and evaluate the worth of FF-Replan vs a state of the art probabilistic planner: Gourmand \cite{kolobov2012gourmand}.
 
 \begin{itemize}
 	\item Describe probabilistic planning problem
@@ -88,13 +89,37 @@ Delft University of Technology\\
 %---------------------------------------------------------------------
 
 \section{Domain description}
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thiébauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring using replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or Gourmand prevailed during the International Probabilistic Planning Compeitions. We will then translate the most interesting domains to a complete "real-world" domain and evaluate them using the probabilistically interesting baseline test. This paper concludes on evaluation both planners using the translated domains. 
 
+\subsection{Interesting domains}
+The competitor FF-Replan\cite{FFReplan} remembered the committee of the IPPC in 2004 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test evaluates the competition problems of the IPPC described in PPDDLto correct the possible inaccurate perception of replanners vs. probabilistic planners. 
+
+Following existing domains were said to be probabilistically interesting:
 \begin{itemize}
-	\item Describe domains from IPPC
-	\item Explain shortcomings
-	\item Evaluate a valuable real-world domain in which we can test 2 papers
-	\item Show PPDDL or RDDL of domain (probabilistic extension of PDDL)
+	\item Drive
+	\item Exploding blocksworld
+	\item Pitchcatch
+	\item Schedule
+	\item Tireworld
 \end{itemize}
+
+
+\subsection{Real world evaluation}
+Explain shortcomings
+
+
+\subsection{Probabilistically interesting domains}
+A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties:
+\begin{itemize}
+	\item there are multiple goal trajectories;
+	\item there is at least on pair of distinct goal trajectories, $\tau$ and $\tau$ ', that share a common sequence of outcomes for the first n-1 outcomes, and where $\tau$\textsubscript{n} and $\tau$'\textsubscript{n} are distinct outcomes of the same action; and
+	\item there exist two distinct goal trajectories $\tau$ and $\tau$' and outcome o $\in$ $\tau$ and o' $\in$ $\tau$' of two distinct actions a = act(o) and a'= act(o') such that executing a strictly decreases the maximum probability of reaching a state where a' can be executed. 
+\end{itemize}
+
+
+\subsection{Evaluating the domains}
+FF-Replan participated in IPPC-04 (and IPPC-06) solving problems that had been specified in the Probabilstic Planning Domain Description Language (PPDDL) whereas Gourmand has been tested on the set of IPPC-11 problems specified in Relational Dynamic Influence Diagram Language (RDDL)\cite{sanner2008rddl}.
+
 
 %---------------------------------------------------------------------
 
@@ -217,13 +242,7 @@ Following existing domains were said to be probabilistically interesting:
 They conclude by stating that the negative perception of probabilistic planning by the ICAPS community was inaccurate. They state that a synthesis of planning and replanning techniques could make a larger number of probabilistic planning problems pacticably solvable than is currently possible. 
 
 
-\section{Domain description}
-% Stukje voor domein
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thiébauw a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise \cite{little2007probvsreplan}. To validate our planners in a real-world domain we will analyze previous and current domain description for the 'probabilistically interestingness' using this baseline test, adjust them to what we consider as being a real-world domain and test it again. Using these   
 
-FF-Replan participated in IPPC-04 (and IPPC-06) solving problems that had been specified in the Probabilstic Planning Domain Description Language (PPDDL) whereas Gourmand has been tested on the set of IPPC-11 problems specified in Relational Dynamic Influence Diagram Language (RDDL)\cite{sanner2008rddl}.
-
-\subsection{Planning problem definition}
 
 
 %---------------------------------------------------------------------
@@ -254,6 +273,7 @@ FF-Replan participated in IPPC-04 (and IPPC-06) solving problems that had been s
 	\item \cite{keller2012prost}
 	\item \cite{kolobov2012glutton}
 	\item \cite{sanner2008rddl}
+	\item \cite{kolobov2012gourmand}
 \end{itemize}
 
 
