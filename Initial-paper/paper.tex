@@ -16,8 +16,7 @@
 \mainmatter% start of an individual contribution
 
 % first the title is needed
-\title{Paper Plan\\
-FF-Replan: \& RFF\@: Exploiting classical AI planning for uncertain and probabilistic domains}
+\title{Validating FF-Replan vs. a state-of-the-art propabilistic planner in a real world domain}
 
 % a short form should be given in case it is too long for the running head
 \titlerunning{Presentation Plan}
@@ -170,6 +169,11 @@ replanning.
 
 \subsubsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
 
+\subsubsection{Reverse Iterative Deepening for Finite-Horizon MDPs with Large Branching Factors (2012)~\cite{kolobov2012glutton}}
+The IPPC-2011 introduces more realistic MDPs to accomodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an offline algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a succesfull policy can be produced by solving an MDP M(H) for a smaller horizon h.  Incrementally solving the sequence M(1), M(2) forms the basis of LR\textsuperscript{2}TDP. By iterating on the distance from the horizon, data can be reused (and is stored in the cache untill the hash-table is full). The max-reward heuristic finds the largest horizon value h' for which already a heuristic value V is estimated. The  cmputation time remains much lower because it runs quickly into states that converged while solving M(h-1). The max-reward computation relies on knowing the maximum reward any action can yield in any state or an upper bound on it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+%TODO still have to describe the Glutton variation on LR2TDP
+
 %---------------------------------------------------------------------
 
 \section{Conclusion}
@@ -193,10 +197,14 @@ replanning.
 	\item \cite{martin2013progressive}
 	\item \cite{taig2013conformant}
 	\item \cite{2013workshop}
+	\item \cite{nebel2013much}
+	\item \cite{little2007probvsreplan}
+	\item \cite{keller2012prost}
+	\item \cite{kolobov2012glutton}
 \end{itemize}
 
 
 \bibliographystyle{plain}
-\bibliography{paper-plan}
+\bibliography{paper}
 
 \end{document}

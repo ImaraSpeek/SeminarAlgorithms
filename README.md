@@ -3,12 +3,16 @@ SeminarAlgorithms
 
 Course TU Delft considering replanning algorithms
 
-### Todo still
 
-- Determine goal
+### Done: 
+- Determine goal 
 - Change titel to fit goal
 - Find second paper to focus on
 - Contact authors of the paper
+
+### Todo still:
+- state problem
+- write introduction
 - Determine hypotheses for the paper
 - Identify different ways of solving problems
 - Identify weak point in state of the art
