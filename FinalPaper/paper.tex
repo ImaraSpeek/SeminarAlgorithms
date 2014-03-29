@@ -91,7 +91,7 @@ The baseline test in \cite{little2007probvsreplan} evaluates the competition pro
 	\item reason about the \emph{augmented state space} of M(H), which is a set \emph{S x (0, ... , H)} of state number of steps-to-go pairs
 	\item Describe reward heuristic
 	\item Solving M(H) means finding a policy: a rule for selecting actions in augmented states so that executing the actions recommended by the policy starting in the initial state will accumulate the largest exected reward over H steps time
-	\item The challenge or large branching factors
+	\item The challenge or large branching factors (induced by natural dynamic)
 \end{itemize}
 
 
@@ -217,6 +217,8 @@ replanning.
 %\subsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
 % I don't think one is valuable
 
+%---------------------------------------------------------------------------------------------------------------------------
+
 \subsection{Reverse Iterative Deepening for Finite-Horizon MDPs with Large Branching Factors (2012)~\cite{kolobov2012glutton}}
 The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP M(H) for a smaller horizon h.  Incrementally solving the sequence M(1), M(2) forms the basis of LR\textsuperscript{2}TDP. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value h' for which already a heuristic value V is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving M(h-1). The max-reward computation relies on knowing the maximum \textsubscriptreward any action can yield in any state or an upper bound on it.
 
@@ -246,8 +248,17 @@ LR\textsuperscript{2}TDP uses \emph{reverse iterative deepening} and LRTDP-FH to
 	\item it should however use a heuristic to treat states that has never been encountered when stopped prematurely, could be a fall back or a default action.  
 \end{itemize}
 
+\subsubsection{GLUTTON}
+Glutton uses the \emph{Max-Reward} heuristic that relies on knowing the maximum reward \emph{R\textsubscript{max}} any action can yield in a state or an upper bound on it. Large branching factors induce that the computation of the Bellman Backups becomes prohibitively expensive. Glutton uses the following mechanisms to optimize for large branching factors:
+\begin{itemize}
+	\item Subsampling the transition function, is not enough to decrease the amount of computations yet
+	\item Seperating out Natural Dynamics: to reuse variable samples when generator succesors for multiple actions, by seperating the actions' effects into natural dynamics (\emph{exogenous}), those due to the action itself (\emph{pure effects}) and those do a mix of both. 
+	\item Caching the transition function samples: as LR\textsuperscript{2}TDP populates the state-value hash table lazily, Glutton uses  this memory as a cache for samples from the transition function, so it doesn't have to regenerate the action when encountering the same (s, h) pair. When full, it chooses state-action pars for eviction ans replacement randomly. 
+	\item Default policies: Glutton uses 3 tricks to determine a policy when stopped prematurely. It compares the optimal action from a h' with a simple cyclic policy or a complete random policy and chooses the best of these based on the reward.  
+\end{itemize}
 
 
+%---------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Probabilistic planning vs Replanning}
 Inspired by the FF-Replan entrance in the IPPC competition, this paper described a probabilistic interestingness quality of domains. It then compares probabilistic planners with replanners in the different domains to draw conclusions. Classical planning with replanning upon failure when there is so little or so much uncertainty about the world that it is not worth modelling and reasoning about or when goals dynamically change or when the problem is too large to solve at once. Probabilistic planners are more appropriate when avoiding irreparable or costly failures. Probabilistic planning computes a plan that can handle all foreseeable contingencies and is preferable for quick reactions in closed control loops.
