@@ -220,7 +220,7 @@ replanning.
 %---------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Reverse Iterative Deepening for Finite-Horizon MDPs with Large Branching Factors (2012)~\cite{kolobov2012glutton}}
-The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP M(H) for a smaller horizon h.  Incrementally solving the sequence M(1), M(2) forms the basis of LR\textsuperscript{2}TDP. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value h' for which already a heuristic value V is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving M(h-1). The max-reward computation relies on knowing the maximum \textsubscriptreward any action can yield in any state or an upper bound on it.
+The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP M(H) for a smaller horizon h.  Incrementally solving the sequence M(1), M(2) forms the basis of LR\textsuperscript{2}TDP. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value h' for which already a heuristic value V is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving M(h-1). The max-reward computation relies on knowing the maximum R\textsubscript{max} any action can yield in any state or an upper bound on it.
 
 \subsubsection{LRTDP}
 Using goal oriented MDPs, the \emph{Labelled Real-Time Dynamic Programmer} (LRTDP) operates a series of trials starting from s\textsubscript{0}. 
@@ -256,6 +256,11 @@ Glutton uses the \emph{Max-Reward} heuristic that relies on knowing the maximum 
 	\item Caching the transition function samples: as LR\textsuperscript{2}TDP populates the state-value hash table lazily, Glutton uses  this memory as a cache for samples from the transition function, so it doesn't have to regenerate the action when encountering the same (s, h) pair. When full, it chooses state-action pars for eviction ans replacement randomly. 
 	\item Default policies: Glutton uses 3 tricks to determine a policy when stopped prematurely. It compares the optimal action from a h' with a simple cyclic policy or a complete random policy and chooses the best of these based on the reward.  
 \end{itemize}
+
+%---------------------------------------------------------------------------------------------------------------------------
+
+\subsection{LRTDP vs. UCT for Online Probabilistic Planning\cite{kolobov2012gourmand}}
+
 
 
 %---------------------------------------------------------------------------------------------------------------------------
