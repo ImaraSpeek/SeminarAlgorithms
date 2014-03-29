@@ -117,9 +117,10 @@ replanning. First the problem is determinized, a compilation from a
 probabilistic problem to a deterministic problem. This deterministic problem
 be solved by a classical planner which returns a plan. The Replanner then
 executes the plan. If it ends up in a state which is different from the plan,
-it executes the classical planner to get a new plan.
+it executes the classical planner to get a new plan. This is repeated until a
+goal is reached.
 
-
+In this paper we use FF-Replan as a representative replanning planner.
 
 \begin{itemize}
 	\item Summarize shortcomings of the previous solutions
