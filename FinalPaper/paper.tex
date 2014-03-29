@@ -70,6 +70,56 @@ The baseline test in \cite{little2007probvsreplan} evaluates the competition pro
 
 \section{Problem formulation}
 
+\subsubsection{Classical Planners}
+
+A planner tries to find a sequence of actions such that a goal or maximum
+reward is achieved. A classical planning problem consists out of states,
+actions, conditions and a goal state.
+
+\subsubsection{Probabilistic Planning} Classical Planners expect a
+deterministic world. For many Real World applications actions happen with a
+certain probability. This kind of Probabilistic Planning Problems can be
+described with Markov Decision Processes (MDPs). For the purpose of our
+analysis we define the problem as:
+
+\begin{itemize}
+	\item finite set of states $S$
+	\item an initial state $s_o \in S$
+	\item a $G \subseteq S$ of (absorbing) goal states
+	\item a set $O$ of outcomes; probability of $o \in O$ is $\Pr(o)$
+	\item a (total) deterministic transition function $T(o,s) \in S$ for all
+		outcomes $o \in O$ and states $s \in S$
+	\item sets $A(s)$ of applicable actions for each $s \in S$, together with
+		function $out(a) \subseteq O$ mapping each action to a set of outcomes
+		such that each outcome $o \in O$ belongs exactly to one action $act(o)$
+		and $\sum_{o \in out(a)} \Pr(o) = 1$ for all $a$
+\end{itemize}
+
+% depends if we should include this, what we tell about Gourmand / RDDL...
+
+Besides a single or multiple goals, some planning problems also include a
+reward function: For every $s \in S$, $s' \in S$, and $a \in A(s)$,
+$R(s,a,s')$ is the reward function. The goal if the problem is to maximize
+the reward until a goal is reached. If a Finite Horizon (number of steps of the
+plan) is used, the goal of the problem is to achieve the highest reward within
+the horizon.
+
+A probabilistic planner takes the probabilistic planning problem as input and
+builds and outputs a plan for the problem.
+
+In this paper we use Gourmand as a representative probabilistic planner, as
+it's the improved version of Glutton, the runner-up of the IPPC-11 competition.
+
+\subsubsection{Replanning}
+
+An Replanning Planner takes a probabilistic problem and tries to solve it with
+replanning. First the problem is determinized, a compilation from a
+probabilistic problem to a deterministic problem. This deterministic problem
+be solved by a classical planner which returns a plan. The Replanner then
+executes the plan. If it ends up in a state which is different from the plan,
+it executes the classical planner to get a new plan.
+
+
 
 \begin{itemize}
 	\item Summarize shortcomings of the previous solutions
