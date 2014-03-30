@@ -240,7 +240,7 @@ Following the theoretical comparison of probabilistic planning and replanning te
 \subsection{IPPC-2011 Domains}
 The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et. all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-2011 responded by introducing more realistic MDPs and evluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
 
-GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however midly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
+GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however mildly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors. 
 
 \subsubsection{Navigation domain}
 The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of dissapearinng. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
@@ -248,7 +248,7 @@ The navigation domain represents a grid in which a robot must reach a goal. Ever
 %ADD IMAGE HERE
 
 \subsubsection{Traffic domain}
-This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upperbound of 2\^ (\# of intersections).
+This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upperbound of 2\textsuperscript{ (\# of intersections)}.
 
 %ADD IMAGE HERE
 
