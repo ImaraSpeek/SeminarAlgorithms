@@ -43,12 +43,10 @@ Delft University of Technology\\
 %--------------------------------------------------------------------
 
 \begin{abstract}
-	This paper argues that for many real life domains dead-ends are the end of
-	the world, and by for example human interaction the goal can still be
-	reached. By relaxing the definition of a dead-end, we argue that for many
-	real life domains a simpler planning algorithm, like FF-Replan, can be
-	sufficient, and that it's not needed to have newer and sophisticated
-	probabilistic planners.
+	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
+real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
+
+In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabistic problem against a state of the art probabilistic planner GOURMAND, the successor of the Labelled Real-Time Dynamic Probabilistic planner Glutton, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equavalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et. all we will evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
 %--------------------------------------------------------------------
@@ -84,14 +82,14 @@ augmented domains of IPPC-11. If these domains fail the baseline test proposed
 by Little et\@. all, they would translate to classical planning problems in
 disguise and could be easily solved by FF-Replan.
 
-\begin{itemize}
-	\item Describe probabilistic planning problem
-	\item Introduce planning for uncertainty
-	\item Describe how deterministic classical planners can be used in probabilistic domains and motivate why this is interesting
-	\item Introduce the qualities of replanning and the second planning algorithm
-	\item Describe the need for a new domain for real world applications
-	\item Describe the goal and tools used to reach this goal
-\end{itemize}
+%\begin{itemize}
+%	\item Describe probabilistic planning problem
+%	\item Introduce planning for uncertainty
+%	\item Describe how deterministic classical planners can be used in probabilistic domains and motivate why this is interesting
+%	\item Introduce the qualities of replanning and the second planning algorithm
+%	\item Describe the need for a new domain for real world applications
+%	\item Describe the goal and tools used to reach this goal
+%\end{itemize}
 
 %---------------------------------------------------------------------
 
