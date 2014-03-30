@@ -243,9 +243,19 @@ The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the 
 GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however midly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors. 
 
 \subsubsection{Navigation domain}
+The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of dissapearinng. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain. 
 
+%ADD IMAGE HERE
 
 \subsubsection{Traffic domain}
+This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upperbound of 2\^ (\# of intersections).
+
+\subsection{IPPC-04 Domains}
+Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes. 
+
+\subsubsection{}
+
+\subsubsection{}
 
 \subsection{Real-World Domains}
 
@@ -394,26 +404,26 @@ They conclude by stating that the negative perception of probabilistic planning 
 	\item Hint to some future work developments
 \end{itemize}
 
-\section{Some papers}
-
-\begin{itemize}
-	\item \cite{Hoffmann01theff}
-	\item \cite{FFReplan}
-	\item \cite{teichteil2010incremental}
-	\item \cite{yoon2008probabilistic}
-	\item \cite{teichteil2012fast}
-	\item \cite{bonet2011planning}
-	\item \cite{taig2013translation}
-	\item \cite{martin2013progressive}
-	\item \cite{taig2013conformant}
-	\item \cite{2013workshop}
-	\item \cite{nebel2013much}
-	\item \cite{little2007probvsreplan}
-	\item \cite{keller2012prost}
-	\item \cite{kolobov2012glutton}
-	\item \cite{sanner2008rddl}
-	\item \cite{kolobov2012gourmand}
-\end{itemize}
+%\section{Some papers}
+%
+%\begin{itemize}
+%	\item \cite{Hoffmann01theff}
+%	\item \cite{FFReplan}
+%	\item \cite{teichteil2010incremental}
+%	\item \cite{yoon2008probabilistic}
+%	\item \cite{teichteil2012fast}
+%	\item \cite{bonet2011planning}
+%	\item \cite{taig2013translation}
+%	\item \cite{martin2013progressive}
+%	\item \cite{taig2013conformant}
+%	\item \cite{2013workshop}
+%	\item \cite{nebel2013much}
+%	\item \cite{little2007probvsreplan}
+%	\item \cite{keller2012prost}
+%	\item \cite{kolobov2012glutton}
+%	\item \cite{sanner2008rddl}
+%	\item \cite{kolobov2012gourmand}
+%\end{itemize}
 
 
 \bibliographystyle{plain}
