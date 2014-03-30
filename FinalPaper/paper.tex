@@ -95,6 +95,14 @@ disguise and could be easily solved by FF-Replan.
 
 %---------------------------------------------------------------------
 
+\section{Problem formulation}
+To evaluate FF-Replan and GOURMAND in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion. 
+Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the basline test introduced by Little et. all \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs. a state of the art probabilistic planner: GOURMAND. 
+
+
+
+%---------------------------------------------------------------------
+
 \section{Background}
 
 \subsection{Planning problems}
@@ -138,21 +146,6 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 %	\item Schedule
 %	\item Tireworld
 %\end{itemize}
-
-%---------------------------------------------------------------------
-
-\section{Problem formulation}
-\begin{itemize}
-	\item Describe the MDP finite horizon planning problem (useful for modelling nearly infinite processes)
-	\item reason about the \emph{augmented state space} of M(H), which is a set \emph{S x (0, ... , H)} of state number of steps-to-go pairs
-	\item Describe reward heuristic
-	\item Solving M(H) means finding a policy: a rule for selecting actions in augmented states so that executing the actions recommended by the policy starting in the initial state will accumulate the largest expected reward over H steps time
-	\item The challenge or large branching factors (induced by natural dynamic)
-	\item Summarize shortcomings of the previous solutions
-	\item Describe the planning problem
-	\item Argument the choice for 2 current papers to analyze
-	\item Define how we would like to test the planning algorithms in a domain by our choice
-\end{itemize}
 
 
 %---------------------------------------------------------------------
