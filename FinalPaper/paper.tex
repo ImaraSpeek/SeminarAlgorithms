@@ -85,6 +85,16 @@ The baseline test in \cite{little2007probvsreplan} evaluates the competition pro
 	\item Describe the determinization, or explain
 \end{itemize}
 
+\subsection{Planning problem}
+\begin{itemize}
+	\item Describe the MDP finite horizon planning problem (usefull for modelling nearly inifinite processes)
+	\item reason about the \emph{augmented state space} of M(H), which is a set \emph{S x (0, ... , H)} of state number of steps-to-go pairs
+	\item Describe reward heuristic
+	\item Solving M(H) means finding a policy: a rule for selecting actions in augmented states so that executing the actions recommended by the policy starting in the initial state will accumulate the largest exected reward over H steps time
+	\item The challenge or large branching factors (induced by natural dynamic)
+\end{itemize}
+
+
 %---------------------------------------------------------------------
 
 \section{Domain description}
@@ -156,7 +166,7 @@ FF-Replan participated in IPPC-04 (and IPPC-06) solving problems that had been s
 	\item Introduce the current state of the art papers that use deterministic approaches for probablistic domains dealing with uncertainty
 \end{itemize}
 
-\subsubsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+\subsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
 
 Hindsight optimization is an online technique that evaluates one-step-reachable
 states by sampling future outcomes to generate multiple non-stationary planning
@@ -164,8 +174,7 @@ problems which are deterministic and can be used using search. It re-interprets
 FF-Replan's~\cite{FFReplan} strategy randomly generating a set of non-stationary
 determinized problems and combining their solutions.
 
-\subsubsection{Improving Determinization in Hindsight for Online Probabilistic Planning (2010)~\cite{yoon2010improving}}
-
+\subsection{Improving Determinization in Hindsight for Online Probabilistic Planning (2010)~\cite{yoon2010improving}}
 Hindsight optimization has enjoyed some success for online probabilistic
 planning. Although it has proven to be effective for many domains, it is
 computationally expensive. This paper presents significant improvements.  1) a
@@ -173,8 +182,8 @@ method for detecting potential useful actions, 2) exploit determinism in the
 domain by reusing relevant plans, 2) improves action evaluation by increasing
 the chance that at least one deterministic plan reaches a goal.
 
-\subsubsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
-
+\subsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
+% might not be necessary?
 Graphplan is a successful planning algorithm for classical STRIPS domains. This
 paper explores the extend it can be used in \emph{probabilistic} domains. The
 paper discusses two variations of Graphplan: PGraphplan and TGraphplan.
@@ -182,9 +191,10 @@ PGraphplan produces an optimal plan, while TGraphplan produces a sub-optimal
 plan but it has increased speed. By comparing the speed and quality of the
 two planners the authors are able to estimate how far they are from the ideal.
 
-\subsubsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
+%\subsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
+% not necessary?
 
-\subsubsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
+\subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
 
 For household robot planning, it appears easy, but actually involves
 uncertainty. For tidying things up objects might not be there, or sensing
@@ -194,7 +204,7 @@ partially observable open domains This paper looks into conditions for
 classical planning in a replanning loop in order to solve nondeterministic
 partially observable open domains.
 
-\subsubsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\cite{martin2013progressive}}
+\subsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\cite{martin2013progressive}}
 
 In this paper a probabilistic plan graph heuristic is described which computes
 information about the interaction between actions and between propositions.
@@ -204,14 +214,70 @@ for high probability, non-branching seed plans. These plans are then used in
 a planning and scheduling system that handles unexpected outcomes by runtime
 replanning.
 
-\subsubsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
+%\subsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
+% I don't think one is valuable
 
-\subsubsection{Reverse Iterative Deepening for Finite-Horizon MDPs with Large Branching Factors (2012)~\cite{kolobov2012glutton}}
-The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP M(H) for a smaller horizon h.  Incrementally solving the sequence M(1), M(2) forms the basis of LR\textsuperscript{2}TDP. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value h' for which already a heuristic value V is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving M(h-1). The max-reward computation relies on knowing the maximum reward any action can yield in any state or an upper bound on it.
+%---------------------------------------------------------------------------------------------------------------------------
 
-%TODO still have to describe the Glutton variation on LR2TDP
+\subsection{Reverse Iterative Deepening for Finite-Horizon MDPs with Large Branching Factors (2012)~\cite{kolobov2012glutton}}
+The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP $M(H)$ for a smaller horizon $h$. Incrementally solving the sequence $M(1)$, $M(2)$ forms the basis of LR\textsuperscript{2}TDP\@. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value $h'$ for which already a heuristic value $V$ is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving $M(h-1)$. The max-reward computation relies on knowing the maximum $R_{max}$ any action can yield in any state or an upper bound on it.
 
-\subsubsection{Probabilistic planning vs Replanning}
+\subsubsection{LRTDP}
+Using goal oriented MDPs, the \emph{Labelled Real-Time Dynamic Programmer} (LRTDP) operates a series of trials starting from $s_0$.
+
+\begin{itemize}
+	\item Trials start at $s_0$
+	\item Choose best action greedily in the current state based on current $V$
+	\item Perform  Bellman backup on the current state
+	\item Sample the outcome as the chosen action
+	\item Transition to the new state
+	\item Repeat until a goal, dead end or converged state is reached
+	\item After trial, special convergence check on all states in the trial is performed to prove the convergence of these values
+\end{itemize}
+
+\subsubsection{LRTDP-FH}
+
+Adapting LRTDP to a finite horizon MDP \emph{M(H)} requires to let each trial start at ($s_0$) and run for at most H time steps. A steps $H$ steps away from $s_0$ would translate to goals in a goal-oriented MDP. However, it's anytime performance to meet the demands of a dynamic environment is not very good, creating the need for a more sophisticated approach \cite{kolobov2012glutton}.
+
+\subsubsection{LR\textsuperscript{2}TDP}
+
+LR\textsuperscript{2}TDP uses \emph{reverse iterative deepening} and LRTDP-FH to solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$, in that order. It first decides how to act optimally in ($s_0$, 1), equivalent to solving M(1) , then ($s_0$, 2), equivalent to solving $M(2)$, eventually solving $M(H)$ or running out of time halting a $M(h')$ where $h' < H$. This incremental effort allows for reusing state values computed in previous states, so it memorizes all values and solves for smaller horizons by backchaining from the goal LRTDP-FH iterates over search depth while LR\textsuperscript{2}TDP iterates over the distance from the horizon and is likely to be better because:
+
+ \begin{itemize}
+	\item In many MDPs, the optimal policy $M(h)$ for some $h < H$ is near optimal for M(H), it thus may have a solution when stopped prematurely
+	\item it's trials are very short because backchaining from the goal leads to a lots of convergence
+	\item It optimally memorizes a large fraction of augmented states to save memory
+	\item a large fraction of state space may be unreachable from $s_0$ and it avoid storing information it does not need
+	\item it should however use a heuristic to treat states that has never been encountered when stopped prematurely, could be a fall back or a default action.
+\end{itemize}
+
+\subsubsection{GLUTTON}
+
+Glutton uses the \emph{Max-Reward} heuristic that relies on knowing the maximum reward $R_{max}$ any action can yield in a state or an upper bound on it. Large branching factors induce that the computation of the Bellman Backups becomes prohibitively expensive. Glutton uses the following mechanisms to optimize for large branching factors:
+
+\begin{itemize}
+	\item Subsampling the transition function, is not enough to decrease the amount of computations yet
+	\item Separating out Natural Dynamics: to reuse variable samples when generator successors for multiple actions, by separating the actions' effects into natural dynamics (\emph{exogenous}), those due to the action itself (\emph{pure effects}) and those do a mix of both.
+	\item Caching the transition function samples: as LR\textsuperscript{2}TDP populates the state-value hash table lazily, Glutton uses  this memory as a cache for samples from the transition function, so it doesn't have to regenerate the action when encountering the same $(s,h)$ pair. When full, it chooses state-action pars for eviction ans replacement randomly.
+	\item Default policies: Glutton uses 3 tricks to determine a policy when stopped prematurely. It compares the optimal action from a $h'$ with a simple cyclic policy or a complete random policy and chooses the best of these based on the reward.
+\end{itemize}
+
+%---------------------------------------------------------------------------------------------------------------------------
+
+\subsection{LRTDP vs. UCT for Online Probabilistic Planning\cite{kolobov2012gourmand}}
+During IPPC-2011 1 out of 5 planners used a LRTDP-based system and managed to outperform three other planners using the dominant algorithm for probabilistic planning: UCT. This caused to wonder whether LRTDP planners could outperform UCT based systems.  UCT forces an expert to guess a non-shortsighted lookahead value for which it should be able to converge on encountered states. Choosing this value can have very bad consequences and its existence causes the UCT to require some input, taking away from its autonomicity. At the IPPC-2011 GLUTTON was an offline LRTDP based planner that came second. As PROST employed UCT in an online manner, GOURMAND is an online adaptation of the GLUTTON algorithm to test whether LRTDP performs better if it is employed online.
+
+UCT picks an action based on it current quality estimate and an \emph{exploration term} which forces the planner to choose actions that have rarely been tried in the past. This makes UCT suitable for a wider scale of scenarios but also implies an unreliable termination condition.
+
+Because real world domains contain Natural Dynamics that introduce large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of state the planner may never reach in a lifetime. Such problems are far better solved using online planners by finding a $\tau$* or an approximation for the current state, executing it and repeating. This is done by choosing a certain lookahead  L and solving MDP \emph{M\textsubscript{s}(L)} to solve \emph{M\textsubscript{0}(H)} where L $<$ H and then select \emph{$\pi$*\textsubscript{L}(s, L)} recommended by the optimal policy. This lookahead value is determined using the per-process time constraint.
+
+\subsubsection{GOURMAND}
+In contrast to GLUTTON, GOURMAND always makes an informed choice in any state where it ends up when the time T allocated for solving the MDP runs out because of the online fashion it uses LRTDP. GOURMAND first divides the time among all remaining epochs, determines the largest lookahead L for which it can almost certainly solve any remaining epoch if T is assigned.  It then checks if it can solve even for a larger lookahead L by taking away a small configuration time from future epochs  while still guaranteeing that it can solve for Lookahead L in each of them. This was GOURMAND adaptively picks a good lookahead value at each desicion epoch given the per-process constraint T. This can only be achieved by knowing how long it takes for LRTDP to solve a state for certain lookahead values. It uses LR\textsuperscript{2}TDP to collect this data. This version of LRTDP is more efficient because of the early convergences and it allows measuring how long on average the solving of a task takes. GOURMAND uses the same engineering optimizations to to handle evaluate actions, iterating over the successors of s under a by the Bellman Backups. GOURMAND eventually outperforms both GLUTTON and PROST, the winner of the IPPC-11\cite{keller2012prost}.
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Probabilistic planning vs Replanning}
 Inspired by the FF-Replan entrance in the IPPC competition, this paper described a probabilistic interestingness quality of domains. It then compares probabilistic planners with replanners in the different domains to draw conclusions. Classical planning with replanning upon failure when there is so little or so much uncertainty about the world that it is not worth modelling and reasoning about or when goals dynamically change or when the problem is too large to solve at once. Probabilistic planners are more appropriate when avoiding irreparable or costly failures. Probabilistic planning computes a plan that can handle all foreseeable contingencies and is preferable for quick reactions in closed control loops.
 
 The following structural properties are identified for comparing probabilistic planning with replanning:
@@ -246,6 +312,8 @@ Following existing domains were said to be probabilistically interesting:
 \end{itemize}
 
 They conclude by stating that the negative perception of probabilistic planning by the ICAPS community was inaccurate. They state that a synthesis of planning and replanning techniques could make a larger number of probabilistic planning problems practicably solvable than is currently possible.
+
+
 
 
 %---------------------------------------------------------------------
