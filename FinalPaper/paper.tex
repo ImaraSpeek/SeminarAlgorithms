@@ -240,7 +240,7 @@ The navigation domain represents a grid in which a robot must reach a goal. Ever
 %ADD IMAGE HERE
 
 \subsubsection{Traffic domain}
-This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upperbound of 2\textsuperscript{ (\# of intersections)}.
+This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upper bound of $2^{\#~of~intersections}$.
 
 %ADD IMAGE HERE
 
@@ -269,7 +269,12 @@ replanning planners.
 
 The traffic domain describes a crossroad with traffic lights, modelled as
 cells. Either the north to south road has a green light, the west to east road
-or all lights are red.
+or all lights are red. The model uses a finite state machine that handles the
+lights so that the lights are never green at the same time. This would be the
+only dangerous situation on the crossroad. The difficulty in this domain is
+the number of states, which grows exponentially with the number of cells.
+Besides that it is an uninteresting probabilistic problem because it does
+not satisfy the probabilistic interesting test.
 
 \subsection{Baseline test for Probabilistic Interesting domains}
 
