@@ -114,39 +114,13 @@ Translating finite horizon MDPs to goal-oriented domains results ends up in all 
 
 \subsection{Planning algorithms}
 \subsubsection{Replanning}
-
-An Replanning Planner takes a probabilistic problem and tries to solve it with
-replanning. First the problem is determinized, a compilation from a
-probabilistic problem to a deterministic problem. This deterministic problem
-be solved by a classical planner which returns a plan. The Replanner then
-executes the plan. If it ends up in a state which is different from the plan,
-it executes the classical planner to get a new plan. This is repeated until a
-goal is reached.
-
-In this paper we use FF-Replan as a representative replanning planner.
+A replanner is a planner that takes a problem as input, plans a state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again untill it has reached a goal or dead-end state. For our paper have chosen to evaluate FF-Replan \cite{FFReplan}, the winner of IPPC-04 and unenrolled winner of IPPC-06 as an inspiring, fairly simple planner that in our opinion is capable of employment in real-world domains. 
 
 \subsubsection{Probabilstic planning}
-In this paper we use Gourmand as a representative probabilistic planner, as
-it's the improved version of Glutton, the runner-up of the IPPC-11 competition.
+Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have choosen to compare FF-Replan to a state-of-the-art probabilistic planner: GOURMAND. GOURMAND is the online successor of the GLUTTON plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
 
 \subsection{Probabilistic Interestingness}
-
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring using replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Compeitions. We will then translate the most interesting domains to a complete "real-world" domain and evaluate them using the probabilistically interesting baseline test. This paper concludes on evaluation both planners using the translated domains.
-
-The competitor FF-Replan\cite{FFReplan} remembered the committee of the IPPC in 2004 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners.
-
-Following existing domains were said to be probabilistically interesting:
-
-\begin{itemize}
-	\item Drive
-	\item Exploding blocksworld
-	\item Pitchcatch
-	\item Schedule
-	\item Tireworld
-\end{itemize}
-
-A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties:
-
+After IPPC-06, a baseline test for \emph{probabilistically interesting} planning domains was proposed by Little and Thi\'ebauw \cite{little2007probvsreplan}.  Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
 % reference little & thiebauw again. Maybe also shortly define what all o, n, act etc. are.
 
 \begin{itemize}
@@ -154,6 +128,16 @@ A probabilistic planning problem is considered to be probabilistically interesti
 	\item there is at least on pair of distinct goal trajectories, $\tau$ and $\tau$ ', that share a common sequence of outcomes for the first n-1 outcomes, and where $\tau$\textsubscript{n} and $\tau$'\textsubscript{n} are distinct outcomes of the same action; and
 	\item there exist two distinct goal trajectories $\tau$ and $\tau$' and outcome o $\in$ $\tau$ and o' $\in$ $\tau$' of two distinct actions a = act(o) and a'= act(o') such that executing a strictly decreases the maximum probability of reaching a state where a' can be executed.
 \end{itemize}
+
+%Following existing domains were said to be probabilistically interesting:
+%
+%\begin{itemize}
+%	\item Drive
+%	\item Exploding blocksworld
+%	\item Pitchcatch
+%	\item Schedule
+%	\item Tireworld
+%\end{itemize}
 
 %---------------------------------------------------------------------
 
