@@ -43,12 +43,10 @@ Delft University of Technology\\
 %--------------------------------------------------------------------
 
 \begin{abstract}
-	This paper argues that for many real life domains dead-ends are the end of
-	the world, and by for example human interaction the goal can still be
-	reached. By relaxing the definition of a dead-end, we argue that for many
-	real life domains a simpler planning algorithm, like FF-Replan, can be
-	sufficient, and that it's not needed to have newer and sophisticated
-	probabilistic planners.
+	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
+real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
+
+In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabistic problem against a state of the art probabilistic planner GOURMAND, the successor of the Labelled Real-Time Dynamic Probabilistic planner Glutton, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equavalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et. all we will evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
 %--------------------------------------------------------------------
@@ -84,14 +82,14 @@ augmented domains of IPPC-11. If these domains fail the baseline test proposed
 by Little et\@. all, they would translate to classical planning problems in
 disguise and could be easily solved by FF-Replan.
 
-\begin{itemize}
-	\item Describe probabilistic planning problem
-	\item Introduce planning for uncertainty
-	\item Describe how deterministic classical planners can be used in probabilistic domains and motivate why this is interesting
-	\item Introduce the qualities of replanning and the second planning algorithm
-	\item Describe the need for a new domain for real world applications
-	\item Describe the goal and tools used to reach this goal
-\end{itemize}
+%\begin{itemize}
+%	\item Describe probabilistic planning problem
+%	\item Introduce planning for uncertainty
+%	\item Describe how deterministic classical planners can be used in probabilistic domains and motivate why this is interesting
+%	\item Introduce the qualities of replanning and the second planning algorithm
+%	\item Describe the need for a new domain for real world applications
+%	\item Describe the goal and tools used to reach this goal
+%\end{itemize}
 
 %---------------------------------------------------------------------
 
@@ -155,6 +153,21 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 
 \subsection{FF-Replan}
 
+At the first international probabilistic planning competition IPPC-04, most entries were Markov Decision Processes. The winner, FF-Replan, however was based on deterministic planning techniques.
+
+FF-Replan is an action selection algorithm for online planning in probabilistic domains. Given a domain description, a goal and an initial state as a probabilistic planning problem, FF-Replan generates a deterministic planning problem. It determinizes the input domain at the start of the planning into a deterministic different domain. They consider two methods of determinization:
+\begin{enumerate}
+\item \emph{Single-outcome determinization}: selects one outcome for each probabilistic construct using a variety of heuristics. The performance strongly depends on the methods for choosing the outcomes.
+\item \emph{All-outcomes determinization}: considers every probabilistic outcome as a distinct deterministic action. For each possible outcome FF-Replan generates one seperate action for each effect. For nested probabilities, the all-outcomes procedure is applied recursively. This implies that FF-Replan will cease selecting actions whenever it enters a dead state. However when given no information, all probabilistic effects will be considered as equal which is a potential weakness.
+\end{enumerate}
+
+After determinization FF-Replan then uses the deterministic FF planner to compute an ordered plan for the generated deterministic problem. This process is repeated when countering an unexpected state until a goal state is reached. It maintains a partial state-action mapping using a hash-table which is initially empty. Whenever FF-Replan encounters a state which is not in the table, it determinizes the problem and synthesizes a plan using FF. It then simulates the plan according to the deterministic action definitions resulting in a state-action sequence whose pairs are put in the hash table. The first action of the plan is then executed in the environment, returning a new state. This partial policy is this produces in an online fashion. It would be valuable to look into incremental planning approaches that don't create a deterministic plan from scratch whenever an unexpected state is encountered or reusing previous planning effort.
+
+FF-Replan has some obvious shortcomings as it first determinizes the input domain, removing all probabilistic information from the problem and then synthesizes a plan. If an unexpected state should occur whilst executing, the planner replans in the same determinization. It also does not consider multiple potential effects if an action.
+
+By relying on search, FF-Replan could function with enormous speed and efficiency. However when dealing with difficult probabilistic problems attempting to span the spectrum of complexity ranging from deterministic problems to highly stochastic problems, FF-Replan is expected to come short. Because FF-Replan is developed hoping to inspire extensions and insight into the approach and planning domains, the authors are hoping to achieve this.
+
+
 \subsection{GOURMAND}
 
 The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP $M(H)$ for a smaller horizon $h$. Incrementally solving the sequence $M(1)$, $M(2)$ forms the basis of LR\textsuperscript{2}TDP\@. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value $h'$ for which already a heuristic value $V$ is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving $M(h-1)$. The max-reward computation relies on knowing the maximum $R_{max}$ any action can yield in any state or an upper bound on it.
@@ -211,9 +224,8 @@ In contrast to GLUTTON, GOURMAND always makes an informed choice in any state wh
 
 %---------------------------------------------------------------------
 
-\section{Domain Descriptions}
-
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et. all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
+\section{Domains}
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
 
 \subsection{IPPC-2011 Domains}
 
@@ -258,6 +270,7 @@ replanning planners.
 %---------------------------------------------------------------------
 
 \section{Future Experiment}
+\label{sec:experiment}
 
 \subsection{Setup}
 
@@ -277,53 +290,53 @@ replanning planners.
 
 \subsubsection{FF-H+}
 
-\subsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+%\subsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
+%
+%Hindsight optimization is an online technique that evaluates one-step-reachable
+%states by sampling future outcomes to generate multiple non-stationary planning
+%problems which are deterministic and can be used using search. It re-interprets
+%FF-Replan's~\cite{FFReplan} strategy randomly generating a set of non-stationary
+%determinized problems and combining their solutions.
 
-Hindsight optimization is an online technique that evaluates one-step-reachable
-states by sampling future outcomes to generate multiple non-stationary planning
-problems which are deterministic and can be used using search. It re-interprets
-FF-Replan's~\cite{FFReplan} strategy randomly generating a set of non-stationary
-determinized problems and combining their solutions.
+%\subsection{Improving Determinization in Hindsight for Online Probabilistic Planning (2010)~\cite{yoon2010improving}}
+%Hindsight optimization has enjoyed some success for online probabilistic
+%planning. Although it has proven to be effective for many domains, it is
+%computationally expensive. This paper presents significant improvements.  1) a
+%method for detecting potential useful actions, 2) exploit determinism in the
+%domain by reusing relevant plans, 2) improves action evaluation by increasing
+%the chance that at least one deterministic plan reaches a goal.
 
-\subsection{Improving Determinization in Hindsight for Online Probabilistic Planning (2010)~\cite{yoon2010improving}}
-Hindsight optimization has enjoyed some success for online probabilistic
-planning. Although it has proven to be effective for many domains, it is
-computationally expensive. This paper presents significant improvements.  1) a
-method for detecting potential useful actions, 2) exploit determinism in the
-domain by reusing relevant plans, 2) improves action evaluation by increasing
-the chance that at least one deterministic plan reaches a goal.
-
-\subsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
-% might not be necessary?
-Graphplan is a successful planning algorithm for classical STRIPS domains. This
-paper explores the extend it can be used in \emph{probabilistic} domains. The
-paper discusses two variations of Graphplan: PGraphplan and TGraphplan.
-PGraphplan produces an optimal plan, while TGraphplan produces a sub-optimal
-plan but it has increased speed. By comparing the speed and quality of the
-two planners the authors are able to estimate how far they are from the ideal.
+%\subsection{Probabilistic Planning in the Graphplan Framework (1999)~\cite{Blum99probabilisticplanning}}
+%% might not be necessary?
+%Graphplan is a successful planning algorithm for classical STRIPS domains. This
+%paper explores the extend it can be used in \emph{probabilistic} domains. The
+%paper discusses two variations of Graphplan: PGraphplan and TGraphplan.
+%PGraphplan produces an optimal plan, while TGraphplan produces a sub-optimal
+%plan but it has increased speed. By comparing the speed and quality of the
+%two planners the authors are able to estimate how far they are from the ideal.
 
 %\subsection{Compiling Conformant Probabilistic Planning Problems into Classical Planning (2013)~\cite{taig2013conformant}}
 % not necessary?
 
-\subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
+%\subsection{How Much Does a Household Robot Need To Know In Order To Tidy Up? (2013)~\cite{nebel2013much}}
+%
+%For household robot planning, it appears easy, but actually involves
+%uncertainty. For tidying things up objects might not be there, or sensing
+%operations might tell things wrong. This paper looks into conditions for
+%classical planning in a replanning loop in order to solve nondeterministic
+%partially observable open domains This paper looks into conditions for
+%classical planning in a replanning loop in order to solve nondeterministic
+%partially observable open domains.
 
-For household robot planning, it appears easy, but actually involves
-uncertainty. For tidying things up objects might not be there, or sensing
-operations might tell things wrong. This paper looks into conditions for
-classical planning in a replanning loop in order to solve nondeterministic
-partially observable open domains This paper looks into conditions for
-classical planning in a replanning loop in order to solve nondeterministic
-partially observable open domains.
-
-\subsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\cite{martin2013progressive}}
-
-In this paper a probabilistic plan graph heuristic is described which computes
-information about the interaction between actions and between propositions.
-This information is used to find better relaxed plans to compute the
-probability of success. This information guides a forward state space search
-for high probability, non-branching seed plans. These plans are then used in
-a planning and scheduling system that handles unexpected outcomes by runtime
-replanning.
+%\subsection{Progressive heuristic search for probabilistic planning based on interaction estimates (2013)~\cite{martin2013progressive}}
+%
+%In this paper a probabilistic plan graph heuristic is described which computes
+%information about the interaction between actions and between propositions.
+%This information is used to find better relaxed plans to compute the
+%probability of success. This information guides a forward state space search
+%for high probability, non-branching seed plans. These plans are then used in
+%a planning and scheduling system that handles unexpected outcomes by runtime
+%replanning.
 
 %\subsection{Translation based approaches to probabilistic planning (2013)~\cite{taig2013translation}}
 % I don't think one is valuable
