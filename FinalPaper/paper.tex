@@ -55,7 +55,34 @@ Delft University of Technology\\
 
 \section{Introduction}
 
-The baseline test in \cite{little2007probvsreplan} evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. We would like to carefully analyze the credibility of these domains in the real world and evaluate the worth of FF-Replan vs a state of the art probabilistic planner: Gourmand \cite{kolobov2012gourmand}.
+Since the first incorporation of the International Probabilistic Planning
+Competition (IPPC), it has undergone radical changes. Dominating planners
+of previous incorporations had a strong focus on goal-oriented MDPs,
+determinizing and using powerful classical planners (e.g. FF
+\cite{Hoffmann01theff}) and replanning. New benchmarks have demonstrated
+weaknesses in existing solution techniques.
+
+Little and Thi\'ebaux have developed a baseline test in
+\cite{little2007probvsreplan} to evaluate the problems of the fifth International
+Planning Competition (IPC-5). This test determines if a planning problem is
+`probabilistically interesting'. Problems that fail this test are classical
+planning problems in disguise. Knowing this it is easy to design a problem
+where a replanner performs badly or incredibly well.
+
+The IPPC-11 introduced Relation Dynamic Influence Diagram Language (RDDL),
+which can design domains that are more probabilistically interesting. The top
+performers were PROST \cite{keller2012prost} and Glutton
+\cite{kolobov2012glutton}.
+
+While it is interesting to make problems harder and invent better planning
+algorithms to solve those probabilistic complex problems, one must not forget
+if the problem makes sense in the real world.
+
+The main contribution of this paper is an evaluation of FF-Replan versus a
+probabilistically state of the art planner GOURMAND in the realistically
+augmented domains of IPPC-11. If these domains fail the baseline test proposed
+by Little et\@. all, they would translate to classical planning problems in
+disguise and could be easily solved by FF-Replan.
 
 \begin{itemize}
 	\item Describe probabilistic planning problem
