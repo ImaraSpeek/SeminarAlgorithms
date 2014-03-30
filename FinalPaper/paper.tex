@@ -95,15 +95,11 @@ disguise and could be easily solved by FF-Replan.
 
 %---------------------------------------------------------------------
 
-\section{Problem Formulation}
+\section{Background}
 
-\subsection{Markov Decision Process}
+\subsubsection{Goal-oriented MDPs. }The problems in IPPC-04 were specified using the Planning Domain Description Language (PPDLL). PPDDL specifies a probabistic planning problem as a set of probabilistic action sets and an initial and goal state description in which every action has a certain probability assigned to it \cite{FFReplan}. The planners from IPPC-04 were evaluated on how many trials reached the goal per problem and the average number of actions selected when succesfull. These planning problems were however relatively easy to solve as they did not account for \emph{natural dynamics} and/or large branching factors that occur in more realtistic systems \cite{kolobov2012glutton}. FF-Replan \cite{FFReplan}, as specified in Section  kindly remembered the committee of the IPPC-04 that the specified planning problems that contained no dead-ends were fairly easy to solve using relatively simple tools to handle with uncertainty. 
 
-\subsubsection{Goal-oriented MDPs}
-
-\subsubsection{MDP with Finite Horizon}
-
-\subsection{Planners}
+\subsubsection{MDP with Finite Horizon. }IPPC
 
 \subsubsection{Classical Planners}
 
@@ -111,8 +107,8 @@ A planner tries to find a sequence of actions such that a goal or maximum
 reward is achieved. A classical planning problem consists out of states,
 actions, conditions and a goal state.
 
-\subsubsection{Probabilistic Planning} Classical Planners expect a
-deterministic world. For many Real World applications actions happen with a
+\subsubsection{Probabilistic Planning} 
+Classical Planners expect a deterministic world. For many Real World applications actions happen with a
 certain probability. This kind of Probabilistic Planning Problems can be
 described with Markov Decision Processes (MDPs). For the purpose of our
 analysis we define the problem as:
