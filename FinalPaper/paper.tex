@@ -75,8 +75,8 @@ performers were PROST \cite{keller2012prost} and Glutton
 \cite{kolobov2012glutton}.
 
 While it is interesting to make problems harder and invent better planning
-algorithms to solve those probabilistic complex problems, one must not forget
-if the problem makes sense in the real world.
+algorithms to solve those probabilistic complex problems, we evaluate whether
+or not these problems are coherent with real-world situations.
 
 The main contribution of this paper is an evaluation of FF-Replan versus a
 probabilistically state of the art planner GOURMAND in the realistically
@@ -130,7 +130,7 @@ analysis we define the problem as:
 		and $\sum_{o \in out(a)} \Pr(o) = 1$ for all $a$
 \end{itemize}
 
-% depends if we should include this, what we tell about Gourmand / RDDL...
+% depends if we should include this, what we tell about GOURMAND / RDDL...
 
 Besides a single or multiple goals, some planning problems also include a
 reward function: For every $s \in S$, $s' \in S$, and $a \in A(s)$,
@@ -142,7 +142,7 @@ the horizon.
 A probabilistic planner takes the probabilistic planning problem as input and
 builds and outputs a plan for the problem.
 
-In this paper we use Gourmand as a representative probabilistic planner, as
+In this paper we use GOURMAND as a representative probabilistic planner, as
 it's the improved version of Glutton, the runner-up of the IPPC-11 competition.
 
 \subsubsection{Replanning}
@@ -166,6 +166,7 @@ In this paper we use FF-Replan as a representative replanning planner.
 
 
 \subsection{Planning problem}
+
 \begin{itemize}
 	\item Describe the MDP finite horizon planning problem (useful for modelling nearly infinite processes)
 	\item reason about the \emph{augmented state space} of M(H), which is a set \emph{S x (0, ... , H)} of state number of steps-to-go pairs
@@ -176,7 +177,7 @@ In this paper we use FF-Replan as a representative replanning planner.
 
 \subsection{Probabilistic Interestingness}
 
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring using replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or Gourmand prevailed during the International Probabilistic Planning Compeitions. We will then translate the most interesting domains to a complete "real-world" domain and evaluate them using the probabilistically interesting baseline test. This paper concludes on evaluation both planners using the translated domains.
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring using replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Compeitions. We will then translate the most interesting domains to a complete "real-world" domain and evaluate them using the probabilistically interesting baseline test. This paper concludes on evaluation both planners using the translated domains.
 
 The competitor FF-Replan\cite{FFReplan} remembered the committee of the IPPC in 2004 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners.
 
@@ -206,7 +207,8 @@ A probabilistic planning problem is considered to be probabilistically interesti
 
 \subsection{FF-Replan}
 
-\subsection{Gourmand}
+\subsection{GOURMAND}
+
 The IPPC-2011 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP $M(H)$ for a smaller horizon $h$. Incrementally solving the sequence $M(1)$, $M(2)$ forms the basis of LR\textsuperscript{2}TDP\@. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value $h'$ for which already a heuristic value $V$ is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving $M(h-1)$. The max-reward computation relies on knowing the maximum $R_{max}$ any action can yield in any state or an upper bound on it.
 
 \subsubsection{LRTDP}
@@ -262,15 +264,15 @@ In contrast to GLUTTON, GOURMAND always makes an informed choice in any state wh
 %---------------------------------------------------------------------
 
 \section{Domain Descriptions}
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or Gourmand prevailed during the International Probabilistic Planning Compeitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Compeitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
 
 \subsection{IPPC-2011 Domains}
-The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et. all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-2011 responded by introducing more realistic MDPs and evluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies. 
+The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et. all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-2011 responded by introducing more realistic MDPs and evluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
 
-GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however midly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors. 
+GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however midly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
 
 \subsubsection{Navigation domain}
-The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of dissapearinng. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain. 
+The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of dissapearinng. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
 
 %ADD IMAGE HERE
 
@@ -280,7 +282,7 @@ This domain represents a simple binary version of the cell transition model (CTM
 %ADD IMAGE HERE
 
 %\subsection{IPPC-04 Domains}
-%Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes. 
+%Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes.
 %
 %\subsubsection{}
 %
