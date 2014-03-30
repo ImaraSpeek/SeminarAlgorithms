@@ -149,10 +149,10 @@ In this paper we use FF-Replan as a representative replanning planner.
 %---------------------------------------------------------------------
 
 \section{Domain description}
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring using replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or Gourmand prevailed during the International Probabilistic Planning Compeitions. We will then translate the most interesting domains to a complete "real-world" domain and evaluate them using the probabilistically interesting baseline test. This paper concludes on evaluation both planners using the translated domains.
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners\cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or Gourmand prevailed during the International Probabilistic Planning Compeitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
 
 \subsection{Interesting domains}
-The competitor FF-Replan\cite{FFReplan} remembered the committee of the IPPC in 2004 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners.
+The competitor FF-Replan\cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test evaluates the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners.
 
 Following existing domains were said to be probabilistically interesting:
 \begin{itemize}
@@ -198,6 +198,7 @@ FF-Replan participated in IPPC-04 (and IPPC-06) solving problems that had been s
 %---------------------------------------------------------------------
 
 \section{Empirical evaluation}
+\label{sec:experiment}
 
 \begin{itemize}
 	\item Describe the experiment setup
