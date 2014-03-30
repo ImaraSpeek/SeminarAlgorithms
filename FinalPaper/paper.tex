@@ -96,8 +96,8 @@ disguise and could be easily solved by FF-Replan.
 %---------------------------------------------------------------------
 
 \section{Problem formulation}
-To evaluate FF-Replan and GOURMAND in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion. 
-Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the basline test introduced by Little et. all \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs. a state of the art probabilistic planner: GOURMAND. 
+To evaluate FF-Replan and GOURMAND in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
+Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et. all \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs. a state of the art probabilistic planner: GOURMAND.
 
 
 
@@ -106,15 +106,15 @@ Current finite horizon MDP problems as introduced in IPPC-11 are simplified and 
 \section{Background}
 
 \subsection{Planning problems}
-\subsubsection{Classical Planning problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. In classical planning problems the environment is assumed to \emph{deterministic, observable and state}. Classical planning problems consists out of states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved. 
+\subsubsection{Classical Planning problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. In classical planning problems the environment is assumed to \emph{deterministic, observable and state}. Classical planning problems consists out of states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
 
-\subsubsection{Probabilistic Planning problems} 
-Real-World applications are far from deterministic, induced by natural dynamics and chance. To accomodate for Real-World domains probabilistic planning problems were introduced.  These systems can be described using \emph{Markov Decision Processes} (MDPs) and can account for observable uncertainty. Probabilistic planning problems can be solved by evaluating iterations and creating policies to reach a goal state, either online or offline. 
+\subsubsection{Probabilistic Planning problems}
+Real-World applications are far from deterministic, induced by natural dynamics and chance. To accommodate for Real-World domains probabilistic planning problems were introduced.  These systems can be described using \emph{Markov Decision Processes} (MDPs) and can account for observable uncertainty. Probabilistic planning problems can be solved by evaluating iterations and creating policies to reach a goal state, either online or offline.
 
 \subsection{Problem domains}
 \subsubsection{Goal-oriented MDPs. }The problems in IPPC-04 were specified using the Planning Domain Description Language (PPDLL). PPDDL specifies a probabistic planning problem as a set of probabilistic action sets and an initial and goal state description in which every action has a certain probability assigned to it \cite{FFReplan}. These MDPs are of the form $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transaction $\mathit{(s, a, s')}$ for $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G, \rho)}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state, $\mathit{G \subseteq S}$ is the set of goal states and $\mathit{0 < \rho < 1}$ is a probability threshold \cite{teichteil2010incremental}.
 
- The planners from IPPC-04 were evaluated on how many trials reached the goal per problem and the average number of actions selected when succesfull. These planning problems were however relatively easy to solve as they did not account for \emph{natural dynamics} and/or large branching factors that occur in more realtistic systems \cite{kolobov2012glutton}. FF-Replan \cite{FFReplan}, as specified in Section \ref{sec:planners} kindly remembered the committee of the IPPC-04 that the specified planning problems that contained no dead-ends were fairly easy to solve using relatively simple tools to handle with uncertainty. 
+ The planners from IPPC-04 were evaluated on how many trials reached the goal per problem and the average number of actions selected when successful. These planning problems were however relatively easy to solve as they did not account for \emph{natural dynamics} and/or large branching factors that occur in more realistic systems \cite{kolobov2012glutton}. FF-Replan \cite{FFReplan}, as specified in Section \ref{sec:planners} kindly remembered the committee of the IPPC-04 that the specified planning problems that contained no dead-ends were fairly easy to solve using relatively simple tools to handle with uncertainty.
 
 \subsubsection{MDPs with Finite Horizon. }IPPC-11 decided to respond by introducing more realistic MDPs and their evaluation criteria by using MDPs with finite horizons. The planning problems are defined as tuples of the form \\ $\mathit{M\textsubscript{s0}(H) = \langle \langle S, A, T, R, s\textsubscript{0} \rangle , H \rangle }$ where $\mathit{S}$ s a finite set of states, $\mathit{A}$ a finite set of actions, $\mathit{T}$ is the transition function, similar to $\mathit{Pr}$ in the goal oriented MDP. $\mathit{R}$ represents the transitioning reward, $\mathit{s\textsubscript{0}}$ and $\mathit{H}$ is the number of decision epochs after which the process stops. Solving $\mathit{M(H)}$ means finding a policy for executing recommended state from the initial state over $\mathit{H}$ decision epochs \cite{kolobov2012gourmand}.
 
@@ -122,10 +122,10 @@ Translating finite horizon MDPs to goal-oriented domains results ends up in all 
 
 \subsection{Planning algorithms}
 \subsubsection{Replanning}
-A replanner is a planner that takes a problem as input, plans a state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again untill it has reached a goal or dead-end state. For our paper have chosen to evaluate FF-Replan \cite{FFReplan}, the winner of IPPC-04 and unenrolled winner of IPPC-06 as an inspiring, fairly simple planner that in our opinion is capable of employment in real-world domains. 
+A replanner is a planner that takes a problem as input, plans a state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again until it has reached a goal or dead-end state. For our paper have chosen to evaluate FF-Replan \cite{FFReplan}, the winner of IPPC-04 and unenrolled winner of IPPC-06 as an inspiring, fairly simple planner that in our opinion is capable of employment in real-world domains.
 
-\subsubsection{Probabilstic planning}
-Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have choosen to compare FF-Replan to a state-of-the-art probabilistic planner: GOURMAND. GOURMAND is the online successor of the GLUTTON plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
+\subsubsection{Probabilistic planning}
+Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have chosen to compare FF-Replan to a state-of-the-art probabilistic planner: GOURMAND. GOURMAND is the online successor of the GLUTTON plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
 
 \subsection{Probabilistic Interestingness}
 After IPPC-06, a baseline test for \emph{probabilistically interesting} planning domains was proposed by Little and Thi\'ebauw \cite{little2007probvsreplan}.  Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
@@ -212,15 +212,18 @@ In contrast to GLUTTON, GOURMAND always makes an informed choice in any state wh
 %---------------------------------------------------------------------
 
 \section{Domain Descriptions}
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Compeitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
+
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et. all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
 
 \subsection{IPPC-2011 Domains}
-The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et. all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-2011 responded by introducing more realistic MDPs and evluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
 
-GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. Prost however mildly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors. 
+The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et. all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-2011 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
+
+GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
 
 \subsubsection{Navigation domain}
-The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of dissapearinng. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
+
+The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
 
 %ADD IMAGE HERE
 
@@ -268,12 +271,11 @@ replanning planners.
 
 \section{Related Work}
 
-\subsubsection{RFF}. Also uses an incremental plan aggregation, but offline similar to GLUTTON. 
+\subsubsection{RFF}. Also uses an incremental plan aggregation, but offline similar to GLUTTON.
 
 \subsubsection{PROST}
 
 \subsubsection{FF-H+}
-
 
 \subsection{Probabilistic Planning via Determinization in Hindsight (2008)~\cite{yoon2008probabilistic}}
 
