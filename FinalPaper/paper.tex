@@ -63,11 +63,11 @@ determinizing and using powerful classical planners (e.g. FF
 weaknesses in existing solution techniques.
 
 Little and Thi\'ebaux have developed a baseline test in
-\cite{little2007probvsreplan} to evaluate the IPC-5 problems. This
-test determines if a planning problem is `probabilistically interesting'.
-Problems that fail this test are classical planning problems in disguise.
-Knowing this it is easy to design a problem where a replanner performs badly
-or incredibly well.
+\cite{little2007probvsreplan} to evaluate the problems of the fifth International
+Planning Competition (IPC-5). This test determines if a planning problem is
+`probabilistically interesting'. Problems that fail this test are classical
+planning problems in disguise. Knowing this it is easy to design a problem
+where a replanner performs badly or incredibly well.
 
 The IPPC-11 introduced Relation Dynamic Influence Diagram Language (RDDL),
 which can design domains that are more probabilistically interesting. The top
@@ -78,10 +78,11 @@ While it is interesting to make problems harder and invent better planning
 algorithms to solve those probabilistic complex problems, one must not forget
 if the problem makes sense in the real world.
 
-The main contribution of this paper is an evaluation of the domains used in
-IPPC-11 and see if they can be adjusted so they fail the baseline test for
-probabilistic interestingness, which might make them more suitable for
-replanning planners.
+The main contribution of this paper is an evaluation of FF-Replan versus a
+probabilistically state of the art planner GOURMAND in the realistically
+augmented domains of IPPC-11. If these domains fail the baseline test proposed
+by Little et\@. all, they would translate to classical planning problems in
+disguise and could be easily solved by FF-Replan.
 
 \begin{itemize}
 	\item Describe probabilistic planning problem
