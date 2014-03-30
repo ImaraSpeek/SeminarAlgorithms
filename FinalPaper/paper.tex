@@ -292,15 +292,15 @@ This domain represents a simple binary version of the cell transition model (CTM
 
 \subsubsection{Navigation domain}
 
-In the navigation problem there can be a probability that the robot disappears
-after entering a cell. The disappearing action is a dead end. Disappearing here
-is a metaphor for the robot breaking down, or that it disappears from the radar
-with a base station. In many of such cases it's a big problem, but can be
-repaired with a high cost. In the navigation domain a step to another cell has
-a cost of 1. If instead of a dead end the cost is $n$ (e.g. 5) instead of 1,
-which represents the cost of repairing the robot, we remove dead ens, which
-makes it better for replanning planners.
-
+In the navigation problem there is a chance that the robot disappears after
+entering a cell. The disappearing action is a dead end. Disappearing here is a
+metaphor for the robot breaking down, or that it disappears from the radar with
+the base station. In many of such cases it's a big problem, but can be repaired
+with a high cost. In the navigation domain a step to another cell has a cost of
+1. If instead of a dead end the cost is $n$ (e.g. 5) instead of 1, which
+represents the cost of repairing the robot, dead ends are removed. Without dead
+ends the problem becomes probabilistic uninteresting, which makes it suitable for
+replanning planners.
 
 \subsection{Baseline test for Probabilistic Interesting domains}
 
