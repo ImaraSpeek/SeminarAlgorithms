@@ -50,7 +50,7 @@ Delft University of Technology\\
 	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
 real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
 
-In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner \textsc{Gourmand}, the successor of the Labelled Real-Time Dynamic Probabilistic planner \textsc{Glutton}, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et all\. we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
+In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner \textsc{Gourmand}, the successor of the Labelled Real-Time Dynamic Probabilistic planner \textsc{Glutton}, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et al\. we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
 %--------------------------------------------------------------------
@@ -83,7 +83,7 @@ or not these problems are coherent with real-world situations.
 The main contribution of this paper is an evaluation of FF-Replan versus a
 probabilistically state of the art planner \textsc{Gourmand} in the realistically
 augmented domains of IPPC-11. If these domains fail the baseline test proposed
-by Little et all\., they would translate to classical planning problems in
+by Little et al\., they would translate to classical planning problems in
 disguise and could be easily solved by FF-Replan.
 
 %\begin{itemize}
@@ -100,7 +100,7 @@ disguise and could be easily solved by FF-Replan.
 \section{Problem formulation}
 
 To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
-Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et all.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
+Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
 
 
@@ -232,13 +232,13 @@ Because real world domains contain Natural Dynamics that introduce large branchi
 %---------------------------------------------------------------------
 
 \section{Domains}
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et al.'s baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section~\ref{sec:experiment}.
 
 \subsection{IPPC-11 Domains}
 
-The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et.\@ all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
+The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et al.\@ evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
 
-\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand} on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
+\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
 
 \subsubsection{Navigation}
 
