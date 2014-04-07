@@ -225,6 +225,8 @@ In contrast to GLUTTON, GOURMAND always makes an informed choice in any state wh
 %---------------------------------------------------------------------
 
 \section{Domains}
+
+% TODO we only look at IPPC-11 domains
 Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
 
 \subsection{IPPC-11 Domains}
@@ -233,16 +235,32 @@ The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the 
 
 GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
 
-\subsubsection{Navigation domain}
+\subsubsection{Navigation}
 
 The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
 
 %ADD IMAGE HERE
 
-\subsubsection{Traffic domain}
+\subsubsection{Traffic}
 This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upper bound of $2^{\#~of~intersections}$.
 
 %ADD IMAGE HERE
+
+\subsection{Elevators}
+
+In the elevators domain there are a number of elevators delivering passengers
+to either the top or bottom floor. Potential passengers arrive at any floor at
+a certain rate (depending on which floor). The elevators can only move in the
+direction it is indicating, so passengers know whether to board or not. The
+goal of the elevators is to transport as many as possible passengers to their
+destinations.
+
+\subsection{SysAdmin}
+
+The SysAdmin domain describes a network of connected servers. Each server has
+a probability that it shuts down, and if is not running, it has a probability
+to reboot. The probability that a server shuts down depends on the number of
+running connected servers.
 
 %\subsection{IPPC-04 Domains}
 %Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes.
@@ -251,9 +269,9 @@ This domain represents a simple binary version of the cell transition model (CTM
 %
 %\subsubsection{}
 
-\subsection{Real-World evaluation}
+\subsection{Real-World Domain Evaluation}
 
-\subsubsection{Navigation domain}
+\subsubsection{Navigation}
 
 In the navigation problem there is a chance that the robot disappears after
 entering a cell. The disappearing action is a dead end. Disappearing here is a
