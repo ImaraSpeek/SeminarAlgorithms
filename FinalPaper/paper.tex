@@ -283,7 +283,7 @@ represents the cost of repairing the robot, dead ends are removed. Without dead
 ends the problem becomes probabilistic uninteresting, which makes it suitable for
 replanning planners.
 
-\subsubsection{Traffic Domain}
+\subsubsection{Traffic}
 
 The traffic domain describes a crossroad with traffic lights, modelled as
 cells. Either the north to south road has a green light, the west to east road
@@ -293,6 +293,10 @@ only dangerous situation on the crossroad. The difficulty in this domain is
 the number of states, which grows exponentially with the number of cells.
 Besides that it is an uninteresting probabilistic problem because it does
 not satisfy the probabilistic interesting test.
+
+\subsubsection{Elevators}
+
+
 
 \subsection{Baseline test for Probabilistic Interesting domains}
 
