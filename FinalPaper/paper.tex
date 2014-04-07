@@ -315,7 +315,20 @@ output the achieved reward.
 
 \section{Related Work}
 
-\subsubsection{RFF}. Also uses an incremental plan aggregation, but offline similar to GLUTTON.
+In sections above we have described the GOURMAND planner and FF-Replan as two
+probabilistic planners of the IPPC competition.
+RFF~\cite{teichteil2010incremental} is an offline planner that generates a
+policy: for each reachable state it determines a plan to the goal. Like
+FF-Replan it uses determinization and FF\. FF returns an initial plan from the
+initial state to a goal state. For each state in the plan the successor states
+are added to the structure, after which Monte-Carlo sampling is used. States
+where the probability that they're reached is too low (below a threshold) are
+removed. The successor states are used as initial states in the next step. If
+FF fails to find a plan to the goal from this new state, the state is removed
+from the structure too. Results showed that RFF outperformed other competitors.
+A higher threshold means that RFF will generate more policies that are prone to
+replanning.
+
 
 \subsubsection{PROST}
 
