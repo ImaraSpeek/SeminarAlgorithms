@@ -56,35 +56,34 @@ In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenr
 %--------------------------------------------------------------------
 
 \section{Introduction}
+The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the then supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified. 
 
-Since the first the International Probabilistic Planning Competition (IPPC),
-problems have undergone radical changes. Dominating planners of previous
-incorporations had a strong focus on goal-oriented MDPs, determinizing and
-using powerful classical planners (e.g. FF \cite{Hoffmann01theff}) and
-replanning. New benchmark problems have demonstrated weaknesses in existing
-solution techniques.
+The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the goal oriented initial planning domains.  This shift in the current interesting domains caused the state-of-the-art planners to cope with the large branching factors that are introduced using finite horizon MDPs.
 
-Little and Thi\'ebaux have developed a baseline test in
-\cite{little2007probvsreplan} to evaluate the problems of the fifth International
-Planning Competition (IPC-5). This test determines if a planning problem is
-`probabilistically interesting'. Problems that fail this test are classical
-planning problems in disguise. Knowing this it is easy to design a problem
-where a replanner performs badly or incredibly well.
+This paper presents an overview of interesting domains and concurrent planners that were involved in the redefinition of an interesting planning problem. An interesting currently relevant domain is proposed and evaluated amongst previously defined domains. By using the probabilistic interestingness baseline test as introduced by Little et al. \cite{little2007probvsreplan} a recommendation will be made for the optimal planner to match this problem. 
 
-The IPPC-11 introduced Relation Dynamic Influence Diagram Language (RDDL),
-which can design domains that are more probabilistically interesting. The top
-performers were PROST \cite{keller2012prost} and \textsc{Glutton}
-\cite{kolobov2012glutton}.
+Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner. 
 
-While it is interesting to make problems harder and invent better planning
-algorithms to solve those probabilistic complex problems, we evaluate whether
-or not these problems are coherent with real-world situations.
 
-The main contribution of this paper is an evaluation of FF-Replan versus a
-probabilistically state of the art planner \textsc{Gourmand} in the realistically
-augmented domains of IPPC-11. If these domains fail the baseline test proposed
-by Little et al\., they would translate to classical planning problems in
-disguise and could be easily solved by FF-Replan.
+%Little and Thi\'ebaux have developed a baseline test in
+%\cite{little2007probvsreplan} to evaluate the problems of the fifth International
+%Planning Competition (IPC-5). This test determines if a planning problem is
+%`probabilistically interesting'. Problems that fail this test are classical
+%planning problems in disguise. Knowing this it is easy to design a problem
+%where a replanner performs badly or incredibly well.
+%While it is interesting to make problems harder and invent better planning
+%algorithms to solve those probabilistic complex problems, we evaluate whether
+%or not these problems are coherent with real-world situations.
+%The IPPC-11 introduced Relation Dynamic Influence Diagram Language (RDDL),
+%which can design domains that are more probabilistically interesting. The top
+%performers were PROST \cite{keller2012prost} and \textsc{Glutton}
+%\cite{kolobov2012glutton}.
+
+%The main contribution of this paper is an evaluation of FF-Replan versus a
+%probabilistically state of the art planner \textsc{Gourmand} in the realistically
+%augmented domains of IPPC-11. If these domains fail the baseline test proposed
+%by Little et al\., they would translate to classical planning problems in
+%disguise and could be easily solved by FF-Replan.
 
 %\begin{itemize}
 %	\item Describe probabilistic planning problem
@@ -98,11 +97,13 @@ disguise and could be easily solved by FF-Replan.
 %---------------------------------------------------------------------
 
 \section{Problem formulation}
+\label{sec:problem}
 
 To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
 Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
 \section{Domain Description}
+\label{sec:domaind}
 
 Unmanned Aerial Vehicles (UAVs), or commonly called \emph{Drones} are aircrafts
 without a pilot and often autonomously controlled. Drones are widely used for
@@ -175,6 +176,83 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 %	\item Tireworld
 %\end{itemize}
 
+%---------------------------------------------------------------------
+
+\section{Domains}
+\label{sec:domains}
+
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et al.'s baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section~\ref{sec:experiment}.
+
+\subsection{IPPC-11 Domains}
+
+The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et al.\@ evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
+
+\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
+
+\subsubsection{Navigation}
+
+The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because \textsc{Gourmand} uses a dynamic lookahead, it performs quite well in this domain.
+
+%ADD IMAGE HERE
+
+\subsubsection{Traffic}
+This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upper bound of $2^{\#~of~intersections}$.
+
+%ADD IMAGE HERE
+
+\subsection{Elevators}
+
+In the elevators domain there are a number of elevators delivering passengers
+to either the top or bottom floor. Potential passengers arrive at any floor at
+a certain rate (depending on which floor). The elevators can only move in the
+direction it is indicating, so passengers know whether to board or not. The
+goal of the elevators is to transport as many as possible passengers to their
+destinations.
+
+\subsection{SysAdmin}
+
+The SysAdmin domain describes a network of connected servers. Each server has
+a probability that it shuts down, and if is not running, it has a probability
+to reboot. The probability that a server shuts down depends on the number of
+running connected servers.
+
+%\subsection{IPPC-04 Domains}
+%Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes.
+%
+%\subsubsection{}
+%
+%\subsubsection{}
+
+\subsection{Real-World Domain Evaluation}
+
+\subsubsection{Navigation}
+
+In the navigation problem there is a chance that the robot disappears after
+entering a cell. The disappearing action is a dead end. Disappearing here is a
+metaphor for the robot breaking down, or that it disappears from the radar with
+the base station. In many of such cases it's a big problem, but can be repaired
+with a high cost. In the navigation domain a step to another cell has a cost of
+1. If instead of a dead end the cost is $n$ (e.g. 5) instead of 1, which
+represents the cost of repairing the robot, dead ends are removed. Without dead
+ends the problem becomes probabilistic uninteresting, which makes it suitable for
+replanning planners.
+
+\subsubsection{Traffic}
+
+The traffic domain describes a crossroad with traffic lights, modelled as
+cells. Either the north to south road has a green light, the west to east road
+or all lights are red. The model uses a finite state machine that handles the
+lights so that the lights are never green at the same time. This would be the
+only dangerous situation on the crossroad. The difficulty in this domain is
+the number of states, which grows exponentially with the number of cells.
+Besides that it is an uninteresting probabilistic problem because it does
+not satisfy the probabilistic interesting test.
+
+\subsubsection{Elevators}
+
+
+
+\subsection{Baseline test for Probabilistic Interesting domains}
 
 %---------------------------------------------------------------------
 
@@ -182,8 +260,6 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 \label{sec:planners}
 
 FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. has argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization  by discussing FF-replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
-
-\myworries{misschien moet dat laatste zinnetje ergens anders?}
 
 \subsection{FF-replan}
 \label{sec:ffreplan}
@@ -268,81 +344,6 @@ The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner an
 
 \todo{write some kind of conclusion}
 
-%---------------------------------------------------------------------
-
-\section{Domains}
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et al.'s baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section~\ref{sec:experiment}.
-
-\subsection{IPPC-11 Domains}
-
-The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et al.\@ evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
-
-\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
-
-\subsubsection{Navigation}
-
-The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because \textsc{Gourmand} uses a dynamic lookahead, it performs quite well in this domain.
-
-%ADD IMAGE HERE
-
-\subsubsection{Traffic}
-This domain represents a simple binary version of the cell transition model (CTM) for modelling traffic based on the original CTM Tech Report \cite{sanner2011traffic}. Because of the binary variables and no intermediate variable restrictions, this model is simplified and ignores traffic aspects such as turns and turn probabilities. This model also uses concurrent actions and the total actions has an upper bound of $2^{\#~of~intersections}$.
-
-%ADD IMAGE HERE
-
-\subsection{Elevators}
-
-In the elevators domain there are a number of elevators delivering passengers
-to either the top or bottom floor. Potential passengers arrive at any floor at
-a certain rate (depending on which floor). The elevators can only move in the
-direction it is indicating, so passengers know whether to board or not. The
-goal of the elevators is to transport as many as possible passengers to their
-destinations.
-
-\subsection{SysAdmin}
-
-The SysAdmin domain describes a network of connected servers. Each server has
-a probability that it shuts down, and if is not running, it has a probability
-to reboot. The probability that a server shuts down depends on the number of
-running connected servers.
-
-%\subsection{IPPC-04 Domains}
-%Duing IPPC-04, the domains were written in the Probabilistic PLanning Domain Description Language (PPDDL). 30 trials per problem were to be solved in 15 minutes.
-%
-%\subsubsection{}
-%
-%\subsubsection{}
-
-\subsection{Real-World Domain Evaluation}
-
-\subsubsection{Navigation}
-
-In the navigation problem there is a chance that the robot disappears after
-entering a cell. The disappearing action is a dead end. Disappearing here is a
-metaphor for the robot breaking down, or that it disappears from the radar with
-the base station. In many of such cases it's a big problem, but can be repaired
-with a high cost. In the navigation domain a step to another cell has a cost of
-1. If instead of a dead end the cost is $n$ (e.g. 5) instead of 1, which
-represents the cost of repairing the robot, dead ends are removed. Without dead
-ends the problem becomes probabilistic uninteresting, which makes it suitable for
-replanning planners.
-
-\subsubsection{Traffic}
-
-The traffic domain describes a crossroad with traffic lights, modelled as
-cells. Either the north to south road has a green light, the west to east road
-or all lights are red. The model uses a finite state machine that handles the
-lights so that the lights are never green at the same time. This would be the
-only dangerous situation on the crossroad. The difficulty in this domain is
-the number of states, which grows exponentially with the number of cells.
-Besides that it is an uninteresting probabilistic problem because it does
-not satisfy the probabilistic interesting test.
-
-\subsubsection{Elevators}
-
-
-
-\subsection{Baseline test for Probabilistic Interesting domains}
 
 %---------------------------------------------------------------------
 
