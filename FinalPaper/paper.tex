@@ -102,7 +102,31 @@ disguise and could be easily solved by FF-Replan.
 To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
 Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
+\section{Domain Description}
 
+Unmanned Aerial Vehicles (UAVs), or commonly called \emph{Drones} are aircrafts
+without a pilot and often autonomously controlled. Drones are widely used for
+military as well as for civil uses, including inspecting pipelines, counting
+wildlife, agriculture, filming or delivering supplies to inaccessible areas.
+As many uses cases there are, there are many forms of UAVs, bigger fixed wing
+aircrafts, or small helicopter or quad copter like aircrafts that can hover at
+a certain position in the air.
+
+We are particularly interested in monitoring, for example crops or livestock,
+and surveillance UAVs that work together to monitor a large area. Each UAV
+monitors a part of the total area, and if it has monitored something, it has
+to communicate this to a base station. This can't be done directly due to the
+large distance, instead it has to go through neighboring UAVs.
+
+Communicating the message from the sensing UAV to the base station can be
+expressed as a probabilistic planning problem. Initially the sensing UAV
+has the package that has to be sent, and the goal is to bring this package to
+the base station. Each time the package is passed to the neighboring UAV,
+there is a possibility the package is not received correctly. The bigger the
+distance, the higher the probability the delivery failed.
+
+%% TODO maybe UAVs can be on or of too, so it's forced to use a further UAV.
+%% TODO what's also interesting is that Amazon.com uses drones for package deliveries
 
 %---------------------------------------------------------------------
 
