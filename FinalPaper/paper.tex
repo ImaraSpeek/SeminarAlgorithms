@@ -223,11 +223,26 @@ When however dealing with large branching factors, offline planning is often a w
 %This is done by choosing a certain lookahead value $L$ and solving the MDP $M_s(L)$ to solve $M_0(H)$ where L $<$ H and then select $\pi^*_L(s,L)$ using the evaluation criteria. This lookahead value is determined using the per-process time constraint.
 
 \subsection{\textsc{GOURMAND}}
-The \textsc{GOURMAND} is an online adaptation of the \textsc{GLUTTON} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ and is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{GOURMAND} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch  and whether it could solve for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{GOURMAND} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{GOURMAND} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand}.
+The \textsc{GOURMAND} is an online adaptation of the \textsc{GLUTTON} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ and is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{GOURMAND} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch  and whether it could solve for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{GOURMAND} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{GOURMAND} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
 
+\begin{enumerate}
+	\item Start \textsc{GOURMAND} at $s_0$
+	\item Initialization of first epoch
+	\begin{enumerate}
+		\item Virtually allocate time for  $T_t = \frac{\overline{T}}{H}$
+		\item Run LR$^2$TDP($M_s(H), T_t$)
+		\item Adjust running average $\overline{T}$
+	\end{enumerate}
+	\item Virtually allocate time  $T_t = \frac{\overline{T}}{H - t}$
+	\item Check if lookahead can be increased $\widehat{L}_t = L_t + 1$ else $\widehat{L}_t = L_t $
+	\item Run LR$^2$TDP($M_s(\widehat{L}), \widehat{T}_t$)
+	\item Adjust running average $\overline{T}$
+	\item Determine action based on (near) optimal $\tau^*$
+	\item Transition to next state
+	\item Repeat steps 3 - 8 until time has run out
+\end{enumerate}
 
-% always makes an informed choice in any state where it ends up when the time T allocated for solving the MDP runs out because of the online fashion it uses LRTDP. \textsc{Gourmand} first divides the time among all remaining epochs, determines the largest lookahead L for which it can almost certainly solve any remaining epoch if T is assigned.  It then checks if it can solve even for a larger lookahead L by taking away a small configuration time from future epochs  while still guaranteeing that it can solve for Lookahead L in each of them. This was \textsc{Gourmand} adaptively picks a good lookahead value at each decision epoch given the per-process constraint T. This can only be achieved by knowing how long it takes for LRTDP to solve a state for certain lookahead values. It uses LR\textsuperscript{2}TDP to collect this data. This version of LRTDP is more efficient because of the early convergences and it allows measuring how long on average the solving of a task takes. \textsc{Gourmand} uses the same engineering optimizations to to handle evaluate actions, iterating over the successors of s under a by the Bellman Backups. \textsc{Gourmand} eventually outperforms both \textsc{Glutton} and PROST, the winner of the IPPC-11\cite{keller2012prost}.
-
+\todo{write some kind of conclusion}
 
 %---------------------------------------------------------------------
 
