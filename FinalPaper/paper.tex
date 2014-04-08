@@ -6,6 +6,10 @@
 \usepackage{hyperref}
 \usepackage{fixltx2e}
 
+\usepackage{xcolor}
+\newcommand\myworries[1]{\textcolor{red}{#1}}
+\newcommand\todo[1]{\textcolor{blue}{#1}}
+
 \usepackage{url}
 \urldef{\mailsa}\path|{i.c.t.m.speek, a.c.stolwijk}@student.tudelft.nl|
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip%
@@ -16,10 +20,10 @@
 \mainmatter% start of an individual contribution
 
 % first the title is needed
-\title{Validating FF-Replan vs.\@ a State-Of-The-Art Probabilistic Planner in Translated Real World Domains}
+\title{Realistically Interesting Domains for Probabilistic Planners}
 
 % a short form should be given in case it is too long for the running head
-\titlerunning{FF-Replan vs Probabilistic Planner in Real World Domains}
+\titlerunning{Real World Domains}
 
 \author{I.C.T.M Speek, A.C. Stolwijk}
 
@@ -46,7 +50,7 @@ Delft University of Technology\\
 	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
 real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
 
-In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner GOURMAND, the successor of the Labelled Real-Time Dynamic Probabilistic planner Glutton, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et. all we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
+In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner \textsc{Gourmand}, the successor of the Labelled Real-Time Dynamic Probabilistic planner \textsc{Glutton}, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et al\. we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
 %--------------------------------------------------------------------
@@ -69,7 +73,7 @@ where a replanner performs badly or incredibly well.
 
 The IPPC-11 introduced Relation Dynamic Influence Diagram Language (RDDL),
 which can design domains that are more probabilistically interesting. The top
-performers were PROST \cite{keller2012prost} and Glutton
+performers were PROST \cite{keller2012prost} and \textsc{Glutton}
 \cite{kolobov2012glutton}.
 
 While it is interesting to make problems harder and invent better planning
@@ -77,9 +81,9 @@ algorithms to solve those probabilistic complex problems, we evaluate whether
 or not these problems are coherent with real-world situations.
 
 The main contribution of this paper is an evaluation of FF-Replan versus a
-probabilistically state of the art planner GOURMAND in the realistically
+probabilistically state of the art planner \textsc{Gourmand} in the realistically
 augmented domains of IPPC-11. If these domains fail the baseline test proposed
-by Little et\@. all, they would translate to classical planning problems in
+by Little et al\., they would translate to classical planning problems in
 disguise and could be easily solved by FF-Replan.
 
 %\begin{itemize}
@@ -94,14 +98,16 @@ disguise and could be easily solved by FF-Replan.
 %---------------------------------------------------------------------
 
 \section{Problem formulation}
-To evaluate FF-Replan and GOURMAND in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
-Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et. all \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs. a state of the art probabilistic planner: GOURMAND.
+
+To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
+Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
 
 
 %---------------------------------------------------------------------
 
 \section{Background}
+\label{sec:background}
 
 \subsection{Planning problems}
 \subsubsection{Classical Planning problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. In classical planning problems the environment is assumed to \emph{deterministic, observable and state}. Classical planning problems consists out of states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
@@ -123,7 +129,7 @@ Translating finite horizon MDPs to goal-oriented domains results ends up in all 
 A replanner is a planner that takes a problem as input, plans a state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again until it has reached a goal or dead-end state. For our paper have chosen to evaluate FF-Replan \cite{FFReplan}, the winner of IPPC-04 and unenrolled winner of IPPC-06 as an inspiring, fairly simple planner that in our opinion is capable of employment in real-world domains.
 
 \subsubsection{Probabilistic planning}
-Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have chosen to compare FF-Replan to a state-of-the-art probabilistic planner: GOURMAND. GOURMAND is the online successor of the GLUTTON plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
+Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have chosen to compare FF-Replan to a state-of-the-art probabilistic planner: \textsc{Gourmand}. \textsc{Gourmand} is the online successor of the \textsc{Glutton} plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
 
 \subsection{Probabilistic Interestingness}
 After IPPC-06, a baseline test for \emph{probabilistically interesting} planning domains was proposed by Little and Thi\'ebauw \cite{little2007probvsreplan}.  Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
@@ -151,93 +157,107 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 \section{Planners}
 \label{sec:planners}
 
-\subsection{FF-Replan}
+FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. has argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization  by discussing FF-replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
 
-At the first international probabilistic planning competition IPPC-04, most entries were Markov Decision Processes. The winner, FF-Replan, however was based on deterministic planning techniques.
+\myworries{misschien moet dat laatste zinnetje ergens anders?}
 
-FF-Replan is an action selection algorithm for online planning in probabilistic domains. Given a domain description, a goal and an initial state as a probabilistic planning problem, FF-Replan generates a deterministic planning problem. It determinizes the input domain at the start of the planning into a deterministic different domain. They consider two methods of determinization:
+\subsection{FF-replan}
+\label{sec:ffreplan}
+ FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns an ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
+
 \begin{enumerate}
-\item \emph{Single-outcome determinization}: selects one outcome for each probabilistic construct using a variety of heuristics. The performance strongly depends on the methods for choosing the outcomes.
-\item \emph{All-outcomes determinization}: considers every probabilistic outcome as a distinct deterministic action. For each possible outcome FF-Replan generates one seperate action for each effect. For nested probabilities, the all-outcomes procedure is applied recursively. This implies that FF-Replan will cease selecting actions whenever it enters a dead state. However when given no information, all probabilistic effects will be considered as equal which is a potential weakness.
+	\item Start planning at $s_0$
+	\item Determinizes the input domain
+	\item Use FF on the classical planning problem
+	\item Executes ordered state-action plan until
+	\item Unexpected state is encountered or
+	\begin{itemize}
+		\item Start planning at $s_t$ at time t
+		\item Repeat step 2 - 6
+	\end{itemize}
+	\item Goal state or dead-end is reached
 \end{enumerate}
 
-After determinization FF-Replan then uses the deterministic FF planner to compute an ordered plan for the generated deterministic problem. This process is repeated when countering an unexpected state until a goal state is reached. It maintains a partial state-action mapping using a hash-table which is initially empty. Whenever FF-Replan encounters a state which is not in the table, it determinizes the problem and synthesizes a plan using FF. It then simulates the plan according to the deterministic action definitions resulting in a state-action sequence whose pairs are put in the hash table. The first action of the plan is then executed in the environment, returning a new state. This partial policy is this produces in an online fashion. It would be valuable to look into incremental planning approaches that don't create a deterministic plan from scratch whenever an unexpected state is encountered or reusing previous planning effort.
+FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why FF-replan performs poorly in domains containing dead-ends.
 
-FF-Replan has some obvious shortcomings as it first determinizes the input domain, removing all probabilistic information from the problem and then synthesizes a plan. If an unexpected state should occur whilst executing, the planner replans in the same determinization. It also does not consider multiple potential effects if an action.
+For a planner to be successful in finite-horizon MDPs it needs to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. To cope with these domains, trial based methods such as \emph{Labelled Real-Time Dynamic Programmers} (LRTDPs) have been introduced and optimized to find an optimal policy in a dynamic programming-based way.
 
-By relying on search, FF-Replan could function with enormous speed and efficiency. However when dealing with difficult probabilistic problems attempting to span the spectrum of complexity ranging from deterministic problems to highly stochastic problems, FF-Replan is expected to come short. Because FF-Replan is developed hoping to inspire extensions and insight into the approach and planning domains, the authors are hoping to achieve this.
+%----------------------------------------------------------------------------------------
 
+\subsection{LRTDP algorithms}
 
-\subsection{GOURMAND}
+The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$ and therefore uses and needs less memory space in the following manner:
 
-The IPPC-11 introduces more realistic MDPs to accommodate real-world systems with large branching factors cause by \emph{natural dynamics} and a limited time for the planner to come up with a policy. For this reason planners needed to be scalable and sensitive to the expected reward maximization. Glutton introduces an off-line algorithm based on LR\textsuperscript{2}TDP and relies on the fact that a successful policy can be produced by solving an MDP $M(H)$ for a smaller horizon $h$. Incrementally solving the sequence $M(1)$, $M(2)$ forms the basis of LR\textsuperscript{2}TDP\@. By iterating on the distance from the horizon, data can be reused (and is stored in the cache until the hash-table is full). The max-reward heuristic finds the largest horizon value $h'$ for which already a heuristic value $V$ is estimated. The  computation time remains much lower because it runs quickly into states that converged while solving $M(h-1)$. The max-reward computation relies on knowing the maximum $R_{max}$ any action can yield in any state or an upper bound on it.
+\begin{enumerate}
+	\item Start trial at $s_0$
+	\item Take action based on current value function $V$
+	\item Perform Bellman backup
+	\item Sample the outcome and update $V$
+	\item Transition to the next state
+	\item Repeat step 2 - 5 until a goal, dead end or converged state is reached
+	\item Check if all states have converged, otherwise start a new trial (step 2 - 6)
+\end{enumerate}
 
-\subsubsection{LRTDP}
-Using goal oriented MDPs, the \emph{Labelled Real-Time Dynamic Programmer} (LRTDP) operates a series of trials starting from $s_0$.
+Adapting LRTDP to a finite horizon MDP $M(H)$ solver \emph{LRTDP-FH} requires for each trial to start at $s_0$ or $M(s_0, H)$ and run for at most $H$ time steps. All states $H$ steps away from $s_0$ would translate to goal states in a goal-oriented MDP. \\
 
-\begin{itemize}
-	\item Trials start at $s_0$
-	\item Choose best action greedily in the current state based on current $V$
-	\item Perform  Bellman backup on the current state
-	\item Sample the outcome as the chosen action
-	\item Transition to the new state
-	\item Repeat until a goal, dead end or converged state is reached
-	\item After trial, special convergence check on all states in the trial is performed to prove the convergence of these values
-\end{itemize}
+%However, it's anytime performance to meet the demands of a dynamic environment is not very good, creating the need for a more sophisticated approach \cite{kolobov2012glutton}.
+The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$.
+%LR$^2$TDP\@ iterates on the distance from the horizon and allows for reusing precomputed state-action plans from converged states.
 
-\subsubsection{LRTDP-FH}
+\begin{enumerate}
+	\item Run LRTDP-FH to solve $M(1)$ or $M(s_0, 1)$
+	\item Run LRTDP-FH to solve $M(h)$ or $M(s_0, h)$ where $h < H$ by backchaining from the horizon $H$
+	\item Repeat step 2 until $H$ is reached or time has run out
+\end{enumerate}
+By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely  (LR$^2$TDP) is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself,  (LR$^2$TDP) would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
 
-Adapting LRTDP to a finite horizon MDP \emph{M(H)} requires to let each trial start at ($s_0$) and run for at most H time steps. A steps $H$ steps away from $s_0$ would translate to goals in a goal-oriented MDP. However, it's anytime performance to meet the demands of a dynamic environment is not very good, creating the need for a more sophisticated approach \cite{kolobov2012glutton}.
-
-\subsubsection{LR\textsuperscript{2}TDP}
-
-LR\textsuperscript{2}TDP uses \emph{reverse iterative deepening} and LRTDP-FH to solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$, in that order. It first decides how to act optimally in ($s_0$, 1), equivalent to solving M(1) , then ($s_0$, 2), equivalent to solving $M(2)$, eventually solving $M(H)$ or running out of time halting a $M(h')$ where $h' < H$. This incremental effort allows for reusing state values computed in previous states, so it memorizes all values and solves for smaller horizons by backchaining from the goal LRTDP-FH iterates over search depth while LR\textsuperscript{2}TDP iterates over the distance from the horizon and is likely to be better because:
-
-\begin{itemize}
-	\item In many MDPs, the optimal policy $M(h)$ for some $h < H$ is near optimal for M(H), it thus may have a solution when stopped prematurely
-	\item it's trials are very short because backchaining from the goal leads to a lots of convergence
-	\item It optimally memorizes a large fraction of augmented states to save memory
-	\item a large fraction of state space may be unreachable from $s_0$ and it avoid storing information it does not need
-	\item it should however use a heuristic to treat states that has never been encountered when stopped prematurely, could be a fall back or a default action.
-\end{itemize}
-
-\subsubsection{GLUTTON}
-
-Glutton uses the \emph{Max-Reward} heuristic that relies on knowing the maximum reward $R_{max}$ any action can yield in a state or an upper bound on it. Large branching factors induce that the computation of the Bellman Backups becomes prohibitively expensive. Glutton uses the following mechanisms to optimize for large branching factors:
-
-\begin{itemize}
-	\item Subsampling the transition function, is not enough to decrease the amount of computations yet
-	\item Separating out Natural Dynamics: to reuse variable samples when generator successors for multiple actions, by separating the actions' effects into natural dynamics (\emph{exogenous}), those due to the action itself (\emph{pure effects}) and those do a mix of both.
-	\item Caching the transition function samples: as LR\textsuperscript{2}TDP populates the state-value hash table lazily, Glutton uses  this memory as a cache for samples from the transition function, so it doesn't have to regenerate the action when encountering the same $(s,h)$ pair. When full, it chooses state-action pars for eviction ans replacement randomly.
-	\item Default policies: Glutton uses 3 tricks to determine a policy when stopped prematurely. It compares the optimal action from a $h'$ with a simple cyclic policy or a complete random policy and chooses the best of these based on the reward.
-\end{itemize}
+\subsection{\textsc{Glutton}}
+The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguished between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilized the saved memory space caused by mapping only the converged states in the hash-table by using the free space as cache for storing successor states computed using the transition function.
+Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. \todo{Wel of niet de default policy uitleggen}.
 %---------------------------------------------------------------------
-During IPPC-11 1 out of 5 planners used a LRTDP-based system and managed to outperform three other planners using the dominant algorithm for probabilistic planning: UCT. This caused to wonder whether LRTDP planners could outperform UCT based systems.  UCT forces an expert to guess a non-shortsighted lookahead value for which it should be able to converge on encountered states. Choosing this value can have very bad consequences and its existence causes the UCT to require some input, taking away from its autonomicity. At the IPPC-11 GLUTTON was an offline LRTDP based planner that came second. As PROST employed UCT in an online manner, GOURMAND is an online adaptation of the GLUTTON algorithm to test whether LRTDP performs better if it is employed online.
+%During IPPC-11 1 out of 5 planners used a LRTDP-based system and managed to outperform three other planners using the dominant algorithm for probabilistic planning: UCT. This caused to wonder whether LRTDP planners could outperform UCT based systems.  UCT forces an expert to guess a non-shortsighted lookahead value for which it should be able to converge on encountered states. Choosing this value can have very bad consequences and its existence causes the UCT to require some input, taking away from its autonomicity. At the IPPC-11 \textsc{Glutton} was an offline LRTDP based planner that came second. As PROST employed UCT in an online manner, \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} algorithm to test whether LRTDP performs better if it is employed online.
+%
+%UCT picks an action based on it current quality estimate and an \emph{exploration term} which forces the planner to choose actions that have rarely been tried in the past. This makes UCT suitable for a wider scale of scenarios but also implies an unreliable termination condition.
 
-UCT picks an action based on it current quality estimate and an \emph{exploration term} which forces the planner to choose actions that have rarely been tried in the past. This makes UCT suitable for a wider scale of scenarios but also implies an unreliable termination condition.
+When however dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
+%This is done by choosing a certain lookahead value $L$ and solving the MDP $M_s(L)$ to solve $M_0(H)$ where L $<$ H and then select $\pi^*_L(s,L)$ using the evaluation criteria. This lookahead value is determined using the per-process time constraint.
 
-Because real world domains contain Natural Dynamics that introduce large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of state the planner may never reach in a lifetime. Such problems are far better solved using online planners by finding a $\tau$* or an approximation for the current state, executing it and repeating. This is done by choosing a certain lookahead  L and solving MDP \emph{M\textsubscript{s}(L)} to solve \emph{M\textsubscript{0}(H)} where L $<$ H and then select \emph{$\pi$*\textsubscript{L}(s, L)} recommended by the optimal policy. This lookahead value is determined using the per-process time constraint.
+\subsection{\textsc{Gourmand}}
+The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ and is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{Gourmand} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch  and whether it could solve for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{Gourmand} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{Gourmand} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
 
-\subsubsection{GOURMAND}
-In contrast to GLUTTON, GOURMAND always makes an informed choice in any state where it ends up when the time T allocated for solving the MDP runs out because of the online fashion it uses LRTDP. GOURMAND first divides the time among all remaining epochs, determines the largest lookahead L for which it can almost certainly solve any remaining epoch if T is assigned.  It then checks if it can solve even for a larger lookahead L by taking away a small configuration time from future epochs  while still guaranteeing that it can solve for Lookahead L in each of them. This was GOURMAND adaptively picks a good lookahead value at each decision epoch given the per-process constraint T. This can only be achieved by knowing how long it takes for LRTDP to solve a state for certain lookahead values. It uses LR\textsuperscript{2}TDP to collect this data. This version of LRTDP is more efficient because of the early convergences and it allows measuring how long on average the solving of a task takes. GOURMAND uses the same engineering optimizations to to handle evaluate actions, iterating over the successors of s under a by the Bellman Backups. GOURMAND eventually outperforms both GLUTTON and PROST, the winner of the IPPC-11\cite{keller2012prost}.
+\begin{enumerate}
+	\item Start \textsc{Gourmand} at $s_0$
+	\item Initialization of first epoch
+	\begin{enumerate}
+		\item Virtually allocate time for  $T_t = \frac{\overline{T}}{H}$
+		\item Run LR$^2$TDP($M_s(H), T_t$)
+		\item Adjust running average $\overline{T}$
+	\end{enumerate}
+	\item Virtually allocate time  $T_t = \frac{\overline{T}}{H - t}$
+	\item Check if lookahead can be increased $\widehat{L}_t = L_t + 1$ else $\widehat{L}_t = L_t $
+	\item Run LR$^2$TDP($M_s(\widehat{L}), \widehat{T}_t$)
+	\item Adjust running average $\overline{T}$
+	\item Determine action based on (near) optimal $\tau^*$
+	\item Transition to next state
+	\item Repeat steps 3 - 8 until time has run out
+\end{enumerate}
 
+\todo{write some kind of conclusion}
 
 %---------------------------------------------------------------------
 
 \section{Domains}
-
-% TODO we only look at IPPC-11 domains
-Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or GOURMAND prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et all's baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section \ref{sec:experiment}.
+Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et al.'s baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section~\ref{sec:experiment}.
 
 \subsection{IPPC-11 Domains}
 
-The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et.\@ all evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
+The competitor FF-Replan \cite{FFReplan} kindly remembered the committee of the IPPC-04 that problems containing no dead ends and action costs are fairly easy to solve without much handling of uncertainty. The baseline test of Little et al.\@ evaluated the competition problems of the IPPC described in PPDDL to correct the possible inaccurate perception of replanners vs.\@ probabilistic planners. IPPC-11 responded by introducing more realistic MDPs and evaluation criteria: finite-horizon MDPs evaluated on the expected reward of the created policies.
 
-GOURMAND vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms GOURMAND on the Game of Life, Sysadmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
+\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track winner PROST by far on goal-oriented domains Navigation and Crossing Traffic \cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT does not need to perform expensive Bellman Backups on these domains that include large branching factors.
 
 \subsubsection{Navigation}
 
-The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because GOURMAND uses a dynamic lookahead, it performs quite well in this domain.
+The navigation domain represents a grid in which a robot must reach a goal. Every cell offers the robot a different chance of disappearing. The robot needs to choose a path which gets it to the goal most reliably within the finite horizon time \cite{sanner2011navigation}. Because \textsc{Gourmand} uses a dynamic lookahead, it performs quite well in this domain.
 
 %ADD IMAGE HERE
 
@@ -317,9 +337,9 @@ the planner sends an action.
 
 \subsection{FF-Replan with Finite Horizon}
 
-Gourmand already works with RDDLSim and MDPs with finite horizon. The original
+\textsc{Gourmand} already works with RDDLSim and MDPs with finite horizon. The original
 FF-Replan is a Goal-Oriented MDP planner. For a Finite-Horizon each state at
-the horizon is a goal. To compare Gourmand, that works with MDP-FH, with
+the horizon is a goal. To compare \textsc{Gourmand}, that works with MDP-FH, with
 FF-Replan, FF-Replan needs a slight update. It should not only execute FF for
 one goal, but for all goals at the horizon. It could then start executing the
 plan with the highest reward. Depending on the determinization method,
@@ -330,14 +350,14 @@ to store plans generated by FF from a state to goal states, however not only
 the plan should be stored, but also the reward for this plan should be stored
 to pick the plan with the highest expected reward.
 
-Using the framework of Glutton and Gourmand, and the FF heuristic found in mGPT
+Using the framework of \textsc{Glutton} and \textsc{Gourmand}, and the FF heuristic found in mGPT
 \cite{bonet2011mgpt}, the updated FF-Replan can be implemented. The first step
-of Gourmand is parsing the problem and creating a structure of the problem.
-Instead of executing the Gourmand algorithm, this structure can be used to
+of \textsc{Gourmand} is parsing the problem and creating a structure of the problem.
+Instead of executing the \textsc{Gourmand} algorithm, this structure can be used to
 determinize the problem by setting all probabilities of each action to 1
 (\emph{all-outcome}) or all but one to 0 (\emph{single-outcome}). Using the
 FF heuristic it can find plans for each goal and calculate the expected reward.
-Then it can reuse the Gourmand framework to execute the plan by sending the
+Then it can reuse the \textsc{Gourmand} framework to execute the plan by sending the
 action to the RDDLSim server. Like FF-Replan if the server returns with a state
 that is not in the plan the algorithm will replan. If a goal is reached it will
 output the achieved reward.
@@ -361,7 +381,6 @@ FF fails to find a plan to the goal from this new state, the state is removed
 from the structure too. Results showed that RFF outperformed other competitors.
 A higher threshold means that RFF will generate more policies that are prone to
 replanning.
-
 
 \subsubsection{PROST}
 
@@ -455,6 +474,8 @@ Following existing domains were said to be probabilistically interesting:
 \end{itemize}
 
 They conclude by stating that the negative perception of probabilistic planning by the ICAPS community was inaccurate. They state that a synthesis of planning and replanning techniques could make a larger number of probabilistic planning problems practicably solvable than is currently possible.
+
+
 
 %---------------------------------------------------------------------
 
