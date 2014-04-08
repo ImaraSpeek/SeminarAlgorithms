@@ -106,6 +106,7 @@ Current finite horizon MDP problems as introduced in IPPC-11 are simplified and 
 %---------------------------------------------------------------------
 
 \section{Background}
+\ref{sec:background}
 
 \subsection{Planning problems}
 \subsubsection{Classical Planning problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. In classical planning problems the environment is assumed to \emph{deterministic, observable and state}. Classical planning problems consists out of states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
@@ -155,18 +156,36 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 \section{Planners}
 \label{sec:planners}
 
+FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. has argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these "planning problems" can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization  by discussing FF-replan and a current state of the art probabilistic planner \textsc{GOURMAND} and its predecessors. 
+
+\myworries{misschien moet dat laatste zinnetje ergens anders?}
+
 \subsection{FF-replan}
-At the first international probabilistic planning competition IPPC-04, most entries were probabilistic planner using Markov Decision Processes. The winner, FF-Replan \cite{FFReplan}, however was based on deterministic planning techniques. FF-Replan is an action selection algorithm for online planning in probabilistic domains which deals with uncertainty by replanning. FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of the planning. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns an ordered state-action plan for the deterministic problem of the current state mapped in an initially empty hash-table. This plan is executed until an unexpected state, not available in the hash-table is encountered. 
+\label{sec:ffreplan}
+ FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns an ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
 
-If an unexpected state is encountered, the current state, the goal and the domain description are again determinized. The FF planner will generate an ordered plan which is executed until either a goal state, a dead-end state or an unexpected state is reached. 
+\begin{enumerate}
+	\item Start planning at $s_0$
+	\item Determinizes the input domain
+	\item Use FF on the classical planning problem
+	\item Executes ordered state-action plan until
+	\item Unexpected state is encountered or
+	\begin{itemize}
+		\item Start planning at $s_t$ at time t
+		\item Repeat step 2 - 6
+	\end{itemize}
+	\item Goal state or dead-end is reached
+\end{enumerate}
 
-FF-Replan has some obvious shortcomings.Iit first determinizes the input domain and thus removes all probabilistic information from the problem. The success of the planner is therefore fully reliable on the chose determinization heuristic. As FF-replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why FF-replan performs poorly in domains containing dead-ends. However, by relying on search FF-replan functions with enormous speed and efficiency and caused the International Conference on Automated Planning and Scheduling (ICAPS) to adapt their domains, increasing their \emph{probabilistically interestingness}. Finite horizon MDPs were introduced as an approximation of the infinite optimization problems using a finite horizon. These planning problems accounted for large branching factors as would be caused by \emph{natural dynamics} such as environmental factors and decay. To be successful in these domains planners need to be scalable and sensitive to an expected reward maximization, the evaluation criteria of finite-horizon MDPs. 
+FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why FF-replan performs poorly in domains containing dead-ends. 
+
+For a planner to be succesfull in finite-horizon MDPs they need to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. This caused for  LRTDP planners to emerge.
 
 %----------------------------------------------------------------------------------------
 
 \subsection{The rise of LRTDP planners}
 
-\myworries{Still need to introduce LRTDPs better and the reason why they emerged}
+\myworries{Still need to introduce LRTDPs better and the reason why they emerged, ook UCT introduceren?}
 
 \emph{Labeled Real-Time Dynamic Programmers} (LRTDPs) operate a series of trials starting from $s_0$.
 
