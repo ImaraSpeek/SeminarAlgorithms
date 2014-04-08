@@ -180,43 +180,36 @@ FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a
 
 FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why FF-replan performs poorly in domains containing dead-ends. 
 
-For a planner to be succesfull in finite-horizon MDPs it needs to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. This caused for  LRTDP planners to emerge.
+For a planner to be successful in finite-horizon MDPs it needs to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. To cope with these domains, trial based methods such as \emph{Labelled Real-Time Dynamic Programmers} (LRTDPs) have been introduced and optimized to find an optimal policy in a dynamic programming-based way.
 
 %----------------------------------------------------------------------------------------
 
-\subsection{The rise of LRTDP planners}
+\subsection{LRTDP algorithms}
 
-\myworries{Still need to introduce LRTDPs better and the reason why they emerged, ook UCT introduceren?}
+The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$ and therefore uses and needs less memory space in the following manner:
 
-\emph{Labeled Real-Time Dynamic Programmers} (LRTDPs) operate a series of trials starting from $s_0$.
+\begin{enumerate}
+	\item Start trial at $s_0$
+	\item Take action based on current value function $V$
+	\item Perform Bellman backup
+	\item Sample the outcome and update $V$
+	\item Transition to the next state
+	\item Repeat step 2 - 5 until a goal, dead end or converged state is reached
+	\item Check if all states have converged, otherwise start a new trial (step 2 - 6)
+\end{enumerate}
 
-\todo{Make this list more technical}
-
-\begin{itemize}
-	\item Trials start at $s_0$
-	\item Choose best action greedily in the current state based on current $V$ value function
-	\item Perform Bellman backup on the current state
-	\item Sample the outcome as the chosen action
-	\item Transition to the new state
-	\item Repeat until a goal, dead end or converged state is reached
-	\item After trial, special convergence check on all states in the trial is performed to prove the convergence of these values
-\end{itemize}
-
-Adapting LRTDP to a finite horizon MDP \emph{M(H)} or \emph{LRTDP-FH} requires for each trial to start at ($s_0$) and run for at most $H$ time steps. The resulting states would translate to the goal states in a goal-oriented MDP. \\
+Adapting LRTDP to a finite horizon MDP \emph{M(H)} solver \emph{LRTDP-FH} requires for each trial to start at $s_0$ or $M(s_0, H)$ and run for at most $H$ time steps. All states $H$ steps away from $s_0$ would translate to goal states in a goal-oriented MDP. \\
 
 %However, it's anytime performance to meet the demands of a dynamic environment is not very good, creating the need for a more sophisticated approach \cite{kolobov2012glutton}.
+The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$. 
+%LR$^2$TDP\@ iterates on the distance from the horizon and allows for reusing precomputed state-action plans from converged states. 
 
-A \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ in order by relying on the fact that a successful policy can be produced by solving an MDP-FH $M(H)$ for a smaller horizon $h < H$. A LR$^2$TDP\@ iterates on the distance from the horizon and allows for reusing precomputed state-action plans from converged states. However when dealing with large branching factors Bellman computations tend to become prohibitively expensive.
-
-\todo{nog een lijstje schrijven van hoe het werkt en waarom er verbetering nodig is}
-
-%\begin{itemize}
-%	\item In many MDPs, the optimal policy $M(h)$ for some $h < H$ is near optimal for M(H), it thus may have a solution when stopped prematurely
-%	\item it's trials are very short because backchaining from the goal leads to a lots of convergence
-%	\item It optimally memorizes a large fraction of augmented states to save memory
-%	\item a large fraction of state space may be unreachable from $s_0$ and it avoid storing information it does not need
-%	\item it should however use a heuristic to treat states that has never been encountered when stopped prematurely, could be a fall back or a default action.
-%\end{itemize}
+\begin{enumerate}
+	\item Run LRTDP-FH to solve $M(1)$ or $M(s_0, 1)$
+	\item Run LRTDP-FH to solve $M(h)$ or $M(s_0, h)$ where $h < H$ by backchaining from the horizon $H$
+	\item Repeat step 2 until $H$ is reached or time has run out
+\end{enumerate}
+By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely  (LR$^2$TDP) is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself,  (LR$^2$TDP) would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
 
 \subsection{\textsc{Glutton}}
 
