@@ -184,17 +184,16 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 
 To identify unique properties of the domain and identify properties of the
 domain that work particularly well for a certain type of planner, we describe
-other domains used in the IPPC-11 competition and compare that with the UAV
-domain. Since Little and Thi\'ebauw's baseline test for \emph{probabilistic
-interestingness} of domains, domains of the IPPC competition have shifted to
-those probabilistically interesting domains, which are difficult for
-replanners. Often domains that don't pass this test are deemed to be classical
-planners in disguise, favoring the use of replanners.
+other domains used in the IPPC and compare that with the UAV domain. Since
+Little and Thi\'ebauw's baseline test for \emph{probabilistic interestingness}
+of domains, domains of the IPPC competition have shifted to those
+probabilistically interesting domains, which are difficult for replanners.
+Often domains that don't pass this test are deemed to be classical planners in
+disguise, favoring the use of replanners.
 
 %Following the theoretical comparison of probabilistic planning and replanning techniques by Little and Thi\'ebauw, a baseline test for \emph{probabilistically interesting} domains is proposed. Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners \cite{little2007probvsreplan}. This section describes interesting domains in which either FF-Replan or \textsc{Gourmand} prevailed during the International Probabilistic Planning Competitions. These domains are evaluated for how well they portray real-world scenarios. The domains we deem most interesting for the purpose of this paper are adjusted to match their real-world scenario. Little et al.'s baseline test helps us to predict which planner would perform well on these domains. We will then conclude our evaluation by comparing these results to the result of our experiments described in Section~\ref{sec:experiment}.
 
 \subsection{IPPC Domains}
-
 
 \subsubsection{Blocksworld}
 
@@ -248,8 +247,8 @@ probabilistically uninteresting. For this domain FF-Repan performs really well.
 
 The IPPC-11 domains, Navigation, Traffic, Elevators and SysAdmin are finite-
 horizon domains. Navigation, however, is actually a goal oriented domain, if
-the goal is reached in the horizon. The method this is defined is that the goal
-state is defined as an absorbing state, and there is no reward or cost
+the goal is reached in the horizon. The method how this is implemented is that
+the goal state is defined as an absorbing state, and there is no reward or cost
 associated to staying in the goal state, until the horizon is reached.
 
 \textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track
@@ -262,15 +261,19 @@ factors.
 The reason \textsc{Gourmand} performs quite well on the navigation domain is
 because it uses a dynamic lookahead.
 
-In the navigation problem there is a chance that the robot disappears after
-entering a cell. The disappearing action is a dead end. Disappearing here is a
-metaphor for the robot breaking down, or that it disappears from the radar with
-the base station. In many of such cases it's a big problem, but can be repaired
-with a high cost. In the navigation domain a step to another cell has a cost of
-1. If instead of a dead end the cost is $n$ (e.g. 5) instead of 1, which
-represents the cost of repairing the robot, dead ends are removed. Without dead
-ends the problem becomes probabilistic uninteresting, which makes it suitable for
-replanning planners.
+The domains are constructed such that it will challenge planners to perform
+better. This causes that there are issues with the domains when comparing them
+with the real world.
+
+In the navigation problem there is a chance that the robot
+disappears after entering a cell. The disappearing action is a dead end.
+Disappearing here is a metaphor for the robot breaking down, or that it
+disappears from the radar with the base station. In many of such cases it's a
+big problem, but can be repaired with a high cost. In the navigation domain a
+step to another cell has a cost of 1. If instead of a dead end the cost is $n$
+(e.g. 5) instead of 1, which represents the cost of repairing the robot, dead
+ends are removed. Without dead ends the problem becomes probabilistic
+uninteresting, which makes it suitable for replanning planners.
 
 The traffic domain describes a crossroad with traffic lights, modelled as
 cells. Either the north to south road has a green light, the west to east road
