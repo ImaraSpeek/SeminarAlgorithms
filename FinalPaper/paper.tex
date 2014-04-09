@@ -155,15 +155,12 @@ To identify unique properties of the domain and identify properties of the
 domain that work particularly well for a certain type of planner, we describe
 other domains used in the IPPC and compare that with the UAV domain. Since
 Little and Thi\'ebauw's baseline test for \emph{probabilistic interestingness}
-of domains, domains of the IPPC competition have shifted to those
-probabilistically interesting domains, which are difficult for replanners.
-Often domains that don't pass this test are deemed to be classical planners in
-disguise, favoring the use of replanners.
+of domains, domains have shifted to those probabilistically interesting
+domains, which are difficult for replanners. Often domains that don't pass
+this test are deemed to be classical planners in disguise, favoring the use of
+replanners.
 
-\subsection{IPPC Domains}
-
-\subsubsection{Blocksworld}
-
+\paragraph{Blocksworld:}
 A simple domain used in the competition of 2004 is the well known blocksworld
 domain. The uncertainty lies in that the gripper, used to move blocks, has a
 probability that it drops the blocks to the table. Another difference is that
@@ -172,15 +169,13 @@ blocks, rather than a tower with specific blocks. If for example there are
 four blue blocks, and the goal is a tower of three blue blocks, it does not
 matter which blue blocks are used.
 
-\subsubsection{Navigation}
-
+\paragraph{Navigation:}
 The navigation domain represents a grid in which a robot must reach a goal.
 Every cell offers the robot a different chance of disappearing. The robot needs
 to choose a path which gets it to the goal most reliably within the finite
 horizon time \cite{sanner2011navigation}.
 
-\subsubsection{Traffic}
-
+\paragraph{Traffic:}
 This domain represents a simple binary version of the cell transition model
 (CTM) for modelling traffic based on the original CTM Tech Report
 \cite{sanner2011traffic}. Because of the binary variables and no intermediate
@@ -188,18 +183,16 @@ variable restrictions, this model is simplified and ignores traffic aspects
 such as turns and turn probabilities. This model also uses concurrent actions
 and the total actions has an upper bound of $2^{\#~of~intersections}$.
 
-\subsubsection{Elevators}
+\paragraph{Elevators:}
+The elevators domain has evaluated between the competitions of 2006 and
+2011, we describe the latest version. In this domain there are a number of
+elevators delivering passengers to either the top or bottom floor. Potential
+passengers arrive at any floor at a certain rate (depending on which floor).
+The elevators can only move in the direction it is indicating, so passengers
+know whether to board or not. The goal of the elevators is to transport as many
+as possible passengers to their destinations.
 
-The IPPC-06 has an elevators domain, however we describe the latest IPPC-11
-elevators domain. In this domain there are a number of elevators delivering
-passengers to either the top or bottom floor. Potential passengers arrive at
-any floor at a certain rate (depending on which floor). The elevators can only
-move in the direction it is indicating, so passengers know whether to board or
-not. The goal of the elevators is to transport as many as possible passengers
-to their destinations.
-
-\subsubsection{SysAdmin}
-
+\paragraph{SysAdmin:}
 The SysAdmin domain describes a network of connected servers. Each server has
 a probability that it shuts down, and if is not running, it has a probability
 to reboot. The probability that a server shuts down depends on the number of
@@ -212,21 +205,19 @@ replanning~\cite{FFReplan, little2007probvsreplan}. As the blocks fall on the
 table, which then can be picked up again, it has no dead ends. This makes it
 probabilistically uninteresting. For this domain FF-Repan performs really well.
 
-The IPPC-11 domains, Navigation, Traffic, Elevators and SysAdmin are finite-
+The newer  domains, Navigation, Traffic, Elevators and SysAdmin are finite-
 horizon domains. Navigation, however, is actually a goal oriented domain, if
 the goal is reached in the horizon. The method how this is implemented is that
 the goal state is defined as an absorbing state, and there is no reward or cost
 associated to staying in the goal state, until the horizon is reached.
 
-\textsc{Gourmand} vastly outperformed IPPC-11 UCT-based probabilistic track
-winner PROST by far on goal-oriented domains Navigation and Crossing Traffic
-\cite{kolobov2012gourmand}. PROST however mildly outperforms \textsc{Gourmand}
-on the Game of Life, SysAdmin and the Traffic domain as UCT does not need to
-perform expensive Bellman Backups on these domains that include large branching
-factors.
-
-The reason \textsc{Gourmand} performs quite well on the navigation domain is
-because it uses a dynamic lookahead.
+\textsc{Gourmand} vastly outperformed the UCT-based PROST, the IPPC-11
+probabilistic track winner, by far on goal-oriented domains Navigation and
+Crossing Traffic \cite{kolobov2012gourmand}. This is because of the dynamic
+lookahead feature of \textsc{Gourmand}. PROST however mildly outperforms
+\textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT
+does not need to perform expensive Bellman Backups on these domains that
+include large branching factors.
 
 The domains are constructed such that it will challenge planners to perform
 better. This causes that there are issues with the domains when comparing them
