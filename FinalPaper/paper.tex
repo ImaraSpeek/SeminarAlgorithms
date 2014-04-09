@@ -107,12 +107,19 @@ distance, the higher the probability the delivery failed.
 \label{sec:background}
 
 \subsection{Planning problems}
-\subsubsection{Classical Planning problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. In classical planning problems the environment is assumed to \emph{deterministic, observable and state}. Classical planning problems consists out of states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
+
+Planning is the process of computing several steps of a problem-solving procedure before executing any of them.
+
+\subsubsection{Classical Planning problems.}
+
+A classical planning problem is defined as states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The environment is assumed to be \emph{deterministic, observable and static}. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
 
 \subsubsection{Probabilistic Planning problems}
-Real-World applications are far from deterministic, induced by natural dynamics and chance. To accommodate for Real-World domains probabilistic planning problems were introduced.  These systems can be described using \emph{Markov Decision Processes} (MDPs) and can account for observable uncertainty. Probabilistic planning problems can be solved by evaluating iterations and creating policies to reach a goal state, either online or offline.
+
+Real-World applications are far from deterministic, induced by natural dynamics and chance. To accommodate for Real-World domains probabilistic planning problems were introduced.  These systems can be described using \emph{Markov Decision Processes} (MDPs) and can account for observable uncertainty. Probabilistic planning problems can be solved by evaluating iterations and creating policies to reach a goal state, either online, while executing the plan, or offline, where all possibilities is calculated upfront.
 
 \subsection{Problem domains}
+
 \subsubsection{Goal-oriented MDPs. }The problems in IPPC-04 were specified using the Planning Domain Description Language (PPDLL). PPDDL specifies a probabistic planning problem as a set of probabilistic action sets and an initial and goal state description in which every action has a certain probability assigned to it \cite{FFReplan}. These MDPs are of the form $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transaction $\mathit{(s, a, s')}$ for $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G, \rho)}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state, $\mathit{G \subseteq S}$ is the set of goal states and $\mathit{0 < \rho < 1}$ is a probability threshold \cite{teichteil2010incremental}.
 
  The planners from IPPC-04 were evaluated on how many trials reached the goal per problem and the average number of actions selected when successful. These planning problems were however relatively easy to solve as they did not account for \emph{natural dynamics} and/or large branching factors that occur in more realistic systems \cite{kolobov2012glutton}. FF-Replan \cite{FFReplan}, as specified in Section \ref{sec:planners} kindly remembered the committee of the IPPC-04 that the specified planning problems that contained no dead-ends were fairly easy to solve using relatively simple tools to handle with uncertainty.
