@@ -45,7 +45,7 @@ Delft University of Technology\\
 
 \maketitle
 
-%--------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \begin{abstract}
 	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
@@ -54,7 +54,7 @@ real life domains a simpler planning algorithm can be sufficient and even better
 In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner \textsc{Gourmand}, the successor of the Labelled Real-Time Dynamic Probabilistic planner \textsc{Glutton}, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et al\. we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
-%--------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Introduction}
 The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the then supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified.
@@ -66,7 +66,7 @@ This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) coope
 Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
 
 
-%---------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Problem formulation}
 \label{sec:problem}
@@ -101,7 +101,7 @@ distance, the higher the probability the delivery failed.
 \todo{TODO maybe UAVs can be on or of too, so it's forced to use a further UAV.}
 \todo{TODO what's also interesting is that Amazon.com uses drones for package deliveries}
 
-%---------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Background}
 \label{sec:background}
@@ -146,7 +146,7 @@ After IPPC-06, a baseline test for \emph{probabilistically interesting} planning
 \end{itemize}
 
 
-%---------------------------------------------------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Domains}
 \label{sec:domains}
@@ -260,7 +260,7 @@ on the neighbors in the UAV domain. This variable probability has a resemblance
 of the SysAdmin domain, where the probability that a server shuts down is also
 dependent on the neighbors.
 
-%---------------------------------------------------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Planners}
 \label{sec:planners}
@@ -318,7 +318,8 @@ By iterating over the distance from the horizon the state values computed when s
 \subsection{\textsc{Glutton}}
 The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguished between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilized the saved memory space caused by mapping only the converged states in the hash-table by using the free space as cache for storing successor states computed using the transition function.
 Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. \todo{Wel of niet de default policy uitleggen}.
-%---------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
 
 When however dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
 
@@ -344,7 +345,7 @@ The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner an
 
 \todo{write some kind of conclusion}
 
-%---------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Future Experiment}
 \label{sec:experiment}
@@ -388,7 +389,7 @@ output the achieved reward.
 
 \subsection{Hypothesis}
 
-%---------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Related Work}
 
@@ -447,7 +448,7 @@ They conclude by stating that the negative perception of probabilistic planning 
 
 
 
-%---------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{Conclusion}
 
