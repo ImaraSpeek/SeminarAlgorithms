@@ -47,7 +47,11 @@ Delft University of Technology\\
 
 %------------------------------------------------------------------------------
 
+
 \begin{abstract}
+
+\todo{Rewrite abstract - Imara}
+
 	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
 real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
 
@@ -71,6 +75,7 @@ Section \ref{sec:problem} introduced the problem formulation this paper addresse
 \section{Problem formulation}
 \label{sec:problem}
 
+\todo{rewrite problem formulation - Arian}
 To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
 Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
@@ -98,14 +103,16 @@ the base station. Each time the package is passed to the neighboring UAV,
 there is a possibility the package is not received correctly. The bigger the
 distance, the higher the probability the delivery failed.
 
-\todo{TODO maybe UAVs can be on or of too, so it's forced to use a further UAV.}
-\todo{TODO what's also interesting is that Amazon.com uses drones for package deliveries}
+\myworries{maybe UAVs can be on or of too, so it's forced to use a further UAV.}
+
+\myworries{what's also interesting is that Amazon.com uses drones for package deliveries}
 
 %------------------------------------------------------------------------------
 
 \section{Background}
 \label{sec:background}
 
+\todo{iterate on background - Imara}
 \subsection{Planning problems}
 
 Planning is the process of computing several steps of a problem-solving procedure before executing any of them.
