@@ -343,12 +343,8 @@ dependent on the neighbors.
 
 \section{Related Work}
 
-FF-Replan and \textsc{Gourmand} are top-performing planners at the time they
-were introduced for the domains described earlier. Two other planners are
-\textsc{RFF}, an offline policy planner using FF, and PROST, a UCT algorithm
-based planner.
-
-RFF \cite{teichteil2010incremental} generates policies by determinizing the
+FF-Replan replans online, an off-line planner like FF-Replan is RFF
+\cite{teichteil2010incremental}. RFF generates policies by determinizing the
 given MDP problem, builds partial policies off-line by producing partial
 solution plans to the classical planning problem and incrementally aggregating
 them into a policy, and using sequential Monte-Carlo simulations to asses the
