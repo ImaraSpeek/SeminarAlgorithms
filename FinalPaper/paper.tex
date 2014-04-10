@@ -74,18 +74,18 @@ Section \ref{sec:problem} introduced the problem formulation this paper addresse
 \label{sec:domaind}
 
 Unmanned Aerial Vehicles (UAVs), or commonly called \emph{Drones} are aircrafts
-without a pilot and often autonomously controlled. Drones are widely used for
-military as well as for civil uses, including inspecting pipelines, counting
+without a pilot and are often autonomously controlled. Drones are widely used in the
+military as well as for civil uses as inspection of pipelines, counting of
 wildlife, agriculture, filming or delivering supplies to inaccessible areas.
-As many uses cases there are, there are many forms of UAVs, bigger fixed wing
-aircrafts, or small helicopter or quad copter like aircrafts that can hover at
+There are many forms of UAVs to accommodate for these varying tasks: bigger fixed wing
+aircrafts, small helicopters or quad copter like aircrafts that can hover at
 a certain position in the air.
 
-We are particularly interested in monitoring, for example crops or livestock,
+This paper focuses on monitoring, for example crops or livestock,
 and surveillance UAVs that work together to monitor a large area. Each UAV
-monitors a part of the total area, and if it has monitored something, it has
+monitors a part of the total area. If something has to be monitored, it has
 to communicate this to a base station. This can't be done directly due to the
-large distance, instead it has to go through neighboring UAVs.
+large distance and instead it has to go through neighboring UAVs.
 
 Communicating the message from the sensing UAV to the base station can be
 expressed as a probabilistic planning problem. Initially the sensing UAV
@@ -103,44 +103,29 @@ distance, the higher the probability the delivery failed.
 \section{Background}
 \label{sec:background}
 
-\todo{iterate on background - Imara}
-\subsection{Planning problems}
+\subsubsection{Planning Problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. A \emph{classical planning problem} is defined as states, actions, conditions and a goal state and is solved using when finding a state-action sequence from the initial state $s_0$ to a goal state $G$. To find a state-action sequence, the environment is assumed to be \emph{deterministic, observable and static}. 
 
-Planning is the process of computing several steps of a problem-solving procedure before executing any of them.
+When planning for dynamic environments as is most often the case, natural dynamics and chance are introduced. To simulate these planning problems, the classical deterministic domains were extended by adding a \emph{probability} to every action, creating \emph{probabilistic planning problems}. These systems can be described using \emph{Markov Decision Processes} or MDPs. 
 
-\subsubsection{Classical Planning problems.}
+\subsubsection{Goal-oriented MDPs. }The classical goal-oriented problems in the IPPC-04 were specified using the Probabilistic Planning Domain Description Language (PPDLL). PPDDL specifies a probabilistic planning problem as a set of probabilistic actions and an initial and goal state description\cite{FFReplan}. These MDPs are of the form $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in the current state $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transition $\mathit{(s, a, s')}$ for action $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state and $\mathit{G \subseteq S}$ is the set of goal states.
 
-A classical planning problem is defined as states, actions, conditions and a goal state and are solved using search and can be aided using heuristics. The environment is assumed to be \emph{deterministic, observable and static}. The planner tries to find a sequence of actions such that a goal or maximum reward is achieved.
+These planning problems were however relatively easy to solve as they did not account for large branching factors introduced by for instance decay \cite{kolobov2012glutton}. Natural dynamics cause the system to grow \myworries{exponentially??} as it introduces exogenous actions in every state. After FF-replan \cite{FFReplan}, a replanner as introduced in Section  \ref{sec:planners} kindly reminded the committee of IPPC-04 that the specified planning problems containing no dead-ends were fairly easy to solve using relatively simple tools to handle uncertainty, the finite-horizon MDPs were introduces. 
 
-\subsubsection{Probabilistic Planning problems}
-
-Real-World applications are far from deterministic, induced by natural dynamics and chance. To accommodate for Real-World domains probabilistic planning problems were introduced.  These systems can be described using \emph{Markov Decision Processes} (MDPs) and can account for observable uncertainty. Probabilistic planning problems can be solved by evaluating iterations and creating policies to reach a goal state, either online, while executing the plan, or offline, where all possibilities is calculated upfront.
-
-\subsection{Problem domains}
-
-\subsubsection{Goal-oriented MDPs. }The problems in IPPC-04 were specified using the Planning Domain Description Language (PPDLL). PPDDL specifies a probabistic planning problem as a set of probabilistic action sets and an initial and goal state description in which every action has a certain probability assigned to it \cite{FFReplan}. These MDPs are of the form $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transaction $\mathit{(s, a, s')}$ for $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G, \rho)}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state, $\mathit{G \subseteq S}$ is the set of goal states and $\mathit{0 < \rho < 1}$ is a probability threshold \cite{teichteil2010incremental}.
-
- The planners from IPPC-04 were evaluated on how many trials reached the goal per problem and the average number of actions selected when successful. These planning problems were however relatively easy to solve as they did not account for \emph{natural dynamics} and/or large branching factors that occur in more realistic systems \cite{kolobov2012glutton}. FF-Replan \cite{FFReplan}, as specified in Section \ref{sec:planners} kindly remembered the committee of the IPPC-04 that the specified planning problems that contained no dead-ends were fairly easy to solve using relatively simple tools to handle with uncertainty.
-
-\subsubsection{MDPs with Finite Horizon. }IPPC-11 decided to respond by introducing more realistic MDPs and their evaluation criteria by using MDPs with finite horizons. The planning problems are defined as tuples of the form \\ $\mathit{M\textsubscript{s0}(H) = \langle \langle S, A, T, R, s\textsubscript{0} \rangle , H \rangle }$ where $\mathit{S}$ s a finite set of states, $\mathit{A}$ a finite set of actions, $\mathit{T}$ is the transition function, similar to $\mathit{Pr}$ in the goal oriented MDP. $\mathit{R}$ represents the transitioning reward, $\mathit{s\textsubscript{0}}$ and $\mathit{H}$ is the number of decision epochs after which the process stops. Solving $\mathit{M(H)}$ means finding a policy for executing recommended state from the initial state over $\mathit{H}$ decision epochs \cite{kolobov2012gourmand}.
-
-Translating finite horizon MDPs to goal-oriented domains results ends up in all state $H$ steps away from $s\textsubscript{0}$ are goal states. The evaluation criteria in finite horizon MDPs is the \emph{expected reward} and not the probability of the policy reaching the goal states.
+\subsubsection{MDPs with Finite Horizon. } Finite-horizon MDPs are an approximation for infinite planning problems using a finite horizon of a set amount of steps. Planning problems are defined as tuples of the form $\mathit{M(H) = \langle \langle S, A, T, R, s\textsubscript{0} \rangle , H \rangle }$ where $\mathit{S}$ is a finite set of states, $\mathit{A}$ a finite set of actions and $\mathit{T}$ is the transition function similar to $\mathit{Pr}$ in the goal oriented MDP. $\mathit{R}$ represents the transitioning reward, $\mathit{s\textsubscript{0}}$ the initial state and $\mathit{H}$ is the number of decision epochs after which the process stops. Solving $\mathit{M(H)}$ means finding a policy such that executing the recommended actions starting from state $(s_0, H)$ results in accumulating the largest expected reward over $H$ time steps \cite{kolobov2012glutton}.
 
 \subsection{Planning algorithms}
-\subsubsection{Replanning}
-A replanner is a planner that takes a problem as input, plans a state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again until it has reached a goal or dead-end state. For our paper have chosen to evaluate FF-Replan \cite{FFReplan}, the winner of IPPC-04 and unenrolled winner of IPPC-06 as an inspiring, fairly simple planner that in our opinion is capable of employment in real-world domains.
+ 
+These probabilistic MDPs can be solved using different kinds of planners. A \emph{replanner} is a planner that takes a problem as input, plans a partial state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again until it has reached a goal or dead-end state. To illustrate this technique, the notorious FF-planner is discussed in the next Section. 
 
-\subsubsection{Probabilistic planning}
-Probabilistic planners are used to solve probabilistic planning problems and should be able to account for uncertainty as opposed to classical planners. For our evaluation we have chosen to compare FF-Replan to a state-of-the-art probabilistic planner: \textsc{Gourmand}. \textsc{Gourmand} is the online successor of the \textsc{Glutton} plan, a Labelled Real-Time Dynamic Programming (LRTDP) based planner and the runner up of IPPC-11.
+\emph{Probabilistic planners} use sophisticated planning techniques to plan for uncertainty. By using simulations, roll-out policies or lookahead values, these planners prevent dead-ends and were therefore dominantly used for solving MDPs. To illustrate a probabilistic planner, the next section introduces \textsc{Gourmand}, an online state-of-the-art probabilistic planner, and its predecessors \textsc{Glutton} and the LRTDP based algorithms.
 
 \subsection{Probabilistic Interestingness}
-After IPPC-06, a baseline test for \emph{probabilistically interesting} planning domains was proposed by Little and Thi\'ebauw \cite{little2007probvsreplan}.  Problems that fail this test were deemed to be classical planning problems in disguise, favouring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
-% reference little & thiebauw again. Maybe also shortly define what all o, n, act etc. are.
+The \emph{probabilistically interesting} baseline test, proposed by Little and Thi\'ebauw \cite{little2007probvsreplan} after the success of FF-replan initiated the shift of interest in goal-oriented MDPs to finite-horizon MDPs. Problems that fail this test are said to be classical planning problems in disguise, favoring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
 
 \begin{itemize}
 	\item there are multiple goal trajectories;
-	\item there is at least on pair of distinct goal trajectories, $\tau$ and $\tau$ ', that share a common sequence of outcomes for the first n-1 outcomes, and where $\tau$\textsubscript{n} and $\tau$'\textsubscript{n} are distinct outcomes of the same action; and
-	\item there exist two distinct goal trajectories $\tau$ and $\tau$' and outcome o $\in$ $\tau$ and o' $\in$ $\tau$' of two distinct actions a = act(o) and a'= act(o') such that executing a strictly decreases the maximum probability of reaching a state where a' can be executed.
+	\item there is at least one pair of distinct goal trajectories, $\tau$ and $\tau'$, that share a common sequence of outcomes for the first $n-1$ outcomes, and where $\tau_n$ and $\tau'_n$ are distinct outcomes of the same action; and
+	\item At least one of the distinct goal trajectories lead to outcomes o $\in$ $\tau$ and o' $\in$ $\tau$' of two distinct actions $a = act(o)$ and $a'= act(o')$ such that executing $a$ decreases the probability of reaching a dead end without influencing the probability of reaching a goal state. \myworries{is dit duidelijk genoeg of is het niet wiskunding genoeg?}
 \end{itemize}
 
 %------------------------------------------------------------------------------
