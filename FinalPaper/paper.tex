@@ -29,7 +29,7 @@
 \author{I.C.T.M Speek, A.C. Stolwijk}
 
 %
-\authorrunning{Validating Planners in a Real World Domain}
+\authorrunning{Presenting a }
 % (feature abused for this document to repeat the title also on left hand pages)
 
 % the affiliations are given next; don't give your e-mail address
@@ -49,13 +49,10 @@ Delft University of Technology\\
 
 
 \begin{abstract}
+By introducing and attempting to solve a planning problem domain involving Unmanned Aerial Vehicles (UAVs), this paper provides an overview of how the history of planning problem domains and their matching planners has changed throughout the scope of the International Planning Competitions (IPC). After the emergence of the FF-replan planner in 2004, state-of-the-art benchmark domains have been argued to be more \emph{probabilistically interesting} causing a shift from the once dominant goal-oriented domains to the finite-horizon oriented domains. 
 
-\todo{Rewrite abstract - Imara}
+This paper presents a currently hot topic domain in which several UAVs  work together to monitor a large area using restricted communication technology. To find an optimal planner for this domain, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. 
 
-	In contrast to current demand for probabilistically interesting domains in the International Probabilistic Planning Competitions, this papier argues for using real-world appropriate domains. By relaxing the definition of a dead-end, we argue that for many
-real life domains a simpler planning algorithm can be sufficient and even better than sophisticated probabilistic planners.
-
-In this paper we evaluate the strength of FF-Replan, winner of IPPC-04 and unenrolled winner of IPPC-06, a replanner that uses the classical planner FF on a determinized probabilistic problem against a state of the art probabilistic planner \textsc{Gourmand}, the successor of the Labelled Real-Time Dynamic Probabilistic planner \textsc{Glutton}, runner up of the IPPC-11. By translating the Navigation and Traffic domain from IPPC-11 to a matching real-world equivalent and evaluating these using the proposed probabilistically interesting baseline test as proposed by Little et al\. we evaluate whether FF-Replan is in fact capable enough to solve enough of these so called classical planning problems in disguise.
 \end{abstract}
 
 %------------------------------------------------------------------------------
@@ -66,6 +63,8 @@ The introduction of the International Planning Competition (IPC) in 1998 further
 The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the goal oriented initial planning domains.  This shift in the current interesting domains caused the state-of-the-art planners to cope with the large branching factors that are introduced using finite horizon MDPs.
 
 This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) cooperating to deliver data packages from one UAV to the base station. To match this problem with an appropriate planner, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. By evaluating the domains with the help of the probabilistic interestingness baseline test introduced by Little et al. \cite{little2007probvsreplan} a recommendation will be made for a suitable planner to match the UAV problem.
+
+\todo{Arian: Still have to add why this problem is valid, or interesting}
 
 Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
 
