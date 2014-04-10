@@ -69,15 +69,7 @@ This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) coope
 
 Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
 
-
 %------------------------------------------------------------------------------
-
-\section{Problem formulation}
-\label{sec:problem}
-
-\todo{rewrite problem formulation - Arian}
-To evaluate FF-Replan and \textsc{Gourmand} in a real world domain a finite horizon MDP is used to represent the realistic \emph{natural dynamics} such as external forces or forces of nature. These dynamics introduce large branching factors emphasizing the need for a planner to be scalable. To evaluate the model, the planner should also be sensitive to an expected reward maximization criterion.
-Current finite horizon MDP problems as introduced in IPPC-11 are simplified and therefor do not account for the rich set of state-actions as would be available in a real-world planning problem. We will reason about the most interesting domains for our evaluation and adjust them to match their real-world equivalent. Using the baseline test introduced by Little et al.\@ \cite{little2007probvsreplan}, we can evaluate the probabilistically interestingness of these domains and evaluate the performance of FF-Replan vs.\@ a state of the art probabilistic planner: \textsc{Gourmand}.
 
 \section{Domain Description}
 \label{sec:domaind}
