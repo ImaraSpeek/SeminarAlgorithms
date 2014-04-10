@@ -413,7 +413,15 @@ dependent on the neighbors.
 
 \section{Future works}
 
-
+To empirically test which planner performs best for a certain domain,
+experiments needs to be executed. The domain description language would be RDDL
+\cite{Sanner:RDDL}, as \textsc{Gourmand} already works natively with it.
+FF-Replan does not work with RDDL, but PPDDL instead. FF-Replan could be
+re-implemented in the \textsc{Gourmand} framework, using the FF heuristic found
+in mGPT \cite{bonet2011planning}. Another possibility is to implement the
+domain in both languages and carefully assess if both implementations are fair.
+The two metrics that need to be measured are the rate the goal is reached (and does
+not reach dead ends) and the online execution time.
 
 \bibliographystyle{plain}
 \bibliography{paper}
