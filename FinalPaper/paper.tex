@@ -343,22 +343,27 @@ dependent on the neighbors.
 
 \section{Related Work}
 
-%In sections above we have described the GOURMAND planner and FF-Replan as two
-%probabilistic planners of the IPPC competition.
-%RFF~\cite{teichteil2010incremental} is an offline planner that generates a
-%policy: for each reachable state it determines a plan to the goal. Like
-%FF-Replan it uses determinization and FF\. FF returns an initial plan from the
-%initial state to a goal state. For each state in the plan the successor states
-%are added to the structure, after which Monte-Carlo sampling is used. States
-%where the probability that they're reached is too low (below a threshold) are
-%removed. The successor states are used as initial states in the next step. If
-%FF fails to find a plan to the goal from this new state, the state is removed
-%from the structure too. Results showed that RFF outperformed other competitors.
-%A higher threshold means that RFF will generate more policies that are prone to
-%replanning.
+FF-Replan and \textsc{Gourmand} are top-performing planners at the time they
+were introduced for the domains described earlier. Two other planners are
+\textsc{RFF}, an offline policy planner using FF, and PROST, a UCT algorithm
+based planner.
 
-\subsubsection{PROST ?}
-\todo{wrote sentence about Prost - Arian}\\
+RFF \cite{teichteil2010incremental} generates policies by determinizing the
+given MDP problem, builds partial policies off-line by producing partial
+solution plans to the classical planning problem and incrementally aggregating
+them into a policy, and using sequential Monte-Carlo simulations to asses the
+probability of replanning. Experiments showed that RFF solved more problems
+than FF-Replan because it takes the probability a policy has to replan into
+account.
+
+PROST \cite{keller2012prost} is a probabilistic planner, which contrary to
+\textsc{Gourmand}, is UTC based. It uses techniques to reduce the branching
+factor  and limits the search depth so it can focus more on parts that
+influence the quality of the resulting policy. Reward lock detection is a
+method to detect goals and dead ends in the finite horizon MDP\@. Q-value
+Initialization improves the initial start of the UTC algorithm. In the executed
+IPPC-11 benchmarks it outperforms other planners such as \textsc{Glutton}.
+Later it has been surpassed by \textsc{Gourmand}.
 
 \todo{rewrite prob int - Imara}
 
