@@ -21,15 +21,15 @@
 \mainmatter% start of an individual contribution
 
 % first the title is needed
-\title{Realistically Interesting Domains for Probabilistic Planners}
+\title{Solving a probabilistic planning problem by presenting a history in the field of probabilistic planning}
 
 % a short form should be given in case it is too long for the running head
-\titlerunning{Real World Domains}
+\titlerunning{Probabilistic planning}
 
-\author{I.C.T.M Speek, A.C. Stolwijk}
+\author{I.C.T.M Speek \& A.C. Stolwijk}
 
 %
-\authorrunning{Presenting a }
+%\authorrunning{Presenting a }
 % (feature abused for this document to repeat the title also on left hand pages)
 
 % the affiliations are given next; don't give your e-mail address
@@ -49,77 +49,61 @@ Delft University of Technology\\
 
 
 \begin{abstract}
-By introducing and attempting to solve a planning problem domain involving Unmanned Aerial Vehicles (UAVs), this paper provides an overview of how the history of planning problem domains and their matching planners has changed throughout the scope of the International Planning Competitions (IPC). After the emergence of the FF-Replan planner in 2004, state-of-the-art benchmark domains have been argued to be more \emph{probabilistically interesting} causing a shift from the once dominant goal-oriented domains to the finite-horizon oriented domains. 
+By introducing and attempting to solve a planning problem domain involving Unmanned Aerial Vehicles (UAVs), this paper provides an overview of how the history of planning problem domains and their matching planners has changed throughout the scope of the International Planning Competitions (IPC). After the emergence of the FF-Replan planner in 2004, state-of-the-art benchmark domains have been argued to be more \emph{probabilistically interesting}, causing a shift from the once dominant goal-oriented domains to the finite-horizon oriented domains. 
 
-This paper presents a currently hot topic domain in which several UAVs  work together to monitor a large area using restricted communication technology. To find an optimal planner for this domain, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. 
+This paper presents a currently hot topic domain in which several UAVs work together to monitor a large area using restricted communication technology. To find an optimal planner for this domain, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. 
 
 \end{abstract}
 
 %------------------------------------------------------------------------------
 
 \section{Introduction}
-The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the then supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified.
+The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified thoughout the years.
 
-The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the goal oriented initial planning domains.  This shift in the current interesting domains caused the state-of-the-art planners to cope with the large branching factors that are introduced using finite horizon MDPs.
+The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the initial goal oriented planning domains. This shift in the current interesting domains caused the state-of-the-art planners to change in order to cope with the large branching factors that were introduced using finite horizon MDPs.
 
-This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) cooperating to deliver data packages from one UAV to the base station. To match this problem with an appropriate planner, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. By evaluating the domains with the help of the probabilistic interestingness baseline test introduced by Little et al. \cite{little2007probvsreplan} a recommendation will be made for a suitable planner to match the UAV problem.
+This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) cooperating to deliver data packages from one UAV to the base station. To match this problem with an appropriate planner, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. By evaluating the domains with the help of the probabilistic interestingness baseline test introduced by Little et al. \cite{little2007probvsreplan}, a recommendation will be made for a suitable planner to match the UAV problem.
 
-\todo{Arian: Still have to add why this problem is valid, or interesting}
-
-Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
+Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:planners} and  \ref{sec:domains} the interesting planners and domains respectively. Section \ref{sec:related} elaborates on different planning solutions and finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
 
 %------------------------------------------------------------------------------
 
 \section{Domain Description}
 \label{sec:domaind}
 
-Unmanned Aerial Vehicles (UAVs), or commonly called \emph{Drones} are aircrafts
+Unmanned Aerial Vehicles (UAVs), commonly called \emph{Drones} are aircrafts
 without a pilot and are often autonomously controlled. Drones are widely used in the
-military as well as for civil uses as inspection of pipelines, counting of
-wildlife, agriculture, filming or delivering supplies to inaccessible areas.
+military as well as for civil uses for the inspection of pipelines, counting of
+wildlife, inspection of agriculture, filming or delivering supplies to inaccessible areas.
 There are many forms of UAVs to accommodate for these varying tasks: bigger fixed wing
-aircrafts, small helicopters or quad copter like aircrafts that can hover at
-a certain position in the air.
+aircrafts, small helicopters or quad-copter like aircrafts that are able to hover. These
+embedded systems have been a hot topic since the introduction of drones at Amazon.com and 
+are still gaining in interest.
 
-This paper focuses on monitoring, for example crops or livestock,
-and surveillance UAVs that work together to monitor a large area. Each UAV
-monitors a part of the total area. If something has to be monitored, it has
-to communicate this to a base station. This can't be done directly due to the
-large distance and instead it has to go through neighboring UAVs.
+This paper focuses on monitoring UAVs that work together to monitor a large area
+either to inspect livestock or for surveillance purposes. Each UAV is responsible
+for its own subset of the area and is responsible for communication with a base
+station whenever something has to be monitored. This can't be done directly due to
+large distances and instead it has to undergo several hops though neighboring UAVs.
 
 Communicating the message from the sensing UAV to the base station can be
-expressed as a probabilistic planning problem. Initially the sensing UAV
-has the package that has to be sent, and the goal is to bring this package to
-the base station. Each time the package is passed to the neighboring UAV,
+expressed as a probabilistic planning problem. The package has to be sent from
+the initial UAV to the goal base station.  Each time the package is passed to the neighboring UAV,
 there is a possibility the package is not received correctly. The bigger the
 distance, the higher the probability the delivery failed.
 
-\myworries{maybe UAVs can be on or of too, so it's forced to use a further UAV.}
-
-\myworries{what's also interesting is that Amazon.com uses drones for package deliveries}
-
+%\myworries{maybe UAVs can be on or of too, so it's forced to use a further UAV.}
 %------------------------------------------------------------------------------
 
 \section{Background}
 \label{sec:background}
 
-\subsubsection{Planning Problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. A \emph{classical planning problem} is defined as states, actions, conditions and a goal state and is solved using when finding a state-action sequence from the initial state $s_0$ to a goal state $G$. To find a state-action sequence, the environment is assumed to be \emph{deterministic, observable and static}. 
+\subsubsection{Planning Problems. } Planning is the process of computing several steps of a problem-solving procedure before executing any of them. A \emph{classical planning problem} is defined as a set of states, actions, conditions and a goal state. This problem is solved when a state-action sequence from the initial state $s_0$ to a goal state $G$ is found. To find a state-action sequence, the environment is assumed to be \emph{deterministic, observable and static}. 
 
-When planning for dynamic environments as is most often the case, natural dynamics and chance are introduced. To simulate these planning problems, the classical deterministic domains were extended by adding a \emph{probability} to every action, creating \emph{probabilistic planning problems}. These systems can be described using \emph{Markov Decision Processes} or MDPs. 
+However, when dealing with dynamic environments - as is most often the case, natural dynamics and chances are introduced. To simulate these planning problems, the classical deterministic domains were extended by adding a \emph{probability} to every action, creating \emph{probabilistic planning problems}. These systems can be described using \emph{Markov Decision Processes} or MDPs. 
 
-\subsubsection{Goal-oriented MDPs. }Cclassical goal-oriented problems are specified using the Probabilistic Planning Domain Description Language (PPDDL). PPDDL specifies a probabilistic planning problem as a set of probabilistic actions and an initial and goal state description\cite{FFReplan}. These MDPs are of the form $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in the current state $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transition $\mathit{(s, a, s')}$ for action $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state and $\mathit{G \subseteq S}$ is the set of goal states.
-
-These planning problems were however relatively easy to solve as they did not account for large branching factors introduced by for instance decay \cite{kolobov2012glutton}. Natural dynamics cause the system to grow \myworries{exponentially??} as it introduces exogenous actions in every state. After FF-Replan \cite{FFReplan}, a replanner as introduced in Section  \ref{sec:planners} kindly reminded the committee of IPPC-04 that the specified planning problems containing no dead-ends were fairly easy to solve using relatively simple tools to handle uncertainty, the finite-horizon MDPs were introduces. 
-
-\subsubsection{MDPs with Finite Horizon. } Finite-horizon MDPs are an approximation for infinite planning problems using a finite horizon of a set amount of steps. Planning problems are defined as tuples of the form $\mathit{M(H) = \langle \langle S, A, T, R, s\textsubscript{0} \rangle , H \rangle }$ where $\mathit{S}$ is a finite set of states, $\mathit{A}$ a finite set of actions and $\mathit{T}$ is the transition function similar to $\mathit{Pr}$ in the goal oriented MDP. $\mathit{R}$ represents the transitioning reward, $\mathit{s\textsubscript{0}}$ the initial state and $\mathit{H}$ is the number of decision epochs after which the process stops. Solving $\mathit{M(H)}$ means finding a policy such that executing the recommended actions starting from state $(s_0, H)$ results in accumulating the largest expected reward over $H$ time steps \cite{kolobov2012glutton}.
-
-\subsection{Planning algorithms}
- 
-These probabilistic MDPs can be solved using different kinds of planners. A \emph{replanner} is a planner that takes a problem as input, plans a partial state-action policy, executes it online and whenever it encounters a state that was not in its state-action policy, it takes the current state as starting state and plans again until it has reached a goal or dead-end state. To illustrate this technique, the notorious FF-planner is discussed in the next section. 
-
-\emph{Probabilistic planners} use sophisticated planning techniques to plan for uncertainty. By using simulations, roll-out policies or lookahead values, these planners prevent dead-ends and were therefore dominantly used for solving MDPs. To illustrate a probabilistic planner, the next section introduces \textsc{Gourmand}, an online state-of-the-art probabilistic planner, and its predecessors \textsc{Glutton} and the LRTDP based algorithms.
-
-\subsection{Probabilistic Interestingness}
+\subsubsection{Probabilistic Interestingness}
+\label{sec:interesting}
 The \emph{probabilistically interesting} baseline test, proposed by Little and Thi\'ebauw \cite{little2007probvsreplan} after the success of FF-Replan initiated the shift of interest in goal-oriented MDPs to finite-horizon MDPs. Problems that fail this test are said to be classical planning problems in disguise, favoring the use of replanners. A probabilistic planning problem is considered to be probabilistically interesting if and only if it has all the following structural properties \cite{little2007probvsreplan}:
 
 \begin{itemize}
@@ -128,22 +112,34 @@ The \emph{probabilistically interesting} baseline test, proposed by Little and T
 	\item At least one of the distinct goal trajectories lead to outcomes o $\in$ $\tau$ and o' $\in$ $\tau$' of two distinct actions $a = act(o)$ and $a'= act(o')$ such that executing $a$ decreases the probability of reaching a dead end without influencing the probability of reaching a goal state. 
 \end{itemize}
 
+\subsubsection{Goal-oriented MDPs. } Classical goal-oriented problems are specified using the Probabilistic Planning Domain Description Language (PPDDL). PPDDL specifies a probabilistic planning problem as a set of probabilistic actions and an initial and goal state description \cite{FFReplan}. These MDPs are of the form \\ $\mathit{M = (S, A, app, Pr, R)}$ where $\mathit{S}$ and $\mathit{A}$ are a finite set of states and actions, $\mathit{app(s)}$ is the set of all actions applicable in the current state $\mathit{s}$. $\mathit{Pr}$ represents the probability of a state transition $\mathit{(s, a, s')}$ for action $\mathit{a}$ and $\mathit{R(s, a, s')}$ is the reward of applying $\mathit{a}$ to $\mathit{s}$ and generating $\mathit{s'}$ The planning problem is defined as a triple $\mathit{P = (M, s\textsubscript{0}, G}$ where $\mathit{M = (S, A, app, Pr, R)}$ is an MDP, $\mathit{s\textsubscript{0} \in S}$ is the initial state and $\mathit{G \subseteq S}$ is the set of goal states.
+
+These planning problems were however relatively easy to solve as they did not account for large branching factors introduced by for instance decay \cite{kolobov2012glutton}. Natural dynamics cause the system to grow exponentially as it introduces exogenous actions in every state. After FF-Replan \cite{FFReplan}, a replanner as introduced in Section  \ref{sec:planners} kindly reminded the committee of IPPC-04 that the specified planning problems containing no dead-ends were fairly easy to solve using relatively simple tools to handle uncertainty, the more probabilistically interesting finite-horizon MDPs were introduced. 
+
+\subsubsection{MDPs with Finite Horizon. } Finite-horizon MDPs are an approximation for infinite planning problems using a finite horizon of a set amount of steps. Planning problems are defined as tuples of the form $\mathit{M(H) = \langle \langle S, A, T, R, s\textsubscript{0} \rangle , H \rangle }$ where $\mathit{S}$ is a finite set of states, $\mathit{A}$ a finite set of actions and $\mathit{T}$ is the transition function similar to $\mathit{Pr}$ in the goal oriented MDP. $\mathit{R}$ represents the transitioning reward, $\mathit{s\textsubscript{0}}$ the initial state and $\mathit{H}$ is the number of decision epochs after which the process stops. Solving $\mathit{M(H)}$ means finding a policy such that executing the recommended actions starting from state $(s_0, H)$ results in accumulating the largest expected reward over $H$ time steps \cite{kolobov2012glutton}.
+
+\subsection{Planning algorithms}
+ 
+These probabilistic MDPs can be solved using different kinds of planners. A \emph{replanner} is a planner that takes a problem as input and plans a partial state-action policy. This policy is executed online until it encounters a state that was not in its state-action policy. The current state is then set at the starting state after which the planner plans again until it has reached a goal or dead-end state. To illustrate this technique, the notorious FF-planner is discussed in the next section. 
+
+\emph{Probabilistic planners} use sophisticated planning techniques to plan for uncertainty. By using simulations, roll-out policies or lookahead values, these planners prevent dead-ends and were therefore dominantly used for solving MDPs. To illustrate a probabilistic planner, the next section introduces \textsc{Gourmand}, an online state-of-the-art probabilistic planner, and its predecessors \textsc{Glutton} and the LRTDP based algorithms.
+
 %------------------------------------------------------------------------------
 
 \section{Planners}
 \label{sec:planners}
 
-FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-Replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. has argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization  by discussing FF-Replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
+FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-Replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. have argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization schedulers by discussing FF-Replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
 
-\subsection{FF-ReFF-replanplan}
+\subsection{FF-Replan}
 \label{sec:ffreplan}
- FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns an ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
+FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns a partial ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
 
 \begin{enumerate}
 	\item Start planning at $s_0$
-	\item Determinizes the input domain
+	\item Determinize the input domain
 	\item Use FF on the classical planning problem
-	\item Executes ordered state-action plan until
+	\item Execute ordered state-action plan until
 	\item Unexpected state is encountered or
 	\begin{itemize}
 		\item Start planning at $s_t$ at time t
@@ -152,7 +148,7 @@ FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a
 	\item Goal state or dead-end is reached
 \end{enumerate}
 
-FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-Replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why  performs poorly in domains containing dead-ends.
+FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-Replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable}(by selecting an action leading to an alternative path) dead-ends. This explains why FF-Replan performs poorly in domains containing dead-ends.
 
 For a planner to be successful in finite-horizon MDPs it needs to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. To cope with these domains, trial based methods such as \emph{Labelled Real-Time Dynamic Programmers} (LRTDPs) have been introduced and optimized to find an optimal policy in a dynamic programming-based way.
 
@@ -160,11 +156,11 @@ For a planner to be successful in finite-horizon MDPs it needs to be scalable an
 
 \subsection{LRTDP algorithms}
 
-The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$ and therefore uses and needs less memory space in the following manner:
+The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$. It therefore uses and requires less memory space in the following manner:
 
 \begin{enumerate}
 	\item Start trial at $s_0$
-	\item Take action based on current value function $V$
+	\item Take action based on current value function $V$ (similar to reward) \myworries{moeten we bellman backup of value function nog uitleggen}
 	\item Perform Bellman backup
 	\item Sample the outcome and update $V$
 	\item Transition to the next state
@@ -174,29 +170,29 @@ The LRTDP algorithm tries to reach the goal using a series of trials starting fr
 
 Adapting LRTDP to a finite horizon MDP $M(H)$ solver \emph{LRTDP-FH} requires for each trial to start at $s_0$ or $M(s_0, H)$ and run for at most $H$ time steps. All states $H$ steps away from $s_0$ would translate to goal states in a goal-oriented MDP. \\
 
-The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$.
+The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$. LR$^2$TDP works in the following manner:
 
 \begin{enumerate}
 	\item Run LRTDP-FH to solve $M(1)$ or $M(s_0, 1)$
 	\item Run LRTDP-FH to solve $M(h)$ or $M(s_0, h)$ where $h < H$ by backchaining from the horizon $H$
 	\item Repeat step 2 until $H$ is reached or time has run out
 \end{enumerate}
-By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely  (LR$^2$TDP) is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself,  (LR$^2$TDP) would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
+By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely LR$^2$TDP is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself, LR$^2$TDP would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
 
 \subsection{\textsc{Glutton}}
-The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguished between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilized the saved memory space caused by mapping only the converged states in the hash-table by using the free space as cache for storing successor states computed using the transition function.
-Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. \todo{Wel of niet de default policy uitleggen}.
+The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguishes between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilizes the saved memory space caused by mapping only the converged states in the hash-table and uses the free space as cache for storing successor states computed using the transition function.
+Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. These default policies are similar to using heuristics for finding an approximate optimal action in the current state and therefore decrease the reliability of the planner. 
 
 %------------------------------------------------------------------------------
 
-When however dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
+When dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
 
 \subsection{\textsc{Gourmand}}
-The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ and is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{Gourmand} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch  and whether it could solve for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{Gourmand} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{Gourmand} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
+The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{Gourmand} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch and whether it could solve it for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{Gourmand} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{Gourmand} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
 
 \begin{enumerate}
 	\item Start \textsc{Gourmand} at $s_0$
-	\item Initialization of first epoch
+	\item Initialise first epoch
 	\begin{enumerate}
 		\item Virtually allocate time for  $T_t = \frac{\overline{T}}{H}$
 		\item Run LR$^2$TDP($M_s(H), T_t$)
@@ -211,106 +207,71 @@ The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner an
 	\item Repeat steps 3 - 8 until time has run out
 \end{enumerate}
 
-\todo{write some kind of conclusion}
-
-
 %-------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Domains}
 \label{sec:domains}
 
-To identify unique properties of the domain and identify properties of the
-domain that work particularly well for a certain type of planner, we describe
-other domains used in the IPPC and compare that with the UAV domain.
+To identify unique properties of the domain that work particularly well for a certain type of planner, we describe
+other domains in which FF-Replan or Gourmand performed poorly or excellent and compare these with the UAV domain.
 
-\paragraph{Blocksworld:}
-A simple domain used in the competition of 2004 is the well known blocksworld
-domain. The uncertainty lies in that the gripper, used to move blocks, has a
-probability that it drops the blocks to the table. Another difference is that
-the blocks are colored, and the goal is to build a tower of certain colored
-blocks, rather than a tower with specific blocks. If for example there are
-four blue blocks, and the goal is a tower of three blue blocks, it does not
-matter which blue blocks are used.
+A simple domain in which FF-Replan excelled is the \textsc{Blocksworld}
+domain. The uncertainty lies in that the gripper used to move blocks has a
+probability of dropping the block. The blocks have certain color properties and 
+a preferred order in which the blocks should be build. This is the exact point 
+in which the UAV domain differs as it does not yet differentiate between messages. 
 
-\paragraph{Navigation:}
-The navigation domain represents a grid in which a robot must reach a goal.
+The \textsc{Navigation} domain represents a grid in which a robot must reach a goal similarly to the UAV domain.
 Every cell offers the robot a different chance of disappearing. The robot needs
 to choose a path which gets it to the goal most reliably within the finite
-horizon time \cite{sanner2011navigation}.
+horizon time \cite{sanner2011navigation}. Although FF-Replan performed poorly in this domain, \textsc{Gourmand} was 
+able to perform much better by using the lookahead value $L$.
 
-\paragraph{Traffic:}
-This domain represents a simple binary version of the cell transition model
-(CTM) for modelling traffic based on the original CTM Tech Report
+The \textsc{Traffic} domain represents a simple binary version of the cell transition model
+(CTM) for modeling traffic based on the original CTM Tech Report
 \cite{sanner2011traffic}. Because of the binary variables and no intermediate
 variable restrictions, this model is simplified and ignores traffic aspects
-such as turns and turn probabilities. This model also uses concurrent actions
-and the total actions has an upper bound of $2^{\#~of~intersections}$.
+such as turns and turn probabilities. Although it models the CTM correctly, it isn't a strong
+representation of the domain in its real-world equivalent where accidents can occur.
+This model differentiates itself as it uses and plans for concurrent actions.
 
-\paragraph{Elevators:}
-The elevators domain has evaluated between the competitions of 2006 and
-2011, we describe the latest version. In this domain there are a number of
-elevators delivering passengers to either the top or bottom floor. Potential
+In the latest \textsc{Elevators} domain a number of elevators deliver passengers to either the top or bottom floor. Potential
 passengers arrive at any floor at a certain rate (depending on which floor).
 The elevators can only move in the direction it is indicating, so passengers
 know whether to board or not. The goal of the elevators is to transport as many
-as possible passengers to their destinations.
+as possible passengers to their destinations. This domain is one of the first emerging
+optimization problems and is therefore inherently different from its previous goal-related version.
 
-\paragraph{SysAdmin:}
-The SysAdmin domain describes a network of connected servers. Each server has
-a probability that it shuts down, and if is not running, it has a probability
-to reboot. The probability that a server shuts down depends on the number of
-running connected servers.
+In the same way does the \textsc{SysAdmin} domain describe a network of connected servers. Each server has
+a probability that it shuts down or reboots whenever it is down. The probability that a server shuts down depends on the number of
+running connected servers. This domain is important as it represents the large branching factors introduced by natural dynamics. The introduction
+of the \textsc{noop()} operation increases the size exponentially. 
 
 \subsection{Domain Evaluation}
+\myworries{hier alleen een evalutie geven, niet wederom een uitleg, anders moet je het hierboven uitleggen. Alles wat je zegt, moet een reden hebben, anders kan het weg}
 
-The Blocksworld domain is ideal for
-replanning~\cite{FFReplan, little2007probvsreplan}. As the blocks fall on the
-table, which then can be picked up again, it has no dead ends. This makes it
-probabilistically uninteresting. For this domain FF-Repan performs really well.
+The \textsc{Blocksworld} domain is ideal for
+replanning~\cite{FFReplan, little2007probvsreplan} as it has no dead ends. This makes it
+probabilistically uninteresting and thus a classical planning problem in disguise, ideally to solve for FF-Replan.
 
-The newer  domains, Navigation, Traffic, Elevators and SysAdmin are finite-
-horizon domains. Navigation, however, is actually a goal oriented domain, if
-the goal is reached in the horizon. The method how this is implemented is that
-the goal state is defined as an absorbing state, and there is no reward or cost
-associated to staying in the goal state, until the horizon is reached.
+The domains are constructed to challenge planners to perform
+better. This creates issues when comparing the domains to their real-world match as can be easily seen 
+in the \textsc{Traffic} domain. Although the current domain contains no dead-ends and is thus probabilistically
+uninteresting, it will gain probabilistic interestingness by introducing the uncertain behavior of drivers and failure
+of the lighting system. If so, the performance of FF-Replan will be strongly decreased, whilst \textsc{Gourmand} will keep its anytime performance.
 
-\textsc{Gourmand} vastly outperformed the UCT-based PROST, the IPPC-11
-probabilistic track winner, by far on goal-oriented domains Navigation and
-Crossing Traffic \cite{kolobov2012gourmand}. This is because of the dynamic
-lookahead feature of \textsc{Gourmand}. PROST however mildly outperforms
-\textsc{Gourmand} on the Game of Life, SysAdmin and the Traffic domain as UCT
-does not need to perform expensive Bellman Backups on these domains that
-include large branching factors.
+Dead-ends in the \textsc{Navigation} domain are represented by the act of disappearing. 
+This is a metaphor for the robot breaking down, or that it
+disappears from the radar. Although these actions cause troubles in the system, they can be repaired with a high cost. By replacing dead-ends with high cost actions, the problem becomes less probabilistically interesting. 
+Although the problem would become suitable for replanners, one could argue that this would only be valid for less critical applications. When applied for
+navigating satellites, the failure of the system would be set as such a high cost, it would essentially represent a dead-end.  
 
-The domains are constructed such that it will challenge planners to perform
-better. This causes that there are issues with the domains when comparing them
-with the real world.
-
-In the navigation problem there is a chance that the robot
-disappears after entering a cell. The disappearing action is a dead end.
-Disappearing here is a metaphor for the robot breaking down, or that it
-disappears from the radar with the base station. In many of such cases it's a
-big problem, but can be repaired with a high cost. In the navigation domain a
-step to another cell has a cost of 1. If instead of a dead end the cost is $n$
-(e.g. 5) instead of 1, which represents the cost of repairing the robot, dead
-ends are removed. Without dead ends the problem becomes probabilistic
-uninteresting, which makes it suitable for replanning planners.
-
-The traffic domain describes a crossroad with traffic lights, modelled as
-cells. Either the north to south road has a green light, the west to east road
-or all lights are red. The model uses a finite state machine that handles the
-lights so that the lights are never green at the same time. This would be the
-only dangerous situation on the crossroad. The difficulty in this domain is
-the number of states, which grows exponentially with the number of cells.
-Besides that it is an uninteresting probabilistic problem because it does
-not satisfy the probabilistic interesting test.
-
-The UAV domain has a resemblance of the Navigation domain. Both are goal
+The UAV domain has some resemblance with the \textsc{Navigation} domain. Both are goal
 oriented and have to navigate something (either the robot itself, or a data
-package) from an initial state to a goal. Also after each step a dead end can
-be reached, the robot disappears or the data package is not delivered.
-The probability this happens is static in the navigation domain, but dependent
-on the neighbors in the UAV domain. This variable probability has a resemblance
+package) from an initial state to a goal. After each step a dead end can
+be reached where the robot disappears or the data package is not delivered.
+Although the probability of disappearing is static in the \textsc{Navigation} domain, the probability is dependent of the 
+amount of neighbors and distance in the UAV domain. This variable probability has a resemblance
 of the SysAdmin domain, where the probability that a server shuts down is also
 dependent on the neighbors.
 
@@ -318,28 +279,32 @@ dependent on the neighbors.
 %------------------------------------------------------------------------------
 
 \section{Related Work}
+\label{sec:related}
 
-FF-Replan replans online, an off-line planner like FF-Replan is RFF
+While FF-Replan is an online planner, a similar off-line planner is the RFF planner
 \cite{teichteil2010incremental}. RFF generates policies by determinizing the
-given MDP problem, builds partial policies off-line by producing partial
+given MDP problem similarly to FF-Replan. It then builds partial policies off-line by producing partial
 solution plans to the classical planning problem and incrementally aggregating
-them into a policy, and using sequential Monte-Carlo simulations to asses the
+them into a policy. Using sequential Monte-Carlo simulations, it estimates the
 probability of replanning. Experiments showed that RFF solved more problems
 than FF-Replan because it takes the probability a policy has to replan into
 account.
 
-PROST \cite{keller2012prost} is a probabilistic planner, which contrary to
-\textsc{Gourmand}, is UTC based. It uses techniques to reduce the branching
-factor  and limits the search depth so it can focus more on parts that
+PROST \cite{keller2012prost} is a probabilistic planner, which in contrary to
+\textsc{Gourmand} is UTC based. It uses techniques to reduce the branching
+factor and limits the search depth so it can focus on parts that
 influence the quality of the resulting policy. Reward lock detection is a
 method to detect goals and dead ends in the finite horizon MDP\@. Q-value
 Initialization improves the initial start of the UTC algorithm. In the executed
 IPPC-11 benchmarks it outperforms other planners such as \textsc{Glutton}.
 Later it has been surpassed by \textsc{Gourmand}.
 
+\todo{connect back to the purpose of the paper}
+
 %------------------------------------------------------------------------------
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 \begin{itemize}
 	\item Conclude the work done in the paper
@@ -360,6 +325,8 @@ FF-Replan uses PPDDL\@. FF-Replan could be re-implemented in the
 both languages and carefully assess if both implementations are fair.  The two
 metrics that need to be measured are the rate the goal is reached (and does not
 reach dead ends) and the online execution time.
+
+\todo{we hadden hier al meer voor klaar staan dan alleen dit toch? Het is nog niet echt een aanbeveling}
 
 \bibliographystyle{plain}
 \bibliography{paper}
