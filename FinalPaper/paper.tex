@@ -319,13 +319,11 @@ trajectories that have a common initial sequence and c) there is at least one
 goal trajectory that if a action is executed the probability reaching a dead
 end decreases.
 
-Replanners surprisingly performed extremely well in the first IPPC domains,
+Replanners surprisingly outperformed other planners in the first IPPC domains,
 especially FF-Replan in IPPC-04. The good performance for replanners was
-because of the way domains were constructed. Later, with FH-MDPs replanners
-failed to be scalable and sensitive to an expected reward maximization, the
-evaluation criteria for those domains. \textsc{Gourmand} is a state-of-the-art
-MDP solver that performed better than other planners like \textsc{Glutton} or
-PROST.
+because of the way domains were constructed. Later competitions used FH-MDPs.
+\textsc{Gourmand} is a state-of-the-art MDP solver that performed better than
+other planners like \textsc{Glutton} or PROST for FH-MDP benchmark domains.
 
 To choose an appropriate planner for the UAV domain, we have discussed other
 existing benchmark domains used in the IPPC\. By looking closely at the domains
@@ -335,19 +333,17 @@ easier for a replanner in the \textsc{Navigation} domain. The UAV domain seems
 to have resemblances of the \textsc{Navigation} domain and the
 \textsc{SysAdmin} domain.
 
-The UAV domain has, like the \textsc{Navigation} domain many probabilities to
-hit a dead end, in case a data package is not received correctly. There are
-multiple goal trajectories, there can be goal trajectory pairs with the same
-initial sequence and if the data package is near the base station the
-probability a dead end is reached is decreased. In this case it satisfies the
-\emph{probabilistic interestingness} test. \textsc{Gourmand} would be the
-preferred planner for the UAV domain. However in real communication systems
-failure of communication can often detected using acknowledgements. If a UAV
-knows the transmission has failed, it can do something else, so dead ends
-disappear from the domain. For such a definition of the UAV domain, a replanner
-would work satisfactory. Based on the exact conditions of the domain, a type of
-planner can be chosen. If those conditions are slightly tweaked, another type
-of planner can be favorable.
+As the current planning domain is probabilistically interesting, the
+\textsc{Gourmand} planner is favorable. However, by modifying the drone's
+communication protocol by adding a handshake protocol any communication failure
+can be detected. The UAV can therefore choose to initiate another transmission
+of the message until it received an acknowledgment. This way the dead-ends are
+replaced with higher costs actions similarly to the \textsc{Navigation} domain.
+These higher cost actions are however somewhat more realistic as they do not
+mean the disappearance of a highly expensive piece of equipment, but rather a
+data package. As this is a realistic and often occurring communicating
+protocol, we believe that FF-Replan is in fact a proper alternative for the
+current state-of-the-art probabilistic planner.
 
 %------------------------------------------------------------------------------
 
