@@ -21,15 +21,15 @@
 \mainmatter% start of an individual contribution
 
 % first the title is needed
-\title{Realistically Interesting Domains for Probabilistic Planners}
+\title{Solving a probabilistic planning problem by presenting a history in the field of probabilistic planning}
 
 % a short form should be given in case it is too long for the running head
-\titlerunning{Real World Domains}
+\titlerunning{Probabilistic planning}
 
 \author{I.C.T.M Speek, A.C. Stolwijk}
 
 %
-\authorrunning{Presenting a }
+%\authorrunning{Presenting a }
 % (feature abused for this document to repeat the title also on left hand pages)
 
 % the affiliations are given next; don't give your e-mail address
@@ -49,55 +49,52 @@ Delft University of Technology\\
 
 
 \begin{abstract}
-By introducing and attempting to solve a planning problem domain involving Unmanned Aerial Vehicles (UAVs), this paper provides an overview of how the history of planning problem domains and their matching planners has changed throughout the scope of the International Planning Competitions (IPC). After the emergence of the FF-Replan planner in 2004, state-of-the-art benchmark domains have been argued to be more \emph{probabilistically interesting} causing a shift from the once dominant goal-oriented domains to the finite-horizon oriented domains. 
+By introducing and attempting to solve a planning problem domain involving Unmanned Aerial Vehicles (UAVs), this paper provides an overview of how the history of planning problem domains and their matching planners has changed throughout the scope of the International Planning Competitions (IPC). After the emergence of the FF-Replan planner in 2004, state-of-the-art benchmark domains have been argued to be more \emph{probabilistically interesting}, causing a shift from the once dominant goal-oriented domains to the finite-horizon oriented domains. 
 
-This paper presents a currently hot topic domain in which several UAVs  work together to monitor a large area using restricted communication technology. To find an optimal planner for this domain, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. 
+This paper presents a currently hot topic domain in which several UAVs work together to monitor a large area using restricted communication technology. To find an optimal planner for this domain, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. 
 
 \end{abstract}
 
 %------------------------------------------------------------------------------
 
 \section{Introduction}
-The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the then supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified.
+The introduction of the International Planning Competition (IPC) in 1998 furthered the field of automated planning and scheduling. Since then several state-of-the-art planners such as the FF-planner \cite{Hoffmann01theff} have been introduced optimized for the initial classical planning problems. Surprisingly well-performing planners have caused the field to readjust the supposedly challenging domains to provide a challenge for a wide variety of planners. By doing so, the definition of an interesting planning problem has been modified thoughout the years.
 
-The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the goal oriented initial planning domains.  This shift in the current interesting domains caused the state-of-the-art planners to cope with the large branching factors that are introduced using finite horizon MDPs.
+The entrance of FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and the classical FF planner, surprisingly outperformed other participating MDP solvers in the International Probabilistic Planning Competition (IPPC) '04. As a result, Little et al. have argued for \emph{probabilistically interesting} domains \cite{little2007probvsreplan} and finite horizon MDPs were employed in IPPC-11. These approximations of infinite planning problems however strongly resemble optimization problems rather than the initial goal oriented planning domains. This shift in the current interesting domains caused the state-of-the-art planners to change in order to cope with the large branching factors that were introduced using finite horizon MDPs.
 
-This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) cooperating to deliver data packages from one UAV to the base station. To match this problem with an appropriate planner, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. By evaluating the domains with the help of the probabilistic interestingness baseline test introduced by Little et al. \cite{little2007probvsreplan} a recommendation will be made for a suitable planner to match the UAV problem.
+This paper presents a new domain involving Unmanned Aerial Vehicles (UAVs) cooperating to deliver data packages from one UAV to the base station. To match this problem with an appropriate planner, this paper presents an overview of other interesting domains and probabilistic planners that were involved in the redefinition of an interesting planning problem. By evaluating the domains with the help of the probabilistic interestingness baseline test introduced by Little et al. \cite{little2007probvsreplan}, a recommendation will be made for a suitable planner to match the UAV problem.
 
 \todo{Arian: Still have to add why this problem is valid, or interesting}
 
-Section \ref{sec:problem} introduced the problem formulation this paper addresses while Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up. Finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
+Section \ref{sec:domaind} introduces the details of proposed domain. Section \ref{sec:background} introduced the appropriate prior knowledge and Section \ref{sec:domains} and \ref{sec:planners} the interesting domains and planners respectively. Section \ref{sec:experiment} briefly elaborates on a possible experiment set-up and finally Section \ref{sec:conclusion} concludes on the evaluation of the domain and an appropriate planner.
 
 %------------------------------------------------------------------------------
 
 \section{Domain Description}
 \label{sec:domaind}
 
-Unmanned Aerial Vehicles (UAVs), or commonly called \emph{Drones} are aircrafts
+Unmanned Aerial Vehicles (UAVs), commonly called \emph{Drones} are aircrafts
 without a pilot and are often autonomously controlled. Drones are widely used in the
-military as well as for civil uses as inspection of pipelines, counting of
-wildlife, agriculture, filming or delivering supplies to inaccessible areas.
+military as well as for civil uses for the inspection of pipelines, counting of
+wildlife, inspection of agriculture, filming or delivering supplies to inaccessible areas.
 There are many forms of UAVs to accommodate for these varying tasks: bigger fixed wing
-aircrafts, small helicopters or quad copter like aircrafts that can hover at
-a certain position in the air.
+aircrafts, small helicopters or quad-copter like aircrafts that are able to hover. These
+embedded systems have been a hot topic since the introduction of drones at Amazon.com and 
+are still gaining in interest.
 
-This paper focuses on monitoring, for example crops or livestock,
-and surveillance UAVs that work together to monitor a large area. Each UAV
-monitors a part of the total area. If something has to be monitored, it has
-to communicate this to a base station. This can't be done directly due to the
-large distance and instead it has to go through neighboring UAVs.
+This paper focuses on monitoring UAVs that work together to monitor a large area
+either to inspect livestock or for surveillance purposes. Each UAV is responsible
+for its own subset of the area and is responsible for communication with a base
+station whenever something has to be monitored. This can't be done directly due to
+large distances and instead it has to undergo several hops though neighboring UAVs.
 
 Communicating the message from the sensing UAV to the base station can be
-expressed as a probabilistic planning problem. Initially the sensing UAV
-has the package that has to be sent, and the goal is to bring this package to
-the base station. Each time the package is passed to the neighboring UAV,
+expressed as a probabilistic planning problem. The package has to be sent from
+the initial UAV to the goal base station.  Each time the package is passed to the neighboring UAV,
 there is a possibility the package is not received correctly. The bigger the
 distance, the higher the probability the delivery failed.
 
-\myworries{maybe UAVs can be on or of too, so it's forced to use a further UAV.}
-
-\myworries{what's also interesting is that Amazon.com uses drones for package deliveries}
-
+%\myworries{maybe UAVs can be on or of too, so it's forced to use a further UAV.}
 %------------------------------------------------------------------------------
 
 \section{Background}
