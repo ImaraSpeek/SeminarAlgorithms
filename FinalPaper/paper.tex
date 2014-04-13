@@ -281,23 +281,25 @@ dependent on the neighbors.
 \section{Related Work}
 \label{sec:related}
 
-FF-Replan replans online, an off-line planner like FF-Replan is RFF
+While FF-Replan is an online planner, a similar off-line planner is the RFF planner
 \cite{teichteil2010incremental}. RFF generates policies by determinizing the
-given MDP problem, builds partial policies off-line by producing partial
+given MDP problem similarly to FF-Replan. It then builds partial policies off-line by producing partial
 solution plans to the classical planning problem and incrementally aggregating
-them into a policy, and using sequential Monte-Carlo simulations to asses the
+them into a policy. Using sequential Monte-Carlo simulations, it estimates the
 probability of replanning. Experiments showed that RFF solved more problems
 than FF-Replan because it takes the probability a policy has to replan into
 account.
 
-PROST \cite{keller2012prost} is a probabilistic planner, which contrary to
-\textsc{Gourmand}, is UTC based. It uses techniques to reduce the branching
-factor  and limits the search depth so it can focus more on parts that
+PROST \cite{keller2012prost} is a probabilistic planner, which in contrary to
+\textsc{Gourmand} is UTC based. It uses techniques to reduce the branching
+factor and limits the search depth so it can focus on parts that
 influence the quality of the resulting policy. Reward lock detection is a
 method to detect goals and dead ends in the finite horizon MDP\@. Q-value
 Initialization improves the initial start of the UTC algorithm. In the executed
 IPPC-11 benchmarks it outperforms other planners such as \textsc{Glutton}.
 Later it has been surpassed by \textsc{Gourmand}.
+
+\todo{connect back to the purpose of the paper}
 
 %------------------------------------------------------------------------------
 
@@ -323,6 +325,8 @@ FF-Replan uses PPDDL\@. FF-Replan could be re-implemented in the
 both languages and carefully assess if both implementations are fair.  The two
 metrics that need to be measured are the rate the goal is reached (and does not
 reach dead ends) and the online execution time.
+
+\todo{we hadden hier al meer voor klaar staan dan alleen dit toch? Het is nog niet echt een aanbeveling}
 
 \bibliographystyle{plain}
 \bibliography{paper}
