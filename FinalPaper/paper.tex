@@ -275,6 +275,11 @@ amount of neighbors and distance in the UAV domain. This variable probability ha
 of the SysAdmin domain, where the probability that a server shuts down is also
 dependent on the neighbors.
 
+Dead ends can be avoided in the \textsc{Navigation} domain by adding actions
+with a high cost. If a handshake protocol is added to the UAV communication,
+the sending UAV knows if the transmission failed and initiate another
+transmission of the message until it received an acknowledgement. This takes
+more time but it avoids dead ends in the UAV domain.
 
 %------------------------------------------------------------------------------
 
