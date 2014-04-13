@@ -317,25 +317,26 @@ planning problems are usually represented in Markov Decision Processes. The
 IPPC, a competition for probabilistic planners, used Goal-Oriented MDPs for
 benchmark domains.
 
-Little et al\. however argued for \emph{probabilistic
-interestingness}. Little et al\. proposed a test to test for \emph{probabilistic
+Little et al.\@ however argued for \emph{probabilistic
+interestingness}. Little et al.\@ proposed a test to test for \emph{probabilistic
 interestingness}: a) multiple goal trajectories, b) at least one pair of goal
 trajectories that have a common initial sequence and c) there is at least one
 goal trajectory that if a action is executed the probability reaching a dead
 end decreases.
 
 Replanners surprisingly outperformed other planners in the first IPPC domains,
-especially FF-Replan in IPPC-04. The good performance for replanners was
-because of the way domains were constructed. Later competitions used FH-MDPs.
-\textsc{Gourmand} is a state-of-the-art MDP solver that performed better than
-other planners like \textsc{Glutton} or PROST for FH-MDP benchmark domains.
+especially replanner FF-Replan in IPPC-04. The good performance for replanners was
+because of the way domains were constructed, with no or few dead ends.
+Later competitions used FH-MDPs. \textsc{Gourmand} is a state-of-the-art MDP
+solver that performed better than other planners like \textsc{Glutton} or PROST
+for FH-MDP benchmark domains.
 
 To choose an appropriate planner for the UAV domain, we have discussed other
 existing benchmark domains used in the IPPC\. By looking closely at the domains
-we identified some issues with the domains, to make it more difficult for
+we identified some issues with the domains, to make it less interesting for
 FF-Replan (in the case of the \textsc{Traffic} domain), of how to make a domain
-easier for a replanner in the \textsc{Navigation} domain. The UAV domain seems
-to have resemblances of the \textsc{Navigation} domain and the
+more interesting for a replanner in the \textsc{Navigation} domain. The UAV
+domain seems to have resemblances of the \textsc{Navigation} domain and the
 \textsc{SysAdmin} domain.
 
 In the domain several goal paths follow the state-action sequences. However,
