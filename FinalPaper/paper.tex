@@ -256,7 +256,9 @@ probabilistically uninteresting and thus a classical planning problem in disguis
 
 The domains are constructed to challenge planners to perform
 better. This creates issues when comparing the domains to their real-world match as can be easily seen 
-in the \textsc{Traffic} domain. 
+in the \textsc{Traffic} domain. Although the current domain contains no dead-ends and is thus probabilistically
+uninteresting, it will gain probabilistic interestingness by introducing the uncertain behavior of drivers and failure
+of the lighting system. If so, the performance of FF-Replan will be strongly decreased, whilst \textsc{Gourmand} will keep its anytime performance.
 
 Dead-ends in the \textsc{Navigation} domain are represented by the act of disappearing. 
 This is a metaphor for the robot breaking down, or that it
@@ -264,21 +266,12 @@ disappears from the radar. Although these actions cause troubles in the system, 
 Although the problem would become suitable for replanners, one could argue that this would only be valid for less critical applications. When applied for
 navigating satellites, the failure of the system would be set as such a high cost, it would essentially represent a dead-end.  
 
-The traffic domain describes a crossroad with traffic lights, modelled as
-cells. Either the north to south road has a green light, the west to east road
-or all lights are red. The model uses a finite state machine that handles the
-lights so that the lights are never green at the same time. This would be the
-only dangerous situation on the crossroad. The difficulty in this domain is
-the number of states, which grows exponentially with the number of cells.
-Besides that it is an uninteresting probabilistic problem because it does
-not satisfy the probabilistic interesting test.
-
-The UAV domain has a resemblance of the Navigation domain. Both are goal
+The UAV domain has some resemblance with the \textsc{Navigation} domain. Both are goal
 oriented and have to navigate something (either the robot itself, or a data
-package) from an initial state to a goal. Also after each step a dead end can
-be reached, the robot disappears or the data package is not delivered.
-The probability this happens is static in the navigation domain, but dependent
-on the neighbors in the UAV domain. This variable probability has a resemblance
+package) from an initial state to a goal. After each step a dead end can
+be reached where the robot disappears or the data package is not delivered.
+Although the probability of disappearing is static in the \textsc{Navigation} domain, the probability is dependent of the 
+amount of neighbors and distance in the UAV domain. This variable probability has a resemblance
 of the SysAdmin domain, where the probability that a server shuts down is also
 dependent on the neighbors.
 
