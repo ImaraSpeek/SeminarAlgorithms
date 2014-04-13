@@ -131,17 +131,17 @@ These probabilistic MDPs can be solved using different kinds of planners. A \emp
 \section{Planners}
 \label{sec:planners}
 
-FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-Replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. has argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization  by discussing FF-Replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
+FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a classical planner, surprisingly outperformed other participating MDP solvers in the IPPC-04 and by doing so changed the course of the planning competition entirely. By relying on search and removing all probabilistic information from the problem, FF-Replan functions with enormous speed and efficiency. This method has proven to outperform MDP solvers, the state-of-the-art probabilistic planners for uncertainty of that time. Since then, Little et al. have argued for \emph{probabilistically interesting} domains. By introducing finite horizon MDPs in IPPC-11, state of the art planners have been adapted to cope with large branching factors to approximate infinite planning problems. Because these ``planning problems'' can often be solved using a smaller horizon $h < H$ as introduced in Section \ref{sec:background}, they represent optimization problems rather than planning problems, favoring current state of the art planners over replanners. This section introduces the shift of the planners towards optimization schedulers by discussing FF-Replan and a current state of the art probabilistic planner \textsc{Gourmand} and its predecessors.
 
-\subsection{FF-ReFF-replanplan}
+\subsection{FF-Replan}
 \label{sec:ffreplan}
- FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns an ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
+FF-Replan generates a deterministic planning problem by determinizing the input domain at the start of each planning iteration. This classical deterministic planning problem allows for the use of the classical FF planner \cite{Hoffmann01theff}. The FF planner then returns a partial ordered state-action plan for the deterministic problem of the current state. This plan is executed until an unexpected state is encountered in the following manner:
 
 \begin{enumerate}
 	\item Start planning at $s_0$
-	\item Determinizes the input domain
+	\item Determinize the input domain
 	\item Use FF on the classical planning problem
-	\item Executes ordered state-action plan until
+	\item Execute ordered state-action plan until
 	\item Unexpected state is encountered or
 	\begin{itemize}
 		\item Start planning at $s_t$ at time t
@@ -150,7 +150,7 @@ FF-Replan \cite{FFReplan}, a replanner based on determinization techniques and a
 	\item Goal state or dead-end is reached
 \end{enumerate}
 
-FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-Replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable} dead-ends. This explains why  performs poorly in domains containing dead-ends.
+FF-Replan has some obvious shortcomings. It removes all probabilistic information from the problem when determinizing the domain. The success of the planner is therefore fully reliable on the chosen determinization heuristic. As FF-Replan uses no roll-out policy or future simulation, it has no way of avoiding \emph{avoidable}(by selecting an action leading to an alternative path) dead-ends. This explains why FF-Replan performs poorly in domains containing dead-ends.
 
 For a planner to be successful in finite-horizon MDPs it needs to be scalable and sensitive to an expected reward maximization, the evaluation criteria of these domains. To cope with these domains, trial based methods such as \emph{Labelled Real-Time Dynamic Programmers} (LRTDPs) have been introduced and optimized to find an optimal policy in a dynamic programming-based way.
 
@@ -158,11 +158,11 @@ For a planner to be successful in finite-horizon MDPs it needs to be scalable an
 
 \subsection{LRTDP algorithms}
 
-The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$ and therefore uses and needs less memory space in the following manner:
+The LRTDP algorithm tries to reach the goal using a series of trials starting from $s_0$ and is specifically convenient for only memorizing states reachable from $s_0$. It therefore uses and requires less memory space in the following manner:
 
 \begin{enumerate}
 	\item Start trial at $s_0$
-	\item Take action based on current value function $V$
+	\item Take action based on current value function $V$ (similar to reward) \myworries{moeten we bellman backup of value function nog uitleggen}
 	\item Perform Bellman backup
 	\item Sample the outcome and update $V$
 	\item Transition to the next state
@@ -172,29 +172,29 @@ The LRTDP algorithm tries to reach the goal using a series of trials starting fr
 
 Adapting LRTDP to a finite horizon MDP $M(H)$ solver \emph{LRTDP-FH} requires for each trial to start at $s_0$ or $M(s_0, H)$ and run for at most $H$ time steps. All states $H$ steps away from $s_0$ would translate to goal states in a goal-oriented MDP. \\
 
-The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$.
+The \emph{Labeled Reverse Real-Time Dynamic Programmer} (LR$^2$TDP) uses \emph{reverse iterative deepening} and LRTDP-FH to incrementally solve a sequence of MDPs $M(1)$, $M(2)$, \ldots , $M(H)$ by relying on the fact that a successful policy can be produced by solving a MDP-FH $M(h)$ for a smaller horizon $h < H$. LR$^2$TDP works in the following manner:
 
 \begin{enumerate}
 	\item Run LRTDP-FH to solve $M(1)$ or $M(s_0, 1)$
 	\item Run LRTDP-FH to solve $M(h)$ or $M(s_0, h)$ where $h < H$ by backchaining from the horizon $H$
 	\item Repeat step 2 until $H$ is reached or time has run out
 \end{enumerate}
-By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely  (LR$^2$TDP) is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself,  (LR$^2$TDP) would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
+By iterating over the distance from the horizon the state values computed when solving $M(1)$, $M(2)$, \ldots, $M(h-1)$ can be reused. Solving $M(h)$ thus only takes an incremental effort over the solution of $M(h-1)$. If stopped prematurely LR$^2$TDP is likely to provide a better policy as for many MDPs the optimal policy $\tau^*$ is optimal or near-optimal for $M(H)$. By itself, LR$^2$TDP would however not perform well in MDPs with large branching factors as computing the Bellman backups would become too expensive carried out over a large fraction of the state space.
 
 \subsection{\textsc{Glutton}}
-The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguished between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilized the saved memory space caused by mapping only the converged states in the hash-table by using the free space as cache for storing successor states computed using the transition function.
-Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. \todo{Wel of niet de default policy uitleggen}.
+The \textsc{Glutton} planner enhances LR$^2$TDP to cope with large branching factors by using several optimization techniques. It employs LR$^2$TDP in an off-line fashion by initializing the algorithm with the \emph{Max-Reward} heuristic that places an upper bound on the optimal value function $V^*$. It optimizes for large branching factors by performing the transition function in a subset of transition states $s'$. It distinguishes between \emph{exogenous} effects caused by natural dynamics and \emph{pure} effects caused by the action itself and a mixed of both. It also utilizes the saved memory space caused by mapping only the converged states in the hash-table and uses the free space as cache for storing successor states computed using the transition function.
+Since \textsc{Glutton} subsamples the transition function, it may not know a good action to perform in states it missed due to subsampling. To compensate for these states, \textsc{Glutton} has to resort to a \emph{default policy}. These default policies are similar to using heuristics for finding an approximate optimal action in the current state and therefore decrease the reliability of the planner. 
 
 %------------------------------------------------------------------------------
 
-When however dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
+When dealing with large branching factors, offline planning is often a waste of time and memory space since there is a vast amount of states the planner may never reach in a lifetime. Such problems are far better solved using online planners that find an optimal policy $\tau^*$ or an approximation of this policy for the \emph{current} state.
 
 \subsection{\textsc{Gourmand}}
-The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ and is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{Gourmand} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch  and whether it could solve for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{Gourmand} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{Gourmand} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
+The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner and ensures a good \emph{anytime performance} using a lookahead value $L$ to approximate a near-optimal policy for $M(H)$ where $L < H$ is dynamically chosen. At every iteration over the distance to the horizon $H$, it divides the total remaining time $\overline{T}$ equally amongst the remaining iterations and virtually allocates time: $T_t = \frac{\overline{T}}{H - t}$. During the first epoch, or iteration it estimates how long solving a state takes for different lookahead values. Using this estimate and a virtual time allocation \textsc{Gourmand} determines the largest lookahead value $L_t$ for which it can almost certainly solve the current epoch and whether it could solve it for a larger lookahead $\widehat{L}_t$ by taking away time from the next epoch, still guaranteeing that it can solve both epochs. If so, it solves the current epoch for $\widehat{L}_t$ and otherwise $L_t$. This way \textsc{Gourmand} never has to resort to default policies and converges relatively fast to a good policy in an online fashion. The \textsc{Gourmand} planner has proven to outperform the current state of the art planners utilizing its robust any-time performance \cite{kolobov2012gourmand} in the following manner:
 
 \begin{enumerate}
 	\item Start \textsc{Gourmand} at $s_0$
-	\item Initialization of first epoch
+	\item Initialise first epoch
 	\begin{enumerate}
 		\item Virtually allocate time for  $T_t = \frac{\overline{T}}{H}$
 		\item Run LR$^2$TDP($M_s(H), T_t$)
@@ -208,9 +208,6 @@ The \textsc{Gourmand} is an online adaptation of the \textsc{Glutton} planner an
 	\item Transition to next state
 	\item Repeat steps 3 - 8 until time has run out
 \end{enumerate}
-
-\todo{write some kind of conclusion}
-
 
 %-------------------------------------------------------------------------------------------------------------------------------------
 
