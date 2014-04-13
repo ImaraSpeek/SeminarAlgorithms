@@ -328,8 +328,17 @@ MDP solver that performed better than other planners like \textsc{Glutton} or
 PROST.
 
 To choose an appropriate planner for the UAV domain, we have discussed other
-existing benchmark domains used in the IPPC.
+existing benchmark domains used in the IPPC\. By looking closely at the domains
+we identified some issues with the domains, to make it more difficult for
+FF-Replan (in the case of the \textsc{Traffic} domain), of how to make a domain
+easier for a replanner in the \textsc{Navigation} domain. The UAV domain seems
+to have resemblances of the \textsc{Navigation} domain and the
+\textsc{SysAdmin} domain.
 
+Finally we described to other relevant planners RFF and PROST\. RFF is a
+planner similar to FF-Replan, but instead works off-line and generates
+policies. PROST is a UTC based probabilistic planner that outperformed
+\textsc{Gourmand}'s predecessor \textsc{Glutton}.
 
 %------------------------------------------------------------------------------
 
