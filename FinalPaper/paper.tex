@@ -160,7 +160,8 @@ The LRTDP algorithm tries to reach the goal using a series of trials starting fr
 
 \begin{enumerate}
 	\item Start trial at $s_0$
-	\item Take action based on current value function $V$ (similar to reward) \myworries{moeten we bellman backup of value function nog uitleggen}
+	\item Take action based on current value function $V$ (similar to reward)
+%\myworries{moeten we bellman backup of value function nog uitleggen}
 	\item Perform Bellman backup
 	\item Sample the outcome and update $V$
 	\item Transition to the next state
@@ -248,7 +249,7 @@ running connected servers. This domain is important as it represents the large b
 of the \textsc{noop()} operation increases the size exponentially.
 
 \subsection{Domain Evaluation}
-\myworries{hier alleen een evalutie geven, niet wederom een uitleg, anders moet je het hierboven uitleggen. Alles wat je zegt, moet een reden hebben, anders kan het weg}
+%\myworries{hier alleen een evalutie geven, niet wederom een uitleg, anders moet je het hierboven uitleggen. Alles wat je zegt, moet een reden hebben, anders kan het weg}
 
 The \textsc{Blocksworld} domain is ideal for
 replanning~\cite{FFReplan, little2007probvsreplan} as it has no dead ends. This makes it
@@ -304,7 +305,7 @@ Initialization improves the initial start of the UTC algorithm. In the executed
 IPPC-11 benchmarks it outperforms other planners such as \textsc{Glutton}.
 Later it has been surpassed by \textsc{Gourmand}.
 
-\todo{connect back to the purpose of the paper}
+%\todo{connect back to the purpose of the paper}
 
 %------------------------------------------------------------------------------
 
@@ -370,7 +371,7 @@ both languages and carefully assess if both implementations are fair.  The two
 metrics that need to be measured are the rate the goal is reached (and does not
 reach dead ends) and the online execution time.
 
-\todo{we hadden hier al meer voor klaar staan dan alleen dit toch? Het is nog niet echt een aanbeveling}
+%\todo{we hadden hier al meer voor klaar staan dan alleen dit toch? Het is nog niet echt een aanbeveling}
 
 \bibliographystyle{plain}
 \bibliography{paper}
