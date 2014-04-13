@@ -333,11 +333,17 @@ easier for a replanner in the \textsc{Navigation} domain. The UAV domain seems
 to have resemblances of the \textsc{Navigation} domain and the
 \textsc{SysAdmin} domain.
 
+In the domain several goal paths follow the state-action sequences. However,
+the UAVs can decide to send a package to a closer neighbor rather than a
+further one. This increases the amount of time necessary, but decreases the
+probability of the package not being received. This means the domain is
+probabilistically interesting.
+
 As the current planning domain is probabilistically interesting, the
 \textsc{Gourmand} planner is favorable. However, by modifying the drone's
 communication protocol by adding a handshake protocol any communication failure
 can be detected. The UAV can therefore choose to initiate another transmission
-of the message until it received an acknowledgment. This way the dead-ends are
+of the message until it received an acknowledgment. This way the dead ends are
 replaced with higher costs actions similarly to the \textsc{Navigation} domain.
 These higher cost actions are however somewhat more realistic as they do not
 mean the disappearance of a highly expensive piece of equipment, but rather a
