@@ -319,9 +319,9 @@ trajectories that have a common initial sequence and c) there is at least one
 goal trajectory that if a action is executed the probability reaching a dead
 end decreases.
 
-Two types of probabilistic planners are MDP solvers and replanners.
-Surprisingly replanners performed extremely well in the first IPPC
-competitions, especially FF-Replan in IPPC-04. Later, with FH-MDPs replanners
+Replanners surprisingly performed extremely well in the first IPPC domains,
+especially FF-Replan in IPPC-04. The good performance for replanners was
+because of the way domains were constructed. Later, with FH-MDPs replanners
 failed to be scalable and sensitive to an expected reward maximization, the
 evaluation criteria for those domains. \textsc{Gourmand} is a state-of-the-art
 MDP solver that performed better than other planners like \textsc{Glutton} or
@@ -335,10 +335,19 @@ easier for a replanner in the \textsc{Navigation} domain. The UAV domain seems
 to have resemblances of the \textsc{Navigation} domain and the
 \textsc{SysAdmin} domain.
 
-Finally we described to other relevant planners RFF and PROST\. RFF is a
-planner similar to FF-Replan, but instead works off-line and generates
-policies. PROST is a UTC based probabilistic planner that outperformed
-\textsc{Gourmand}'s predecessor \textsc{Glutton}.
+The UAV domain has, like the \textsc{Navigation} domain many probabilities to
+hit a dead end, in case a data package is not received correctly. There are
+multiple goal trajectories, there can be goal trajectory pairs with the same
+initial sequence and if the data package is near the base station the
+probability a dead end is reached is decreased. In this case it satisfies the
+\emph{probabilistic interestingness} test. \textsc{Gourmand} would be the
+preferred planner for the UAV domain. However in real communication systems
+failure of communication can often detected using acknowledgements. If a UAV
+knows the transmission has failed, it can do something else, so dead ends
+disappear from the domain. For such a definition of the UAV domain, a replanner
+would work satisfactory. Based on the exact conditions of the domain, a type of
+planner can be chosen. If those conditions are slightly tweaked, another type
+of planner can be favorable.
 
 %------------------------------------------------------------------------------
 
